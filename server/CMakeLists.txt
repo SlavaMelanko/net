@@ -13,3 +13,8 @@ target_link_libraries(${PROJECT_NAME}
         CONAN_PKG::cppzmq
         CONAN_PKG::fmt
 )
+
+target_link_options(${PROJECT_NAME}
+    PRIVATE
+        "/ignore:4099" # warning LNK4099: PDB '.pdb' was not found ...
+)
