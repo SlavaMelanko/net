@@ -16,7 +16,7 @@ int main()
         while (true) {
             zmq::message_t message;
             socket.recv(message);
-            std::cout << "Received: " << message.str() << '\n';
+            std::cout << "Received " << message.str() << '\n';
 
             socket.send(zmq::str_buffer("World"), zmq::send_flags::dontwait);
         }
