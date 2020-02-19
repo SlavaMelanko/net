@@ -7,4 +7,5 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
 conan_basic_setup(TARGETS)
 
+add_subdirectory(client)
 add_subdirectory(server)
