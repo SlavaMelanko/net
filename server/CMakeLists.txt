@@ -8,13 +8,20 @@ add_executable(${PROJECT_NAME}
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
+target_include_directories(${PROJECT_NAME}
+    PUBLIC
+        .. # for zhelpers.hpp
+)
+
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
-        CONAN_PKG::czmq
+        CONAN_PKG::cppzmq
         CONAN_PKG::fmt
 )
 
 target_link_options(${PROJECT_NAME}
     PRIVATE
-        "/ignore:4099" # warning LNK4099: PDB '.pdb' was not found ...
+        $<$<CXX_COMPILER_ID:MSVC>:
+            /ignore:4099 # warning LNK4099: PDB '.pdb' was not found ...
+        >
 )

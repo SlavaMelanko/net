@@ -1,24 +1,23 @@
-#include <zmq.hpp>
+#include <zhelpers.hpp>
 
-#include <iostream>
+#include <thread>
 
 int main()
 {
     try {
-        zmq::context_t context;
-        zmq::socket_t socket{context, zmq::socket_type::rep};
-        if (!socket.handle()) {
-            std::cout << "Unable to create socket\n";
-            return 1;
-        }
-        socket.bind("tcp://127.0.0.1:5555");
+        zmq::context_t context{1};
+        zmq::socket_t publisher(context, ZMQ_PUB);
+        publisher.bind("tcp://127.0.0.1:5555");
 
         while (true) {
-            zmq::message_t message;
-            socket.recv(message);
-            std::cout << "Received " << message.str() << '\n';
+            std::clog << "Sending message to A..." << std::endl;
+            s_sendmore(publisher, "A");
+            s_send(publisher, std::string{"Message #1"});
+            std::clog << "Sending message to B..." << std::endl;
+            s_sendmore(publisher, "B");
+            s_send(publisher, std::string{"Message #2"});
 
-            socket.send(zmq::str_buffer("World"), zmq::send_flags::dontwait);
+            std::this_thread::sleep_for(std::chrono::seconds{1});
         }
     } catch (const std::exception &e) {
         std::cerr << e.what() << '\n';

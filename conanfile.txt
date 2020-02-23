@@ -1,5 +1,5 @@
 [requires]
-czmq/4.2.0
+cppzmq/4.6.0
 fmt/6.1.2
 ms-gsl/2.0.0
 
