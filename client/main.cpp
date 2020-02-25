@@ -9,11 +9,11 @@ int main()
         subscriber.setsockopt(ZMQ_SUBSCRIBE, "A", 1);
 
         while (true) {
-            std::clog << "Receiving address..." << std::endl;
-            const auto address = s_recv(subscriber);
+            std::clog << "Receiving topic..." << std::endl;
+            const auto topic = s_recv(subscriber);
             std::clog << "Receiving content..." << std::endl;
             const auto content = s_recv(subscriber);
-            std::clog << "[" << address << "] " << content << std::endl;
+            std::clog << topic << ": " << content << std::endl;
         }
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
