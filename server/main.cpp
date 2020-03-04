@@ -1,5 +1,7 @@
 #include <zhelpers.hpp>
 
+#include <Log.h>
+
 #include <thread>
 #if 0
 int main()
@@ -33,19 +35,27 @@ int main()
 int main()
 {
     try {
+        InitLogging();
+
         zmq::context_t context{1};
         zmq::socket_t broker{context, ZMQ_ROUTER};
+
+        INFO("Binding to 127.0.0.1:5566");
         broker.bind("tcp://127.0.0.1:5566");
 
         while (true) {
             const std::string identity = s_recv(broker);
-            std::clog << "Identity: " << identity << std::endl;
+            INFO("Identity: {}", identity);
             const std::string delimiter = s_recv(broker);
-            std::clog << "Envelope delimiter: \"" << delimiter << "\"\n";
-            const std::string workerMessage = s_recv(broker);
-            std::clog << "Worker message: " << workerMessage << std::endl;
+            INFO("Envelope delimiter: \"{}\"", delimiter);
+            const std::string message = s_recv(broker);
+            INFO("Worker message: {}", message);
+
+            INFO("Sending identity");
             s_sendmore(broker, identity);
+            INFO("Sending delimiter");
             s_sendmore(broker, "");
+            INFO("Respond");
             s_send(broker, std::string{"Hi client"});
         }
     } catch (const std::exception &e) {

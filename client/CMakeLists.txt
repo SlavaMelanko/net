@@ -17,6 +17,8 @@ target_link_libraries(${PROJECT_NAME}
     PRIVATE
         CONAN_PKG::cppzmq
         CONAN_PKG::fmt
+        CONAN_PKG::spdlog
+        zmq::foundation
 )
 
 target_link_options(${PROJECT_NAME}

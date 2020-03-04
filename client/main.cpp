@@ -1,4 +1,6 @@
 #include <zhelpers.hpp>
+
+#include <Log.h>
 #if 0
 int main()
 {
@@ -25,6 +27,8 @@ int main()
 int main()
 {
     try {
+        InitLogging();
+
         srandom((unsigned)time(NULL));
 
         zmq::context_t context{1};
@@ -34,17 +38,20 @@ int main()
 #else
             s_set_id(worker); // set a printable identity
 #endif
+        INFO("Connecting to localhost:5566");
         worker.connect("tcp://localhost:5566");
 
         while (true) {
-            // Tell the broker we're ready for work.
+            INFO("Tell the broker we're ready for work");
+            INFO("Sending delimiter");
             s_sendmore(worker, "");
+            INFO("Sending message");
             s_send(worker, std::string{"Hey server"});
-            // Get workload from broker, until finished.
+            INFO("Get workload from broker, until finished");
             const std::string delimiter = s_recv(worker);
-            std::clog << "Envelope delimiter: \"" << delimiter << "\"\n";
+            INFO("Envelope delimiter: \"{}\"", delimiter);
             const std::string workload = s_recv(worker);
-            std::clog << "Workload: " << workload << std::endl;
+            INFO("Workload: {}", workload);
 
             s_sleep(within(500) + 1);
         }
