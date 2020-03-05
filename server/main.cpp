@@ -54,7 +54,7 @@ int main()
             INFO("Sending identity");
             s_sendmore(broker, identity);
             INFO("Sending delimiter");
-            s_sendmore(broker, "");
+            s_sendmore(broker, std::string{""});
             INFO("Respond");
             s_send(broker, std::string{"Hi client"});
         }

@@ -34,7 +34,8 @@ int main()
         zmq::context_t context{1};
         zmq::socket_t worker{context, ZMQ_DEALER};
 #if (defined (WIN32))
-        s_set_id(worker, (intptr_t)args);
+        const int id = 10;
+        s_set_id(worker, static_cast<intptr_t>(id));
 #else
         s_set_id(worker); // set a printable identity
 #endif
@@ -44,7 +45,7 @@ int main()
         while (true) {
             INFO("Tell the broker we're ready for work");
             INFO("Sending delimiter");
-            s_sendmore(worker, "");
+            s_sendmore(worker, std::string{""});
             INFO("Sending message");
             s_send(worker, std::string{"Hey server"});
             INFO("Get workload from broker, until finished");
