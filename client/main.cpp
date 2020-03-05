@@ -34,9 +34,9 @@ int main()
         zmq::context_t context{1};
         zmq::socket_t worker{context, ZMQ_DEALER};
 #if (defined (WIN32))
-            s_set_id(worker, (intptr_t)args);
+        s_set_id(worker, (intptr_t)args);
 #else
-            s_set_id(worker); // set a printable identity
+        s_set_id(worker); // set a printable identity
 #endif
         INFO("Connecting to localhost:5566");
         worker.connect("tcp://localhost:5566");
