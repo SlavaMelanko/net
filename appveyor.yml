@@ -22,4 +22,5 @@ before_build:
 
 build_script:
   - .\cmakegen-msvc-x64.cmd
+  - cd build
   - cmake --build . --config %CONFIGURATION%
