@@ -8,6 +8,8 @@
 
 #include <errno.h>
 
+namespace net {
+
 ZmqPublisher::ZmqPublisher(zmq::context_t &context, const std::string_view host, const uint16_t port)
     : m_publisher{context, ZMQ_PUB}
 {
@@ -30,3 +32,5 @@ bool ZmqPublisher::broadcast(const std::string &data)
 {
     return sendOut("", data);
 }
+
+} // namespace net

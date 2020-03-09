@@ -7,7 +7,7 @@ int main()
     InitLogging();
 
     try {
-        TcpServer{}.run();
+        net::TcpServer{}.run();
     } catch (const std::exception &e) {
         ERROR(e.what());
     }

@@ -2,6 +2,8 @@
 
 #include <string>
 
+namespace net {
+
 class Publisher
 {
 public:
@@ -16,3 +18,5 @@ public:
      */
     virtual bool broadcast(const std::string &data) = 0;
 };
+
+} // namespace net

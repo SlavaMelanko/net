@@ -4,6 +4,8 @@
 
 #include <zmq.hpp>
 
+namespace net {
+
 class ZmqPublisher : public Publisher
 {
 public:
@@ -15,3 +17,5 @@ public:
 private:
     zmq::socket_t m_publisher;
 };
+
+} // namespace net

@@ -4,6 +4,8 @@
 
 #include <zmq.hpp>
 
+namespace net {
+
 class TcpServer
 {
 public:
@@ -15,3 +17,5 @@ private:
     zmq::context_t m_context;
     std::unique_ptr<Publisher> m_publisher;
 };
+
+} // namespace net
