@@ -23,7 +23,7 @@ matrix:
         - cd "${TRAVIS_BUILD_DIR}"
         - sh cmakegen-xcode.sh
         - cd build
-        - cmake --build . --config ${BUILD_TYPE} -- -j2
+        - cmake --build . --config ${BUILD_TYPE}
 
 install:
   # Set the ${CXX} variable properly.
