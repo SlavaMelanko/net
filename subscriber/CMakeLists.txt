@@ -1,27 +1,27 @@
 cmake_minimum_required(VERSION 3.16.0)
 
-project(foundation CXX)
+project(subscriber CXX)
 
-add_library(${PROJECT_NAME}
-    include/Log.h
-    src/Log.cpp
+add_executable(${PROJECT_NAME}
+    main.cpp
+    Subscriber.h
+    ZmqSubscriber.cpp
+    ZmqSubscriber.h
 )
-
-add_library(zmq::foundation ALIAS ${PROJECT_NAME})
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC
-        include
         .. # for zhelpers.hpp
 )
 
 target_link_libraries(${PROJECT_NAME}
-    PUBLIC
+    PRIVATE
         CONAN_PKG::cppzmq
         CONAN_PKG::fmt
         CONAN_PKG::spdlog
+        net::utils
 )
 
 target_link_options(${PROJECT_NAME}

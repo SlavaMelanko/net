@@ -14,7 +14,7 @@ ZmqPublisher::ZmqPublisher(zmq::context_t &context, const std::string_view host,
     : m_publisher{context, ZMQ_PUB}
 {
     const std::string address = fmt::format("tcp://{}:{}", host, port);
-    INFO("Publisher is being binding to {}", address);
+    INFO("Publisher is binding to {}", address);
     m_publisher.bind(address);
 }
 

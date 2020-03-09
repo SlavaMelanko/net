@@ -1,28 +1,28 @@
-#include <zhelpers.hpp>
+#include "ZmqSubscriber.h"
 
 #include <Log.h>
 
+#include <memory>
+
 int main()
 {
+    InitLogging();
+
     try {
         zmq::context_t context{1};
-        zmq::socket_t subscriber{context, ZMQ_SUB};
-        subscriber.connect("tcp://127.0.0.1:5555");
-        subscriber.setsockopt(ZMQ_SUBSCRIBE, "", 0);
+        std::unique_ptr<net::Subscriber> subscriber = std::make_unique<net::ZmqSubscriber>(context, "127.0.0.1", 5555);
+        subscriber->subscribeToAllTopics();
 
         while (true) {
-            std::clog << "Receiving topic..." << std::endl;
-            const auto topic = s_recv(subscriber);
-            std::clog << "Receiving content..." << std::endl;
-            const auto content = s_recv(subscriber);
-            std::clog << topic << ": " << content << std::endl;
+            subscriber->waitForNotification();
         }
     } catch (const std::exception &e) {
-        std::cerr << e.what() << std::endl;
+        ERROR(e.what());
     }
 
     return 0;
 }
+
 #if 0
 int main()
 {

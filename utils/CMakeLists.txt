@@ -1,29 +1,27 @@
 cmake_minimum_required(VERSION 3.16.0)
 
-project(server CXX)
+project(utils CXX)
 
-add_executable(${PROJECT_NAME}
-    main.cpp
-    Publisher.h
-    TcpServer.cpp
-    TcpServer.h
-    ZmqPublisher.cpp
-    ZmqPublisher.h
+add_library(${PROJECT_NAME}
+    include/Log.h
+    src/Log.cpp
 )
+
+add_library(net::utils ALIAS ${PROJECT_NAME})
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC
+        include
         .. # for zhelpers.hpp
 )
 
 target_link_libraries(${PROJECT_NAME}
-    PRIVATE
+    PUBLIC
         CONAN_PKG::cppzmq
         CONAN_PKG::fmt
         CONAN_PKG::spdlog
-        zmq::foundation
 )
 
 target_link_options(${PROJECT_NAME}

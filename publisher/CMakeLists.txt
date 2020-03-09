@@ -1,9 +1,14 @@
 cmake_minimum_required(VERSION 3.16.0)
 
-project(client CXX)
+project(publisher CXX)
 
 add_executable(${PROJECT_NAME}
     main.cpp
+    Publisher.h
+    TcpServer.cpp
+    TcpServer.h
+    ZmqPublisher.cpp
+    ZmqPublisher.h
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
@@ -18,7 +23,7 @@ target_link_libraries(${PROJECT_NAME}
         CONAN_PKG::cppzmq
         CONAN_PKG::fmt
         CONAN_PKG::spdlog
-        zmq::foundation
+        net::utils
 )
 
 target_link_options(${PROJECT_NAME}
