@@ -1,0 +1,25 @@
+version: 1.0.{build}
+
+image:
+  - Visual Studio 2019
+
+matrix:
+  fast_finish: true
+
+platform:
+  - x64
+
+configuration:
+  - Debug
+  - Release
+
+build:
+  parallel: true
+  verbosity: minimal
+
+before_build:
+  - pip install conan
+
+build_script:
+  - .\cmakegen-msvc-x64.cmd
+  - cmake --build . --config %CONFIGURATION%
