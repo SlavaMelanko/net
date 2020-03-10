@@ -1,12 +1,18 @@
 language: cpp
 
+sudo: false
+
+os: linux
 dist: bionic
-sudo: required
+
+cache:
+  directories:
+    - ${TRAVIS_BUILD_DIR}/deps
 
 matrix:
   include:
 
-    ###########################################################################
+    #############################################################################
     # Clang on macOS
     #
 
@@ -16,39 +22,27 @@ matrix:
         - BUILD_TYPE=Release
       osx_image: xcode11.3
       compiler: clang
-      script:
-        - sh cmakegen-xcode.sh
-        - cd build
-        - cmake --build . --config ${BUILD_TYPE}
 
-    ###########################################################################
+    #############################################################################
     # GCC on Linux
     #
 
-    - os: linux
-      env:
-        - JOB="GCC 7 Release"
+    - env:
+        - JOB="GCC 7"
         - CXX_COMPILER=g++-7
         - BUILD_TYPE=Release
       addons: &gcc7
         apt:
           packages:
-            - gcc-7
             - g++-7
           sources:
             - ubuntu-toolchain-r-test
-      script:
-        - mkdir -p build && cd build
-        - conan install .. --build missing -s build_type=Debug
-        - conan install .. --build missing -s build_type=Release
-        - cmake .. -DCMAKE_BUILD_TYPE:STRING=${BUILD_TYPE}
-        - cmake --build . --config ${BUILD_TYPE} -- -j2
 
 install:
   # Set the ${CXX} variable properly.
   - export CXX=${CXX_COMPILER}
   # Dependencies required by the CI are installed in ${TRAVIS_BUILD_DIR}/deps/.
-  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+  - DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
   - mkdir -p "${DEPS_DIR}" && cd "${DEPS_DIR}"
   # Install the latest CMake (unless already installed on macOS).
   - |
@@ -76,4 +70,11 @@ install:
   - conan profile show default
 
 before_script:
-  - cd "${TRAVIS_BUILD_DIR}"
+  - cd ${TRAVIS_BUILD_DIR}
+  - mkdir -p build && cd build
+  - conan install .. --build missing -s build_type=Debug
+  - conan install .. --build missing -s build_type=Release
+  - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+
+script:
+  - cmake --build . --config $BUILD_TYPE -- -j2
