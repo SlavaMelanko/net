@@ -6,21 +6,21 @@
 
 int main()
 {
-    InitLogging();
+  InitLogging();
 
-    try {
-        zmq::context_t context{1};
-        std::unique_ptr<net::Subscriber> subscriber = std::make_unique<net::ZmqSubscriber>(context, "127.0.0.1", 5555);
-        subscriber->subscribeToAllTopics();
+  try {
+    zmq::context_t context{ 1 };
+    std::unique_ptr<net::Subscriber> subscriber = std::make_unique<net::ZmqSubscriber>(context, "127.0.0.1", 5555);
+    subscriber->subscribeToAllTopics();
 
-        while (true) {
-            subscriber->waitForNotification();
-        }
-    } catch (const std::exception &e) {
-        ERROR(e.what());
+    while (true) {
+      subscriber->waitForNotification();
     }
+  } catch (const std::exception& e) {
+    ERROR(e.what());
+  }
 
-    return 0;
+  return 0;
 }
 
 #if 0
@@ -33,7 +33,7 @@ int main()
 
         zmq::context_t context{1};
         zmq::socket_t worker{context, ZMQ_DEALER};
-#if (defined (WIN32))
+#if (defined(WIN32))
         const int id = 10;
         s_set_id(worker, static_cast<intptr_t>(id));
 #else

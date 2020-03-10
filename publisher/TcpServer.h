@@ -9,13 +9,13 @@ namespace net {
 class TcpServer
 {
 public:
-    TcpServer();
+  TcpServer();
 
-    void run();
+  void run();
 
 private:
-    zmq::context_t m_context;
-    std::unique_ptr<Publisher> m_publisher;
+  zmq::context_t m_context;
+  std::unique_ptr<Publisher> m_publisher;
 };
 
 } // namespace net
