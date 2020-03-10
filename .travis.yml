@@ -39,7 +39,8 @@ matrix:
             - ubuntu-toolchain-r-test
       script:
         - mkdir -p build && cd build
-        - conan install .. --build missing -s build_type=${BUILD_TYPE}
+        - conan install .. --build missing -s build_type=Debug
+        - conan install .. --build missing -s build_type=Release
         - cmake .. -DCMAKE_BUILD_TYPE:STRING=${BUILD_TYPE}
         - cmake --build . --config ${BUILD_TYPE} -- -j2
 
@@ -69,6 +70,7 @@ install:
       conan profile update settings.compiler.libcxx=libstdc++11 default
     else
       brew install conan || brew upgrade conan
+      conan profile new default --detect
     fi
   - conan --version
   - conan profile show default
