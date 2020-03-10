@@ -65,11 +65,13 @@ install:
   - |
     if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
       sudo pip install conan
+      conan profile new default --detect
       conan profile update settings.compiler.libcxx=libstdc++11 default
     else
       brew install conan || brew upgrade conan
     fi
   - conan --version
+  - conan profile show default
 
 before_script:
   - cd "${TRAVIS_BUILD_DIR}"
