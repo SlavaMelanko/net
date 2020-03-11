@@ -4,5 +4,5 @@
 
 void InitLogging()
 {
-    spdlog::stdout_color_mt("stdout");
+  spdlog::stdout_color_mt("stdout");
 }

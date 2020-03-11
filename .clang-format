@@ -1,0 +1,11 @@
+﻿BasedOnStyle: Mozilla
+
+Language: Cpp
+Standard: Cpp11
+
+TabWidth: 2
+UseTab: Never
+ColumnLimit: 120
+
+AlwaysBreakAfterReturnType: None
+AlwaysBreakAfterDefinitionReturnType: None

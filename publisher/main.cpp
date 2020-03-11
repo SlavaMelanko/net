@@ -4,15 +4,15 @@
 
 int main()
 {
-    InitLogging();
+  InitLogging();
 
-    try {
-        net::TcpServer{}.run();
-    } catch (const std::exception &e) {
-        ERROR(e.what());
-    }
+  try {
+    net::TcpServer{}.run();
+  } catch (const std::exception& e) {
+    ERROR(e.what());
+  }
 
-    return 0;
+  return 0;
 }
 #if 0
 int main()
