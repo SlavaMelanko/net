@@ -1,6 +1,8 @@
 language: cpp
 
 sudo: false
+notifications:
+  email: false
 
 os: linux
 dist: bionic
@@ -23,12 +25,19 @@ matrix:
       osx_image: xcode11.3
       compiler: clang
 
+    - os: osx
+      env:
+        - CXX_COMPILER=clang++
+        - BUILD_TYPE=Debug
+      osx_image: xcode11.3
+      compiler: clang
+
     #############################################################################
     # GCC on Linux
     #
 
     - env:
-        - JOB="GCC 7"
+        - JOB="GCC 7 Release"
         - CXX_COMPILER=g++-7
         - BUILD_TYPE=Release
       addons: &gcc7
@@ -38,12 +47,21 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
 
+    - env:
+        - JOB="GCC 7 Debug"
+        - CXX_COMPILER=g++-7
+        - BUILD_TYPE=Debug
+      addons: *gcc7
+
 install:
   # Set the ${CXX} variable properly.
   - export CXX=${CXX_COMPILER}
+  - ${CXX} --version
   # Dependencies required by the CI are installed in ${TRAVIS_BUILD_DIR}/deps/.
   - DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
   - mkdir -p "${DEPS_DIR}" && cd "${DEPS_DIR}"
+  # Travis machines have 2 cores
+  - JOBS=2
   # Install the latest CMake (unless already installed on macOS).
   - |
     if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
@@ -60,11 +78,13 @@ install:
   - |
     if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
       sudo pip install conan
-      conan profile new default --detect
-      conan profile update settings.compiler.libcxx=libstdc++11 default
     else
       brew install conan || brew upgrade conan
-      conan profile new default --detect
+    fi
+  - conan profile new default --detect
+  - |
+    if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
+      conan profile update settings.compiler.libcxx=libstdc++11 default
     fi
   - conan --version
   - conan profile show default
@@ -77,4 +97,4 @@ before_script:
   - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
 
 script:
-  - cmake --build . --config $BUILD_TYPE -- -j2
+  - cmake --build . --config $BUILD_TYPE -- -j${JOBS}
