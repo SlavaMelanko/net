@@ -1,10 +1,18 @@
 version: 1.0.{build}
 
+skip_commits:
+  files:
+    - .travis.yml
+    - '**/*.md'
+
 image:
   - Visual Studio 2019
 
 matrix:
   fast_finish: true
+
+install:
+  - pip install conan
 
 platform:
   - x64
@@ -18,9 +26,10 @@ build:
   verbosity: minimal
 
 before_build:
-  - pip install conan
+  - mkdir -p build && cd build
+  - conan install .. --build missing -s build_type=Debug
+  - conan install .. --build missing -s build_type=Release
+  - cmake -G "Visual Studio 16 2019" -A x64 ..
 
 build_script:
-  - .\cmakegen-msvc-x64.cmd
-  - cd build
   - cmake --build . --config %CONFIGURATION%
