@@ -95,7 +95,6 @@ inline static char* s_recv(void* socket, int flags = 0)
 //  Receive 0MQ string from socket and convert into string
 inline static std::string s_recv(zmq::socket_t& socket, int flags = 0)
 {
-
   zmq::message_t message;
   socket.recv(&message, flags);
 
@@ -130,7 +129,6 @@ inline static int s_send(void* socket, const char* string, int flags = 0)
 //  Convert string to 0MQ string and send to socket
 inline static bool s_send(zmq::socket_t& socket, const std::string& string, int flags = 0)
 {
-
   zmq::message_t message(string.size());
   memcpy(message.data(), string.data(), string.size());
 
@@ -155,7 +153,6 @@ inline static int s_sendmore(void* socket, char* string)
 //  Sends string as 0MQ string, as multipart non-terminal
 inline static bool s_sendmore(zmq::socket_t& socket, const std::string& string)
 {
-
   zmq::message_t message(string.size());
   memcpy(message.data(), string.data(), string.size());
 
