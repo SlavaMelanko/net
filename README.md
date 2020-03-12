@@ -11,5 +11,5 @@
 [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html) is a tool to automatically format C++ code.
 
 ```bash
-find modules -name '*.h' -or -name '*.cpp' | xargs -I {} sh -c 'echo {}; clang-format -style=file -i {};'
+find . -name '*.h' -or -name '*.cpp' -not -path "./build/*" | xargs -I {} sh -c 'echo {}; clang-format -style=file -i {};'
 ```
