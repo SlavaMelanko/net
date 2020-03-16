@@ -17,6 +17,7 @@ conan_basic_setup(TARGETS)
 add_subdirectory(utils)
 add_subdirectory(publisher)
 add_subdirectory(subscriber)
+add_subdirectory(client)
 
 if(BUILD_SAMPLES)
     add_subdirectory(publisher/samples/simple)
