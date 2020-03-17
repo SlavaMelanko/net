@@ -1,10 +1,21 @@
 #include "Client.h"
 
 #include <Log.h>
+#include <Randomizer.h>
 
 #include <zhelpers.hpp>
 
 namespace net {
+
+namespace {
+
+Identity GenerateRandomId()
+{
+    constexpr size_t length = 5;
+    return utils::Randomizer::generateString(length);
+}
+
+} // namespace
 
 Client::Client(zmq::context_t& context, const Settings& settings)
   : m_client{ context, ZMQ_DEALER }
@@ -13,13 +24,13 @@ Client::Client(zmq::context_t& context, const Settings& settings)
   connect(settings.host, settings.port);
 }
 
-void Client::setId(const std::optional<int>& id)
+std::string Client::setId(const std::optional<Identity>& id)
 {
-#if (defined(WIN32))
-  s_set_id(m_client, static_cast<intptr_t>(id.value()));
-#else
-  s_set_id(m_client); // set a printable identity
-#endif
+    const auto identity = id ? id.value() : GenerateRandomId();
+    INFO("Client ID is \"{}\"", identity);
+    m_client.setsockopt(ZMQ_IDENTITY, identity.c_str(), identity.length());
+
+    return identity;
 }
 
 void Client::connect(const std::optional<std::string>& host, const uint16_t port)
