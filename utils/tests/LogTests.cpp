@@ -5,12 +5,12 @@
 
 TEST(LoggingTests, CheckConsoleLogger)
 {
-    utils::InitLogging();
-    CRIT("Critical")
-    DEBUG("Debug");
-    ERROR("Error");
-    INFO("Info");
-    TRACE("Trace");
-    WARN("Warning");
-    EXPECT_TRUE(true);
+  utils::InitLogging();
+  CRIT("Critical")
+  DEBUG("Debug");
+  ERROR("Error");
+  INFO("Info");
+  TRACE("Trace");
+  WARN("Warning");
+  EXPECT_TRUE(true);
 }

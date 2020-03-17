@@ -7,35 +7,35 @@
 
 TEST(RandomizerTests, GenerateUpperCaseString)
 {
-    constexpr size_t length = 10;
-    constexpr int literals = utils::Randomizer::UpperCaseLetters;
-    const auto str = utils::Randomizer::generateString(length, literals);
-    EXPECT_EQ(str.size(), length);
-    EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::isupper));
+  constexpr size_t length = 10;
+  constexpr int literals = utils::Randomizer::UpperCaseLetters;
+  const auto str = utils::Randomizer::generateString(length, literals);
+  EXPECT_EQ(str.size(), length);
+  EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::isupper));
 }
 
 TEST(RandomizerTests, GenerateLowerCaseString)
 {
-    constexpr size_t length = 10;
-    constexpr int literals = utils::Randomizer::LowerCaseLetters;
-    const auto str = utils::Randomizer::generateString(length, literals);
-    EXPECT_EQ(str.size(), 10);
-    EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::islower));
+  constexpr size_t length = 10;
+  constexpr int literals = utils::Randomizer::LowerCaseLetters;
+  const auto str = utils::Randomizer::generateString(length, literals);
+  EXPECT_EQ(str.size(), 10);
+  EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::islower));
 }
 
 TEST(RandomizerTests, GenerateDigitsString)
 {
-    constexpr size_t length = 10;
-    constexpr int literals = utils::Randomizer::Digits;
-    const auto str = utils::Randomizer::generateString(length, literals);
-    EXPECT_EQ(str.size(), length);
-    EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::isdigit));
+  constexpr size_t length = 10;
+  constexpr int literals = utils::Randomizer::Digits;
+  const auto str = utils::Randomizer::generateString(length, literals);
+  EXPECT_EQ(str.size(), length);
+  EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::isdigit));
 }
 
 TEST(RandomizerTests, GenerateDifferentStrings)
 {
-    constexpr size_t length = 10;
-    const auto str1 = utils::Randomizer::generateString(length);
-    const auto str2 = utils::Randomizer::generateString(length);
-    EXPECT_NE(str1, str2);
+  constexpr size_t length = 10;
+  const auto str1 = utils::Randomizer::generateString(length);
+  const auto str2 = utils::Randomizer::generateString(length);
+  EXPECT_NE(str1, str2);
 }

@@ -11,8 +11,8 @@ namespace {
 
 Identity GenerateRandomId()
 {
-    constexpr size_t length = 5;
-    return utils::Randomizer::generateString(length);
+  constexpr size_t length = 5;
+  return utils::Randomizer::generateString(length);
 }
 
 } // namespace
@@ -26,11 +26,11 @@ Client::Client(zmq::context_t& context, const Settings& settings)
 
 std::string Client::setId(const std::optional<Identity>& id)
 {
-    const auto identity = id ? id.value() : GenerateRandomId();
-    INFO("Client ID is \"{}\"", identity);
-    m_client.setsockopt(ZMQ_IDENTITY, identity.c_str(), identity.length());
+  const auto identity = id ? id.value() : GenerateRandomId();
+  INFO("Client ID is \"{}\"", identity);
+  m_client.setsockopt(ZMQ_IDENTITY, identity.c_str(), identity.length());
 
-    return identity;
+  return identity;
 }
 
 void Client::connect(const std::optional<std::string>& host, const uint16_t port)
