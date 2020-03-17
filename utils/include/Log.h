@@ -2,7 +2,11 @@
 
 #include <spdlog/spdlog.h>
 
+namespace utils {
+
 void InitLogging();
+
+} // namespace utils
 
 #define CRIT(...) spdlog::get("stdout")->critical(__VA_ARGS__);
 #define DEBUG(...) spdlog::get("stdout")->debug(__VA_ARGS__);
