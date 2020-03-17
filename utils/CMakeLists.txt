@@ -4,7 +4,9 @@ project(utils CXX)
 
 add_library(${PROJECT_NAME}
     include/Log.h
+    include/Randomizer.h
     src/Log.cpp
+    src/Randomizer.cpp
 )
 
 add_library(net::utils ALIAS ${PROJECT_NAME})
