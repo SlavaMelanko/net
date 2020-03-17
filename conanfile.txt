@@ -1,6 +1,7 @@
 [requires]
 cppzmq/4.6.0
 fmt/6.1.2
+gtest/1.10.0
 ms-gsl/2.0.0
 spdlog/1.5.0
 

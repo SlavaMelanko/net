@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16.0)
 
 project(net CXX)
 
-option(ENABLE_TESTING "Enable unit tests" ON)
+option(ENABLE_TESTS "Enable unit tests" ON)
 option(BUILD_SAMPLES "Build samples" ON)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)

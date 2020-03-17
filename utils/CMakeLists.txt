@@ -31,3 +31,7 @@ target_link_options(${PROJECT_NAME}
             /ignore:4099 # warning LNK4099: PDB '.pdb' was not found ...
         >
 )
+
+if (ENABLE_TESTS)
+    add_subdirectory(tests)
+endif ()
