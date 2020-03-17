@@ -11,10 +11,10 @@ public:
   {
     UpperCaseLetters = 0b0001,
     LowerCaseLetters = 0b0010,
-    Numbers = 0b0100,
+    Digits = 0b0100,
 
     Letters = UpperCaseLetters | LowerCaseLetters,
-    Alnum = Letters | Numbers
+    Alnum = Letters | Digits
   };
 
   static std::string generateString(const size_t& length, const int charset = Literals::Alnum);

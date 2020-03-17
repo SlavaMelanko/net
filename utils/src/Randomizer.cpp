@@ -10,7 +10,7 @@ std::string GetCharset(const int literals)
 {
   std::string charset;
 
-  if (literals & Randomizer::Numbers) {
+  if (literals & Randomizer::Digits) {
     charset += "0123456789";
   }
   if (literals & Randomizer::UpperCaseLetters) {
