@@ -8,7 +8,7 @@
 
 int main()
 {
-  InitLogging();
+  utils::InitLogging();
 
   try {
     zmq::context_t m_context{ 1 };
