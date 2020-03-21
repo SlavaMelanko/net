@@ -22,6 +22,7 @@ matrix:
       env:
         - CXX_COMPILER=clang++
         - BUILD_TYPE=Release
+        - ENABLE_CODE_COVERAGE=OFF
       osx_image: xcode11.3
       compiler: clang
 
@@ -29,6 +30,7 @@ matrix:
       env:
         - CXX_COMPILER=clang++
         - BUILD_TYPE=Debug
+        - ENABLE_CODE_COVERAGE=OFF
       osx_image: xcode11.3
       compiler: clang
 
@@ -40,6 +42,7 @@ matrix:
         - JOB="GCC 7 Release"
         - CXX_COMPILER=g++-7
         - BUILD_TYPE=Release
+        - ENABLE_CODE_COVERAGE=OFF
       addons: &gcc7
         apt:
           packages:
@@ -51,7 +54,7 @@ matrix:
         - JOB="GCC 7 Debug"
         - CXX_COMPILER=g++-7
         - BUILD_TYPE=Debug
-        - ENABLE_CODE_COVERAGE=TRUE
+        - ENABLE_CODE_COVERAGE=ON
       addons: *gcc7
 
 install:
@@ -101,7 +104,7 @@ script:
   - cmake --build . --config $BUILD_TYPE -- -j${JOBS}
 
 after_success:
-  - ctest --extra-verbose --parallel 2
+  - ctest --extra-verbose --parallel ${JOBS}
   - |
     if [ "$ENABLE_CODE_COVERAGE" == "TRUE" ]; then
       echo "Sending code coverage report..."
