@@ -55,10 +55,10 @@ matrix:
       addons: *gcc7
 
 install:
-  # Set the ${CXX} variable properly.
+  # Set the $CXX variable properly.
   - export CXX=$CXX_COMPILER
   - $CXX --version
-  # Dependencies required by the CI are installed in ${TRAVIS_BUILD_DIR}/deps/.
+  # Dependencies required by the CI are installed in $TRAVIS_BUILD_DIR/deps/.
   - DEPS_DIR=$TRAVIS_BUILD_DIR/deps
   - mkdir -p $DEPS_DIR && cd $DEPS_DIR
   # Travis machines have 2 cores

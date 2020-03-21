@@ -33,3 +33,6 @@ before_build:
 
 build_script:
   - cmake --build . --config %CONFIGURATION%
+
+after_build:
+  - ctest --extra-verbose -C %CONFIGURATION%
