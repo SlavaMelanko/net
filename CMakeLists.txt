@@ -20,6 +20,7 @@ add_subdirectory(subscriber)
 add_subdirectory(client)
 
 if(BUILD_SAMPLES)
+    enable_testing()
     add_subdirectory(publisher/samples/simple)
     add_subdirectory(subscriber/samples/simple)
 endif()
