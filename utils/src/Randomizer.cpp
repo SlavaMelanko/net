@@ -1,5 +1,6 @@
 #include "Randomizer.h"
 
+#include <algorithm>
 #include <random>
 
 namespace utils {
