@@ -51,6 +51,7 @@ matrix:
         - JOB="GCC 7 Debug"
         - CXX_COMPILER=g++-7
         - BUILD_TYPE=Debug
+        - ENABLE_CODE_COVERAGE=TRUE
       addons: *gcc7
 
 install:
@@ -94,7 +95,14 @@ before_script:
   - mkdir -p build && cd build
   - conan install .. --build missing -s build_type=Debug
   - conan install .. --build missing -s build_type=Release
-  - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+  - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DENABLE_CODE_COVERAGE=$ENABLE_CODE_COVERAGE
 
 script:
   - cmake --build . --config $BUILD_TYPE -- -j${JOBS}
+
+after_success:
+  - ctest --extra-verbose --parallel 2
+  - |
+    if [ "$ENABLE_CODE_COVERAGE" == "TRUE" ]; then
+      bash <(curl -s https://codecov.io/bash)
+    fi
