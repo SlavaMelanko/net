@@ -14,4 +14,4 @@ target_link_libraries(${PROJECT_NAME}
         net::utils
 )
 
-add_test(utils ${PROJECT_NAME})
+add_test(NAME utils COMMAND ${PROJECT_NAME})
