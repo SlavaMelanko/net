@@ -6,7 +6,9 @@
 
 namespace net {
 
-ZmqSubscriber::ZmqSubscriber(zmq::context_t& context, const std::string_view host, const uint16_t port)
+ZmqSubscriber::ZmqSubscriber(zmq::context_t& context,
+                             const std::string_view host,
+                             const uint16_t port)
   : m_subscriber{ context, ZMQ_SUB }
 {
   const std::string address = fmt::format("tcp://{}:{}", host, port);

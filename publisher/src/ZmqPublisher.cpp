@@ -10,7 +10,9 @@
 
 namespace net {
 
-ZmqPublisher::ZmqPublisher(zmq::context_t& context, const std::string_view host, const uint16_t port)
+ZmqPublisher::ZmqPublisher(zmq::context_t& context,
+                           const std::string_view host,
+                           const uint16_t port)
   : m_publisher{ context, ZMQ_PUB }
 {
   const std::string address = fmt::format("tcp://{}:{}", host, port);

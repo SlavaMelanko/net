@@ -12,7 +12,8 @@ int main()
 
   try {
     zmq::context_t m_context{ 1 };
-    std::unique_ptr<net::Publisher> m_publisher{ std::make_unique<net::ZmqPublisher>(m_context, "127.0.0.1", 5555) };
+    std::unique_ptr<net::Publisher> m_publisher{ std::make_unique<net::ZmqPublisher>(
+      m_context, "127.0.0.1", 5555) };
     int i = 0;
     while (true) {
       const std::string message{ "Message #" + std::to_string(++i) };
