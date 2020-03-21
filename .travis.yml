@@ -103,7 +103,9 @@ script:
 after_success:
   - ctest --extra-verbose -C $BUILD_TYPE --parallel ${JOBS}
   - |
-    if [ "$ENABLE_COVERAGE" == "TRUE" ]; then
+    echo "$ENABLE_COVERAGE"
+    echo "${ENABLE_COVERAGE}"
+    if [ "${ENABLE_COVERAGE}" == "ON" ]; then
       echo "Sending code coverage report..."
       bash <(curl -s https://codecov.io/bash)
     fi
