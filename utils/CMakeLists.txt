@@ -23,6 +23,7 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC
         CONAN_PKG::fmt
         CONAN_PKG::spdlog
+        coverage_config
 )
 
 target_link_options(${PROJECT_NAME}
