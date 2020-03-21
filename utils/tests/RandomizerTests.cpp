@@ -32,6 +32,13 @@ TEST(RandomizerTests, GenerateDigitsString)
   EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::isdigit));
 }
 
+TEST(RandomizerTests, GenerateZeroLengthString)
+{
+  constexpr size_t length = 0;
+  const auto str = utils::Randomizer::generateString(length);
+  EXPECT_EQ(str.size(), length);
+}
+
 TEST(RandomizerTests, GenerateDifferentStrings)
 {
   constexpr size_t length = 10;
