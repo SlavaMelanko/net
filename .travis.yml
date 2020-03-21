@@ -104,5 +104,6 @@ after_success:
   - ctest --extra-verbose --parallel 2
   - |
     if [ "$ENABLE_CODE_COVERAGE" == "TRUE" ]; then
+      echo "Sending code coverage report..."
       bash <(curl -s https://codecov.io/bash)
     fi
