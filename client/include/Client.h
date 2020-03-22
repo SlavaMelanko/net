@@ -16,8 +16,8 @@ struct Settings
    Host address which can be either IP or domain name.
    If value is not set then connection to localhost will be used.
   */
-  std::optional<std::string> host;
-  uint16_t port;
+  std::string host{ "localhost" };
+  uint16_t port{ 5555 };
 };
 
 class Client
@@ -27,7 +27,7 @@ public:
 
 private:
   std::string setId(const std::optional<Identity>& id);
-  void connect(const std::optional<std::string>& host, const uint16_t port);
+  void connect(std::string_view host, const uint16_t port);
 
   zmq::socket_t m_client;
 };

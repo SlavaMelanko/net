@@ -33,9 +33,9 @@ std::string Client::setId(const std::optional<Identity>& id)
   return identity;
 }
 
-void Client::connect(const std::optional<std::string>& host, const uint16_t port)
+void Client::connect(std::string_view host, const uint16_t port)
 {
-  const std::string address = fmt::format("tcp://{}:{}", host.value_or("localhost"), port);
+  const std::string address = fmt::format("tcp://{}:{}", host, port);
   INFO("Client is connecting to {}", address);
   m_client.connect(address);
 }
