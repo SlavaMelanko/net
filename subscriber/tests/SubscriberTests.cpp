@@ -6,31 +6,29 @@ using namespace net;
 
 #include <memory>
 
-TEST(Subscriber, InitializeInstance)
+class SubscriberTest : public testing::Test
 {
+protected:
+  void SetUp() { subscriber = std::make_unique<ZmqSubscriber>(context, "localhost", 5555); }
+  void TearDown() {}
+
   zmq::context_t context{ 1 };
+  std::unique_ptr<Subscriber> subscriber;
+};
+
+TEST_F(SubscriberTest, InitializeInstance)
+{
   EXPECT_TRUE(context);
-  std::unique_ptr<Subscriber> subscriber =
-    std::make_unique<ZmqSubscriber>(context, "localhost", 5555);
-  EXPECT_TRUE(true);
 }
 
-TEST(Subscriber, SubscribeToTopic)
+TEST_F(SubscriberTest, SubscribeToTopic)
 {
-  zmq::context_t context{ 1 };
   EXPECT_TRUE(context);
-  std::unique_ptr<Subscriber> subscriber =
-    std::make_unique<ZmqSubscriber>(context, "localhost", 5555);
-  subscriber->subscribeTo("notification");
-  EXPECT_TRUE(true);
+  EXPECT_NO_THROW(subscriber->subscribeTo("notification"));
 }
 
-TEST(Subscriber, SubscribeToAllTopic)
+TEST_F(SubscriberTest, SubscribeToAllTopic)
 {
-  zmq::context_t context{ 1 };
   EXPECT_TRUE(context);
-  std::unique_ptr<Subscriber> subscriber =
-    std::make_unique<ZmqSubscriber>(context, "localhost", 5555);
-  subscriber->subscribeToAllTopics();
-  EXPECT_TRUE(true);
+  EXPECT_NO_THROW(subscriber->subscribeToAllTopics());
 }
