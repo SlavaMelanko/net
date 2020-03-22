@@ -25,6 +25,8 @@ class Client
 public:
   Client(zmq::context_t& context, const Settings& settings);
 
+  std::string send(const std::string& data);
+
 private:
   std::string setId(const std::optional<Identity>& id);
   void connect(std::string_view host, const uint16_t port);

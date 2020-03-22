@@ -24,6 +24,19 @@ Client::Client(zmq::context_t& context, const Settings& settings)
   connect(settings.host, settings.port);
 }
 
+std::string Client::send(const std::string& data)
+{
+  s_sendmore(m_client, std::string{ "" });
+  s_send(m_client, data);
+
+  {
+    s_recv(m_client); // get delimiter
+  }
+  std::string workload = s_recv(m_client);
+
+  return workload;
+}
+
 std::string Client::setId(const std::optional<Identity>& id)
 {
   const auto identity = id ? id.value() : GenerateRandomId();
