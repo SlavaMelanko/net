@@ -5,7 +5,7 @@
 
 #include <algorithm>
 
-TEST(RandomizerTests, GenerateUpperCaseString)
+TEST(RandomizerTest, GenerateUpperCaseString)
 {
   constexpr size_t length = 10;
   constexpr int literals = utils::Randomizer::UpperCaseLetters;
@@ -14,7 +14,7 @@ TEST(RandomizerTests, GenerateUpperCaseString)
   EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::isupper));
 }
 
-TEST(RandomizerTests, GenerateLowerCaseString)
+TEST(RandomizerTest, GenerateLowerCaseString)
 {
   constexpr size_t length = 10;
   constexpr int literals = utils::Randomizer::LowerCaseLetters;
@@ -23,7 +23,7 @@ TEST(RandomizerTests, GenerateLowerCaseString)
   EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::islower));
 }
 
-TEST(RandomizerTests, GenerateDigitsString)
+TEST(RandomizerTest, GenerateDigitsString)
 {
   constexpr size_t length = 10;
   constexpr int literals = utils::Randomizer::Digits;
@@ -32,14 +32,14 @@ TEST(RandomizerTests, GenerateDigitsString)
   EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::isdigit));
 }
 
-TEST(RandomizerTests, GenerateZeroLengthString)
+TEST(RandomizerTest, GenerateZeroLengthString)
 {
   constexpr size_t length = 0;
   const auto str = utils::Randomizer::generateString(length);
   EXPECT_EQ(str.size(), length);
 }
 
-TEST(RandomizerTests, GenerateDifferentStrings)
+TEST(RandomizerTest, GenerateDifferentStrings)
 {
   constexpr size_t length = 10;
   const auto str1 = utils::Randomizer::generateString(length);

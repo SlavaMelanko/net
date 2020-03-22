@@ -3,7 +3,7 @@
 
 #include <Log.h>
 
-TEST(LoggingTests, CheckConsoleLogger)
+TEST(LoggingTest, CheckConsoleLogger)
 {
   utils::InitLogging();
   CRIT("Critical")

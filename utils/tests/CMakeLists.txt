@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12.0)
 
-project(utils-test CXX)
+project(utils-tests CXX)
 
 file(GLOB_RECURSE ${PROJECT_NAME}_SOURCES "*.cpp")
 
