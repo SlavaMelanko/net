@@ -10,7 +10,7 @@ cache:
   directories:
     - ${TRAVIS_BUILD_DIR}/deps
 
-matrix:
+jobs:
   include:
 
     #############################################################################
@@ -36,7 +36,6 @@ matrix:
     #
 
     - env:
-        - JOB="GCC 7 Release"
         - CXX_COMPILER=g++-7
         - BUILD_TYPE=Release
       addons: &gcc7
@@ -47,7 +46,6 @@ matrix:
             - ubuntu-toolchain-r-test
 
     - env:
-        - JOB="GCC 7 Debug"
         - CXX_COMPILER=g++-7
         - BUILD_TYPE=Debug
         - ENABLE_COVERAGE=ON
