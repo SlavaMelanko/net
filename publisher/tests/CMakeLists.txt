@@ -15,3 +15,5 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 add_test(NAME publisher COMMAND ${PROJECT_NAME})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER tests)
