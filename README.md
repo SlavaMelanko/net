@@ -30,6 +30,10 @@ For more details, please look at [travis](./.travis.yml) or [appveyor](./.appvey
 
 ## Contribution
 
+### Code Principles
+
+- Keep it simple
+
 ### Code Style
 
 [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html) is a tool to automatically format C++ code.
