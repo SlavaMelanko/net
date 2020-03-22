@@ -23,7 +23,7 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC
         CONAN_PKG::fmt
         CONAN_PKG::spdlog
-        coverage_config
+        coverage::config
 )
 
 target_link_options(${PROJECT_NAME}
@@ -32,9 +32,3 @@ target_link_options(${PROJECT_NAME}
             /ignore:4099 # warning LNK4099: PDB '.pdb' was not found ...
         >
 )
-
-if (ENABLE_TESTS)
-    include(CTest)
-    enable_testing()
-    add_subdirectory(tests)
-endif ()
