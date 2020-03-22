@@ -1,4 +1,4 @@
-project(coverage_config CXX)
+project(coverage_config)
 
 add_library(${PROJECT_NAME} INTERFACE)
 
