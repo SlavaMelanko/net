@@ -56,7 +56,3 @@ cmake \
 CheckError "[CMake] Failed to generate the project."
 
 PrintInfoMsg "Project has been generated successfully!"
-
-cmake --build . --config Debug -- -j 2
-
-ctest --extra-verbose -C Debug
