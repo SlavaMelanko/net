@@ -9,10 +9,11 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 option(ENABLE_TESTS "Enable unit tests" ON)
 option(BUILD_SAMPLES "Build samples" ON)
 option(ENABLE_COVERAGE "Enable coverage reporting" OFF)
-include(CodeCoverageConfiguration)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
 conan_basic_setup(TARGETS)
+
+add_subdirectory(addons/codecov)
 
 add_subdirectory(utils)
 add_subdirectory(publisher)
