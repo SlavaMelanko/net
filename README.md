@@ -39,5 +39,6 @@ For more details, please look at [travis](./.travis.yml) or [appveyor](./.appvey
 [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html) is a tool to automatically format C++ code.
 
 ```bash
-find . -name '*.h' -or -name '*.cpp' -not -path "./build/*" | xargs -I {} sh -c 'echo {}; clang-format -style=file -i {};'
+find . -name '*.h' -or -name '*.cpp' -not -path "./build/*" | \
+    xargs -I {} sh -c 'echo {}; clang-format -style=file -i {};'
 ```
