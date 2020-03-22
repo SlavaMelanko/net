@@ -16,13 +16,13 @@ For more details, please look at [travis](./.travis.yml) or [appveyor](./.appvey
 
 ## How to Build and Run
 
-- macOS:
+- **macOS**
     - Run `cmakegen-xcode.sh` script to generate project
     - Go to the build directory
     - Open `net.xcodeproj`
     - Build project
 
-- Windows:
+- **Windows**
     - Run `cmakegen-msvc-x64.cmd` script to generate project
     - Go to the build directory
     - Open `net.sln`
