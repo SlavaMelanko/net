@@ -8,6 +8,9 @@ option(ENABLE_TESTS "Enable unit tests" ON)
 option(BUILD_SAMPLES "Build provided samples" ON)
 option(ENABLE_COVERAGE "Enable coverage reporting" OFF)
 
+message(STATUS ${ENABLE_TESTS})
+message(STATUS ${BUILD_SAMPLES})
+
 include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
 conan_basic_setup(TARGETS)
 
@@ -30,6 +33,6 @@ if (ENABLE_TESTS)
 endif ()
 
 if (BUILD_SAMPLES)
-    add_subdirectory(publisher/samples/simple)
-    add_subdirectory(subscriber/samples/simple)
+    add_subdirectory(samples/publisher)
+    add_subdirectory(samples/subscriber)
 endif ()

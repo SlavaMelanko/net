@@ -3,7 +3,6 @@
 # Configure build variables.
 BUILD_MODE=Debug
 BUILD_DIR=./build
-ENABLE_TESTS=ON
 
 # Color configuration.
 COLOR_OFF='\033[0m'
@@ -51,7 +50,6 @@ PrintInfoMsg "[CMake] Generating the project..."
 cmake \
     -G Xcode \
     -DCMAKE_BUILD_TYPE:STRING=${BUILD_MODE} \
-    -DENABLE_TESTS:BOOL=${ENABLE_TESTS} \
     ..
 CheckError "[CMake] Failed to generate the project."
 
