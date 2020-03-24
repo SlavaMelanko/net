@@ -1,11 +1,10 @@
 codecov:
-  branch: master
   require_ci_to_pass: yes
 
 coverage:
   precision: 2
   round: nearest
-  range: "80...100"
+  range: "50...100"
 
 ignore:
   - "samples"
