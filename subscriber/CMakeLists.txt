@@ -2,13 +2,16 @@ cmake_minimum_required(VERSION 3.16.0)
 
 project(subscriber CXX)
 
-add_library(${PROJECT_NAME}
-    include/Subscriber.h
-    include/ZmqSubscriber.h
-    src/ZmqSubscriber.cpp
-)
-
+add_library(${PROJECT_NAME})
 add_library(net::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+
+target_sources(${PROJECT_NAME}
+    PUBLIC
+        include/Subscriber.h
+        include/ZmqSubscriber.h
+    PRIVATE
+        src/ZmqSubscriber.cpp
+)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 

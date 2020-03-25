@@ -2,14 +2,17 @@ cmake_minimum_required(VERSION 3.16.0)
 
 project(utils CXX)
 
-add_library(${PROJECT_NAME}
-    include/Log.h
-    include/Randomizer.h
-    src/Log.cpp
-    src/Randomizer.cpp
-)
+add_library(${PROJECT_NAME})
+add_library(net::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
-add_library(net::utils ALIAS ${PROJECT_NAME})
+target_sources(${PROJECT_NAME}
+    PUBLIC
+        include/Log.h
+        include/Randomizer.h
+    PRIVATE
+        src/Log.cpp
+        src/Randomizer.cpp
+)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 

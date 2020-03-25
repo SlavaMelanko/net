@@ -2,12 +2,15 @@ cmake_minimum_required(VERSION 3.16.0)
 
 project(client CXX)
 
-add_library(${PROJECT_NAME}
-    include/Client.h
-    src/Client.cpp
-)
-
+add_library(${PROJECT_NAME})
 add_library(net::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+
+target_sources(${PROJECT_NAME}
+    PUBLIC
+        include/Client.h
+    PRIVATE
+        src/Client.cpp
+)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
