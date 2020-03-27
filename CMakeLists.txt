@@ -30,6 +30,7 @@ if (ENABLE_TESTS)
     add_subdirectory(publisher/tests)
     add_subdirectory(subscriber/tests)
     add_subdirectory(client/tests)
+    add_subdirectory(server/tests)
 endif ()
 
 if (BUILD_SAMPLES)
