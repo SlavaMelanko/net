@@ -6,10 +6,9 @@ add_library(${PROJECT_NAME})
 add_library(net::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME}
-    PUBLIC
+    PRIVATE
         include/Log.h
         include/Randomizer.h
-    PRIVATE
         src/Log.cpp
         src/Randomizer.cpp
 )

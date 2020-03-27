@@ -6,10 +6,9 @@ add_library(${PROJECT_NAME})
 add_library(net::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME}
-    PUBLIC
+    PRIVATE
         include/Subscriber.h
         include/ZmqSubscriber.h
-    PRIVATE
         src/ZmqSubscriber.cpp
 )
 

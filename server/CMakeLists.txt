@@ -6,9 +6,8 @@ add_library(${PROJECT_NAME})
 add_library(net::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME}
-    PUBLIC
-        include/Server.h
     PRIVATE
+        include/Server.h
         src/Server.cpp
 )
 
