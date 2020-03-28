@@ -24,11 +24,11 @@ TEST_F(PublisherTest, InitializeInstance)
 TEST_F(PublisherTest, SubscribeToTopic)
 {
   EXPECT_TRUE(context);
-  EXPECT_TRUE(publisher->sendOut("notification", "hey there"));
+  EXPECT_NO_THROW(publisher->sendOut("notification", "hey there"));
 }
 
 TEST_F(PublisherTest, SubscribeToAllTopic)
 {
   EXPECT_TRUE(context);
-  EXPECT_TRUE(publisher->broadcast("hey there"));
+  EXPECT_NO_THROW(publisher->broadcast("hey there"));
 }

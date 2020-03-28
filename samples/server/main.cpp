@@ -1,4 +1,4 @@
-#include "Server.h"
+#include "ZmqServer.h"
 
 #include <Log.h>
 
@@ -10,7 +10,7 @@ int main()
 
   try {
     zmq::context_t context{ 1 };
-    std::unique_ptr<net::Server> server{ std::make_unique<net::Server>(context) };
+    net::ServerUnPtr server = std::make_unique<net::ZmqServer>(context, "127.0.0.1", 5555);
     while (true) {
       server->run();
     }

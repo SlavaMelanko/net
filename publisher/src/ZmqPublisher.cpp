@@ -10,27 +10,21 @@
 
 namespace net {
 
-ZmqPublisher::ZmqPublisher(zmq::context_t& context,
-                           const std::string_view host,
-                           const uint16_t port)
-  : m_publisher{ context, ZMQ_PUB }
+ZmqPublisher::ZmqPublisher(zmq::context_t& context, std::string_view host, const uint16_t port)
+  : m_socket{ context, ZMQ_PUB }
 {
   const std::string address = fmt::format("tcp://{}:{}", host, port);
   INFO("Publisher is binding to {}", address);
-  m_publisher.bind(address);
+  m_socket.bind(address);
 }
 
-bool ZmqPublisher::sendOut(const std::string& topic, const std::string& data)
+void ZmqPublisher::sendOut(const std::string& topic, const std::string& data)
 {
-  if (!s_sendmore(m_publisher, topic) || !s_send(m_publisher, data)) {
-    ERROR(zmq_strerror(errno));
-    return false;
-  }
-
-  return true;
+  s_sendmore(m_socket, topic);
+  s_send(m_socket, data);
 }
 
-bool ZmqPublisher::broadcast(const std::string& data)
+void ZmqPublisher::broadcast(const std::string& data)
 {
   return sendOut("", data);
 }

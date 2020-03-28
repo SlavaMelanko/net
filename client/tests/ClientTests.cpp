@@ -4,7 +4,7 @@
 #include <ZmqClient.h>
 using namespace net;
 
-TEST(ClientTest, InitializeClientInstance)
+TEST(ClientTest, InitializeInstance)
 {
   ConnectionSettings connectionSettings;
   connectionSettings.id = "test-1";
@@ -19,7 +19,7 @@ TEST(ClientTest, InitializeClientInstance)
   EXPECT_NO_THROW(std::make_unique<ZmqClient>(context, connectionSettings));
 }
 
-TEST(ClientTest, InitializeClientInstanceWithDefaultSettings)
+TEST(ClientTest, InitializeInstanceWithDefaultSettings)
 {
   ConnectionSettings connectionSettings;
   connectionSettings.port = 5555;

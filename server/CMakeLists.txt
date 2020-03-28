@@ -8,7 +8,8 @@ add_library(net::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_sources(${PROJECT_NAME}
     PRIVATE
         include/Server.h
-        src/Server.cpp
+        include/ZmqServer.h
+        src/ZmqServer.cpp
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
