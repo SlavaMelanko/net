@@ -12,7 +12,7 @@ class ZmqClient : public Client
 public:
   ZmqClient(zmq::context_t& context, const ConnectionSettings& connectionSettings);
 
-  std::string send(const std::string& data);
+  std::string send(const std::string& data) override;
 
 private:
   std::string setId(const IdentityOpt& id);

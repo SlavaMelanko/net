@@ -18,7 +18,7 @@ TEST(ClientTest, InitializeInstance)
   EXPECT_TRUE(context);
   EXPECT_NO_THROW([&]() {
     ClientUnPtr client = std::make_unique<ZmqClient>(context, connectionSettings);
-    (void)client;
+    EXPECT_TRUE(client);
   });
 }
 
@@ -34,6 +34,6 @@ TEST(ClientTest, InitializeInstanceWithDefaultSettings)
   EXPECT_TRUE(context);
   EXPECT_NO_THROW([&]() {
     ClientUnPtr client = std::make_unique<ZmqClient>(context, connectionSettings);
-    (void)client;
+    EXPECT_TRUE(client);
   });
 }
