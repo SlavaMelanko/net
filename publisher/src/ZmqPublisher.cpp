@@ -6,8 +6,6 @@
 
 #include <fmt/format.h>
 
-#include <errno.h>
-
 namespace net {
 
 ZmqPublisher::ZmqPublisher(zmq::context_t& context, std::string_view host, const uint16_t port)
@@ -16,6 +14,7 @@ ZmqPublisher::ZmqPublisher(zmq::context_t& context, std::string_view host, const
   const std::string address = fmt::format("tcp://{}:{}", host, port);
   INFO("Publisher is binding to {}", address);
   m_socket.bind(address);
+  INFO("OK, publisher started successfully");
 }
 
 void ZmqPublisher::sendOut(const std::string& topic, const std::string& data)

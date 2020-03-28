@@ -6,19 +6,18 @@
 
 namespace net {
 
-ZmqSubscriber::ZmqSubscriber(zmq::context_t& context,
-                             const std::string_view host,
-                             const uint16_t port)
-  : m_subscriber{ context, ZMQ_SUB }
+ZmqSubscriber::ZmqSubscriber(zmq::context_t& context, std::string_view host, const uint16_t port)
+  : m_socket{ context, ZMQ_SUB }
 {
   const std::string address = fmt::format("tcp://{}:{}", host, port);
   INFO("Subscriber is connecting to {}", address);
-  m_subscriber.connect(address);
+  m_socket.connect(address);
+  INFO("OK, subscriber is ready");
 }
 
 void ZmqSubscriber::subscribeTo(const std::string& topic)
 {
-  m_subscriber.setsockopt(ZMQ_SUBSCRIBE, topic.c_str(), topic.size());
+  m_socket.setsockopt(ZMQ_SUBSCRIBE, topic.c_str(), topic.size());
 }
 
 void ZmqSubscriber::subscribeToAllTopics()
@@ -28,8 +27,9 @@ void ZmqSubscriber::subscribeToAllTopics()
 
 std::string ZmqSubscriber::waitForNotification()
 {
-  const auto topic = s_recv(m_subscriber);
-  const auto content = s_recv(m_subscriber);
+  const auto topic = s_recv(m_socket);
+  const auto content = s_recv(m_socket);
+
   INFO("{}: {}", topic, content);
 
   return content;
