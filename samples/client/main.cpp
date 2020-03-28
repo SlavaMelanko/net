@@ -1,4 +1,4 @@
-#include "Client.h"
+#include <ZmqClient.h>
 
 #include <Log.h>
 
@@ -12,11 +12,14 @@ int main()
 
   try {
     zmq::context_t context{ 1 };
-    std::unique_ptr<net::Client> publisher{ std::make_unique<net::Client>(context) };
+    net::ConnectionSettings connectionSettings;
+    connectionSettings.port = 5555;
+    net::ClientUnPtr client = std::make_unique<net::ZmqClient>(context, connectionSettings);
+
     int i = 0;
     while (true) {
       const auto message{ "Message #" + std::to_string(++i) };
-      const auto response = publisher->send(message);
+      const auto response = client->send(message);
       INFO("Server responded: \"{}\"", response);
       std::this_thread::sleep_for(std::chrono::seconds{ 1 });
     }

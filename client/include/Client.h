@@ -1,33 +1,18 @@
 #pragma once
 
-#include <optional>
+#include <memory>
 #include <string>
 
-#include <zmq.hpp>
-
 namespace net {
-
-using Identity = std::string;
-
-struct Settings
-{
-  std::optional<Identity> id;
-  std::string host{ "localhost" };
-  uint16_t port{ 5555 };
-};
 
 class Client
 {
 public:
-  Client(zmq::context_t& context, const Settings& settings = {});
+  virtual ~Client() noexcept = default;
 
-  std::string send(const std::string& data);
-
-private:
-  std::string setId(const std::optional<Identity>& id);
-  void connect(std::string_view host, const uint16_t port);
-
-  zmq::socket_t m_client;
+  virtual std::string send(const std::string& data) = 0;
 };
+
+using ClientUnPtr = std::unique_ptr<Client>;
 
 } // namespace net

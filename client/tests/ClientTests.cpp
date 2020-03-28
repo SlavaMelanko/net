@@ -1,34 +1,39 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-#include <Client.h>
+#include <ZmqClient.h>
 using namespace net;
 
 TEST(ClientTest, InitializeInstance)
 {
-  Settings settings;
-  settings.id = "test-1";
-  settings.host = "127.0.0.1";
-  settings.port = 5555;
-  EXPECT_EQ(settings.id.value(), "test-1");
-  EXPECT_EQ(settings.host, "127.0.0.1");
-  EXPECT_EQ(settings.port, 5555);
+  ConnectionSettings connectionSettings;
+  connectionSettings.id = "test-1";
+  connectionSettings.host = "127.0.0.1";
+  connectionSettings.port = 5555;
+  EXPECT_EQ(connectionSettings.id.value(), "test-1");
+  EXPECT_EQ(connectionSettings.host, "127.0.0.1");
+  EXPECT_EQ(connectionSettings.port, 5555);
 
   zmq::context_t context{ 1 };
   EXPECT_TRUE(context);
-  Client client{ context, settings };
-  EXPECT_TRUE(true);
+  EXPECT_NO_THROW([&]() {
+    ClientUnPtr client = std::make_unique<ZmqClient>(context, connectionSettings);
+    (void)client;
+  });
 }
 
 TEST(ClientTest, InitializeInstanceWithDefaultSettings)
 {
-  Settings settings;
-  EXPECT_FALSE(settings.id.has_value());
-  EXPECT_EQ(settings.host, "localhost");
-  EXPECT_EQ(settings.port, 5555);
+  ConnectionSettings connectionSettings;
+  connectionSettings.port = 5555;
+  EXPECT_FALSE(connectionSettings.id.has_value());
+  EXPECT_EQ(connectionSettings.host, "localhost");
+  EXPECT_EQ(connectionSettings.port, 5555);
 
   zmq::context_t context{ 1 };
   EXPECT_TRUE(context);
-  Client client{ context, settings };
-  EXPECT_TRUE(true);
+  EXPECT_NO_THROW([&]() {
+    ClientUnPtr client = std::make_unique<ZmqClient>(context, connectionSettings);
+    (void)client;
+  });
 }
