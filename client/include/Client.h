@@ -12,10 +12,6 @@ using Identity = std::string;
 struct Settings
 {
   std::optional<Identity> id;
-  /**
-   Host address which can be either IP or domain name.
-   If value is not set then connection to localhost will be used.
-  */
   std::string host{ "localhost" };
   uint16_t port{ 5555 };
 };
@@ -23,7 +19,7 @@ struct Settings
 class Client
 {
 public:
-  Client(zmq::context_t& context, const Settings& settings);
+  Client(zmq::context_t& context, const Settings& settings = {});
 
   std::string send(const std::string& data);
 

@@ -12,6 +12,7 @@ Server::Server(zmq::context_t& context, const BindingSettings& settings)
   const std::string address = fmt::format("tcp://{}:{}", settings.address, settings.port);
   INFO("Binding to {}", address);
   m_server.bind(address);
+  INFO("OK, listening for incoming connection requests...");
 }
 
 void Server::run()
@@ -20,9 +21,11 @@ void Server::run()
   const std::string delimiter = s_recv(m_server);
   const std::string message = s_recv(m_server);
 
+  INFO("Client #{}: \"{}\"", identity, message);
+
   s_sendmore(m_server, identity);
   s_sendmore(m_server, delimiter);
-  s_send(m_server, std::string{ "Hi client" });
+  s_send(m_server, message);
 }
 
 } // namespace net
