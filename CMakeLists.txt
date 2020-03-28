@@ -1,15 +1,16 @@
 cmake_minimum_required(VERSION 3.16.0)
 
-project(net CXX)
+project(net
+    VERSION 0.0.1
+    DESCRIPTION "My Network Project"
+    LANGUAGES CXX
+)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 option(ENABLE_TESTS "Enable unit tests" ON)
 option(BUILD_SAMPLES "Build provided samples" ON)
 option(ENABLE_COVERAGE "Enable coverage reporting" OFF)
-
-message(STATUS ${ENABLE_TESTS})
-message(STATUS ${BUILD_SAMPLES})
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
 conan_basic_setup(TARGETS)
