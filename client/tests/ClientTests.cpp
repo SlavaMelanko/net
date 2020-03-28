@@ -4,7 +4,7 @@
 #include <ZmqClient.h>
 using namespace net;
 
-TEST(ClientTest, InitializeInstance)
+TEST(ClientTest, InitializeClientInstance)
 {
   ConnectionSettings connectionSettings;
   connectionSettings.id = "test-1";
@@ -16,13 +16,10 @@ TEST(ClientTest, InitializeInstance)
 
   zmq::context_t context{ 1 };
   EXPECT_TRUE(context);
-  EXPECT_NO_THROW([&]() {
-    ClientUnPtr client = std::make_unique<ZmqClient>(context, connectionSettings);
-    EXPECT_TRUE(client);
-  });
+  EXPECT_NO_THROW(std::make_unique<ZmqClient>(context, connectionSettings));
 }
 
-TEST(ClientTest, InitializeInstanceWithDefaultSettings)
+TEST(ClientTest, InitializeClientInstanceWithDefaultSettings)
 {
   ConnectionSettings connectionSettings;
   connectionSettings.port = 5555;
@@ -32,8 +29,5 @@ TEST(ClientTest, InitializeInstanceWithDefaultSettings)
 
   zmq::context_t context{ 1 };
   EXPECT_TRUE(context);
-  EXPECT_NO_THROW([&]() {
-    ClientUnPtr client = std::make_unique<ZmqClient>(context, connectionSettings);
-    EXPECT_TRUE(client);
-  });
+  EXPECT_NO_THROW(std::make_unique<ZmqClient>(context, connectionSettings));
 }
