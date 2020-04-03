@@ -7,7 +7,7 @@ namespace utils {
 class Log
 {
 public:
-  static void initialize();
+  static void initialize() noexcept;
 
   template<typename... Args>
   static void error(std::string_view fmt, const Args&... args)
