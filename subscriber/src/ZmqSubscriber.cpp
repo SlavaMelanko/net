@@ -10,9 +10,9 @@ ZmqSubscriber::ZmqSubscriber(zmq::context_t& context, std::string_view host, con
   : m_socket{ context, ZMQ_SUB }
 {
   const std::string address = fmt::format("tcp://{}:{}", host, port);
-  INFO("Subscriber is connecting to {}", address);
+  utils::Log::info("Subscriber is connecting to {}", address);
   m_socket.connect(address);
-  INFO("OK, subscriber is ready");
+  utils::Log::info("OK, subscriber is ready");
 }
 
 void ZmqSubscriber::subscribeTo(const std::string& topic)
@@ -30,7 +30,7 @@ std::string ZmqSubscriber::waitForNotification()
   const auto topic = s_recv(m_socket);
   const auto content = s_recv(m_socket);
 
-  INFO("{}: {}", topic, content);
+  utils::Log::info("{}: {}", topic, content);
 
   return content;
 }

@@ -23,7 +23,7 @@ ZmqClient::ZmqClient(zmq::context_t& context, const ConnectionSettings& connecti
 {
   setId(connectionSettings.id);
   connect(connectionSettings.host, connectionSettings.port);
-  INFO("OK, connection with server has been established");
+  utils::Log::info("OK, connection with server has been established");
 }
 
 std::string ZmqClient::send(const std::string& data)
@@ -42,7 +42,7 @@ std::string ZmqClient::send(const std::string& data)
 std::string ZmqClient::setId(const IdentityOpt& id)
 {
   const auto identity = id.value_or(GenerateRandomId());
-  INFO("Client ID is \"{}\"", identity);
+  utils::Log::info("Client ID is \"{}\"", identity);
   m_socket.setsockopt(ZMQ_IDENTITY, identity.c_str(), identity.length());
 
   return identity;
@@ -51,7 +51,7 @@ std::string ZmqClient::setId(const IdentityOpt& id)
 void ZmqClient::connect(std::string_view host, const uint16_t port)
 {
   const std::string address = fmt::format("tcp://{}:{}", host, port);
-  INFO("Client is connecting to {}", address);
+  utils::Log::info("Client is connecting to {}", address);
   m_socket.connect(address);
 }
 

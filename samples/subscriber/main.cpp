@@ -6,7 +6,7 @@
 
 int main()
 {
-  utils::InitLogging();
+  utils::Log::initialize();
 
   /**
    Please note, even if you start a subscriber, wait a while, and then start the publisher, the
@@ -25,7 +25,7 @@ int main()
       subscriber->waitForNotification();
     }
   } catch (const std::exception& e) {
-    ERROR(e.what());
+    utils::Log::error(e.what());
   }
 
   return 0;

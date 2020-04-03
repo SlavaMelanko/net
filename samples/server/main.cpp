@@ -6,7 +6,7 @@
 
 int main()
 {
-  utils::InitLogging();
+  utils::Log::initialize();
 
   try {
     zmq::context_t context{ 1 };
@@ -15,7 +15,7 @@ int main()
       server->run();
     }
   } catch (const std::exception& e) {
-    ERROR(e.what());
+    utils::Log::error(e.what());
   }
 
   return 0;

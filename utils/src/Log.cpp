@@ -4,9 +4,11 @@
 
 namespace utils {
 
-void InitLogging()
+namespace {
+void InitializeConsoleLogger(const std::string& channel)
 {
-  spdlog::stdout_color_mt("stdout");
+  spdlog::stdout_color_mt(channel);
+}
 }
 
 std::atomic_bool Log::m_initialized = false;
@@ -14,7 +16,7 @@ std::string Log::m_channel = "console";
 
 void Log::initialize()
 {
-  spdlog::stdout_color_mt(m_channel);
+  InitializeConsoleLogger(m_channel);
   m_initialized = true;
 }
 

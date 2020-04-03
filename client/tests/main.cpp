@@ -5,7 +5,7 @@
 class Environment : public testing::Environment
 {
 public:
-  void SetUp() override { utils::InitLogging(); }
+  void SetUp() override { utils::Log::initialize(); }
   void TearDown() override {}
 };
 

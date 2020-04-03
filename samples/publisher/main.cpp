@@ -8,7 +8,7 @@
 
 int main()
 {
-  utils::InitLogging();
+  utils::Log::initialize();
 
   try {
     zmq::context_t context{ 1 };
@@ -21,7 +21,7 @@ int main()
       std::this_thread::sleep_for(std::chrono::seconds{ 1 });
     }
   } catch (const std::exception& e) {
-    ERROR(e.what());
+    utils::Log::error(e.what());
   }
 
   return 0;
