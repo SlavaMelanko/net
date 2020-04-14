@@ -6,15 +6,22 @@
 
 #include <thread>
 
+net::ConnectionSettings GetDefaultConnectionSettings()
+{
+  net::ConnectionSettings connectionSettings;
+  connectionSettings.port = 5555;
+
+  return connectionSettings;
+}
+
 int main()
 {
   utils::Log::initialize();
 
   try {
     zmq::context_t context{ 1 };
-    net::ConnectionSettings connectionSettings;
-    connectionSettings.port = 5555;
-    net::ClientUnPtr client = std::make_unique<net::ZmqClient>(context, connectionSettings);
+    net::ClientUnPtr client =
+      std::make_unique<net::ZmqClient>(context, GetDefaultConnectionSettings());
 
     int i = 0;
     while (true) {
