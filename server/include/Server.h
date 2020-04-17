@@ -7,7 +7,7 @@ namespace net {
 class Server
 {
 public:
-  ~Server() noexcept = default;
+  virtual ~Server() noexcept = default;
 
   virtual void run() = 0;
 };
