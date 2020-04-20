@@ -93,10 +93,10 @@ inline static char* s_recv(void* socket, int flags = 0)
 }
 
 //  Receive 0MQ string from socket and convert into string
-inline static std::string s_recv(zmq::socket_t& socket, int flags = 0)
+inline static std::string s_recv(zmq::socket_t& socket, zmq::recv_flags flags = zmq::recv_flags::none)
 {
   zmq::message_t message;
-  socket.recv(&message, flags);
+  socket.recv(message, flags);
 
   return std::string(static_cast<char*>(message.data()), message.size());
 }
