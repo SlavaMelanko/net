@@ -22,16 +22,16 @@ int main(int argc, char* argv[])
 {
   utils::Log::initialize();
 
-  CLI::App app{ "Client sample" };
-
-  std::string id;
-  app.add_option("-i,--id", id);
-  uint32_t port{ 0 };
-  app.add_option("-p,--port", port)->check(CLI::PositiveNumber);
-
-  CLI11_PARSE(app, argc, argv);
-
   try {
+    CLI::App app{ "Client sample" };
+
+    std::string id;
+    app.add_option("-i,--id", id);
+    uint32_t port{ 0 };
+    app.add_option("-p,--port", port)->check(CLI::PositiveNumber);
+
+    CLI11_PARSE(app, argc, argv);
+
     zmq::context_t context{ 1 };
     net::ClientUnPtr client =
       std::make_unique<net::ZmqClient>(context, MakeConnectionSettings(id, port));
