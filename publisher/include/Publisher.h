@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 
 namespace net {
@@ -18,5 +19,7 @@ public:
    */
   virtual void broadcast(const std::string& data) = 0;
 };
+
+using PublisherUnPtr = std::unique_ptr<Publisher>;
 
 } // namespace net

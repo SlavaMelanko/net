@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 
 namespace net {
@@ -21,5 +22,7 @@ public:
    */
   virtual std::string waitForNotification() = 0;
 };
+
+using SubscriberUnPtr = std::unique_ptr<Subscriber>;
 
 } // namespace net
