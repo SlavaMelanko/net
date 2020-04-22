@@ -1,6 +1,5 @@
-#include <ZmqBroker.h>
-
 #include <Log.h>
+#include <ZmqBroker.h>
 
 #include <zhelpers.hpp>
 

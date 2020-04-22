@@ -1,6 +1,5 @@
-#include <ZmqServer.h>
-
 #include <Log.h>
+#include <ZmqServer.h>
 
 #include <zmq.hpp>
 

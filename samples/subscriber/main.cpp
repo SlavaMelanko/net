@@ -1,6 +1,5 @@
-#include "ZmqSubscriber.h"
-
 #include <Log.h>
+#include <ZmqSubscriber.h>
 
 #include <memory>
 

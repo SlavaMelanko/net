@@ -1,6 +1,5 @@
-#include "ZmqPublisher.h"
-
 #include <Log.h>
+#include <ZmqPublisher.h>
 
 #include <zmq.hpp>
 

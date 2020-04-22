@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
       const auto message{ "Message #" + std::to_string(++i) };
       const auto response = client->send(message);
       utils::Log::info("Response: \"{}\"", response);
-      std::this_thread::sleep_for(std::chrono::milliseconds{ 250 });
+      std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
     }
   } catch (const std::exception& e) {
     utils::Log::error(e.what());
