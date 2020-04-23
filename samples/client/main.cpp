@@ -19,7 +19,7 @@ net::ConnectionSettings MakeConnectionSettings(const std::string& id, const uint
 
 int main(int argc, char* argv[])
 {
-  utils::Log::initialize();
+  net::Log::initialize();
 
   try {
     CLI::App app{ "Client sample" };
@@ -39,11 +39,11 @@ int main(int argc, char* argv[])
     while (true) {
       const auto message{ "Message #" + std::to_string(++i) };
       const auto response = client->send(message);
-      utils::Log::info("Response: \"{}\"", response);
+      net::Log::info("Response: \"{}\"", response);
       std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
     }
   } catch (const std::exception& e) {
-    utils::Log::error(e.what());
+    net::Log::error(e.what());
   }
 
   return 0;
