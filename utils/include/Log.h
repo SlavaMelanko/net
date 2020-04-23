@@ -2,7 +2,7 @@
 
 #include <spdlog/spdlog.h>
 
-namespace utils {
+namespace net {
 
 class Log
 {
@@ -38,4 +38,4 @@ private:
   static std::atomic_bool m_initialized;
 };
 
-} // namespace utils
+} // namespace net

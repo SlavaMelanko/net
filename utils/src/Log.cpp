@@ -2,7 +2,7 @@
 
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-namespace utils {
+namespace net {
 
 namespace {
 
@@ -24,4 +24,4 @@ void Log::initialize() noexcept
   m_initialized = true;
 }
 
-} // namespace utils
+} // namespace net

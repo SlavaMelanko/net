@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <random>
 
-namespace utils {
+namespace net::utils {
 
 namespace {
 
@@ -43,4 +43,4 @@ std::string Randomizer::generateString(const size_t& length, const int literals)
   return str;
 }
 
-} // namespace utils
+} // namespace net::utils

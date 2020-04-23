@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace utils {
+namespace net::utils {
 
 class Randomizer
 {
@@ -20,4 +20,4 @@ public:
   static std::string generateString(const size_t& length, const int charset = Literals::Alnum);
 };
 
-} // namespace utils
+} // namespace net::utils
