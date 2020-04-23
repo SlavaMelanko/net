@@ -7,7 +7,7 @@
 
 int main(int argc, char* argv[])
 {
-  utils::Log::initialize();
+  net::Log::initialize();
 
   try {
     CLI::App app{ "Server sample" };
@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
       server->run();
     }
   } catch (const std::exception& e) {
-    utils::Log::error(e.what());
+    net::Log::error(e.what());
   }
 
   return 0;
