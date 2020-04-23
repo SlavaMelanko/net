@@ -9,11 +9,11 @@ namespace net {
 ZmqBroker::ZmqBroker(const uint32_t frontendPort, const uint32_t backendPort)
 {
   const auto frontendAddress = fmt::format("tcp://*:{}", frontendPort);
-  utils::Log::info("Binding frontend to {}", frontendAddress);
+  Log::info("Binding frontend to {}", frontendAddress);
   m_frontend.bind(frontendAddress);
 
   const auto backendAddress = fmt::format("tcp://*:{}", backendPort);
-  utils::Log::info("Binding backend to {}", backendAddress);
+  Log::info("Binding backend to {}", backendAddress);
   m_backend.bind(backendAddress);
 }
 
