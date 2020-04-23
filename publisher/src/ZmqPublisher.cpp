@@ -12,9 +12,9 @@ ZmqPublisher::ZmqPublisher(zmq::context_t& context, std::string_view host, const
   : m_socket{ context, ZMQ_PUB }
 {
   const std::string address = fmt::format("tcp://{}:{}", host, port);
-  utils::Log::info("Publisher is binding to {}", address);
+  Log::info("Publisher is binding to {}", address);
   m_socket.bind(address);
-  utils::Log::info("OK, publisher started successfully");
+  Log::info("OK, publisher started successfully");
 }
 
 void ZmqPublisher::sendOut(const std::string& topic, const std::string& data)
