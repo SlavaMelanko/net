@@ -5,7 +5,7 @@
 
 int main(int argc, char* argv[])
 {
-  utils::Log::initialize();
+  net::Log::initialize();
 
   try {
     CLI::App app{ "Worker sample" };
@@ -22,6 +22,6 @@ int main(int argc, char* argv[])
       worker->process();
     }
   } catch (const std::exception& e) {
-    utils::Log::error(e.what());
+    net::Log::error(e.what());
   }
 }
