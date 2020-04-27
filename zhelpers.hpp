@@ -137,31 +137,16 @@ inline static bool s_send(zmq::socket_t& socket, const std::string& string, int 
 }
 
 //  Sends string as 0MQ string, as multipart non-terminal
-inline static int s_sendmore(void* socket, char* string)
-{
-  int rc;
-  zmq_msg_t message;
-  zmq_msg_init_size(&message, strlen(string));
-  memcpy(zmq_msg_data(&message), string, strlen(string));
-  // rc = zmq_send(socket, string, strlen(string), ZMQ_SNDMORE);
-  rc = zmq_msg_send(&message, socket, ZMQ_SNDMORE);
-  assert(-1 != rc);
-  zmq_msg_close(&message);
-  return (rc);
-}
-
-//  Sends string as 0MQ string, as multipart non-terminal
 inline static bool s_sendmore(zmq::socket_t& socket, const std::string& string)
 {
   zmq::message_t message(string.size());
   memcpy(message.data(), string.data(), string.size());
 
-  bool rc = socket.send(message, ZMQ_SNDMORE);
-  return (rc);
+  auto rc = socket.send(message, zmq::send_flags::sndmore);
+  return (rc.value());
 }
 
 //  Receives all message parts from socket, prints neatly
-//
 inline static void s_dump(zmq::socket_t& socket)
 {
   std::cout << "----------------------------------------" << std::endl;
