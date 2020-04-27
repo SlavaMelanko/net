@@ -14,6 +14,8 @@ public:
   void run() override;
 
 private:
+  void handle();
+
   zmq::socket_t m_socket;
 };
 
