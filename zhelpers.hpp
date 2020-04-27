@@ -93,24 +93,14 @@ inline static char* s_recv(void* socket, int flags = 0)
 }
 
 //  Receive 0MQ string from socket and convert into string
-inline static std::string s_recv(zmq::socket_t& socket, zmq::recv_flags flags = zmq::recv_flags::none)
+inline static std::string s_recv(zmq::socket_t& socket,
+                                 zmq::recv_flags flags = zmq::recv_flags::none)
 {
+  zmq::recv_result_t rc;
   zmq::message_t message;
-  socket.recv(message, flags);
+  rc = socket.recv(message, flags);
 
   return std::string(static_cast<char*>(message.data()), message.size());
-}
-
-inline static bool s_recv(zmq::socket_t& socket, std::string& ostring, int flags = 0)
-{
-  zmq::message_t message;
-  bool rc = socket.recv(&message, flags);
-
-  if (rc) {
-    ostring = std::string(static_cast<char*>(message.data()), message.size());
-  }
-
-  return (rc);
 }
 
 //  Convert C string to 0MQ string and send to socket
@@ -127,13 +117,15 @@ inline static int s_send(void* socket, const char* string, int flags = 0)
 }
 
 //  Convert string to 0MQ string and send to socket
-inline static bool s_send(zmq::socket_t& socket, const std::string& string, int flags = 0)
+inline static bool s_send(zmq::socket_t& socket,
+                          const std::string& string,
+                          zmq::send_flags flags = zmq::send_flags::none)
 {
   zmq::message_t message(string.size());
   memcpy(message.data(), string.data(), string.size());
 
-  bool rc = socket.send(message, flags);
-  return (rc);
+  auto rc = socket.send(message, flags);
+  return (rc.value() > 0);
 }
 
 //  Sends string as 0MQ string, as multipart non-terminal
@@ -153,8 +145,9 @@ inline static void s_dump(zmq::socket_t& socket)
 
   while (1) {
     //  Process all parts of the message
+    zmq::recv_result_t rc;
     zmq::message_t message;
-    socket.recv(&message);
+    rc = socket.recv(message, zmq::recv_flags::none);
 
     //  Dump the message as text or binary
     size_t size = message.size();
@@ -195,8 +188,8 @@ inline static void s_dump(zmq::socket_t& socket)
 inline std::string s_set_id(zmq::socket_t& socket)
 {
   std::stringstream ss;
-  ss << std::hex << std::uppercase << std::setw(4) << std::setfill('0') << within(0x10000) << "-" << std::setw(4)
-     << std::setfill('0') << within(0x10000);
+  ss << std::hex << std::uppercase << std::setw(4) << std::setfill('0') << within(0x10000) << "-"
+     << std::setw(4) << std::setfill('0') << within(0x10000);
   socket.setsockopt(ZMQ_IDENTITY, ss.str().c_str(), ss.str().length());
   return ss.str();
 }
@@ -226,7 +219,8 @@ inline static void s_version_assert(int want_major, int want_minor)
   zmq_version(&major, &minor, &patch);
   if (major < want_major || (major == want_major && minor < want_minor)) {
     std::cout << "Current 0MQ version is " << major << "." << minor << std::endl;
-    std::cout << "Application needs at least " << want_major << "." << want_minor << " - cannot continue" << std::endl;
+    std::cout << "Application needs at least " << want_major << "." << want_minor
+              << " - cannot continue" << std::endl;
     exit(EXIT_FAILURE);
   }
 }
