@@ -15,6 +15,8 @@ ZmqBroker::ZmqBroker(const uint32_t frontendPort, const uint32_t backendPort)
   const auto backendAddress = fmt::format("tcp://*:{}", backendPort);
   Log::info("Binding backend to {}", backendAddress);
   m_backend.bind(backendAddress);
+
+  Log::info("OK, broker is launched");
 }
 
 void ZmqBroker::poll()
