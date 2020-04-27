@@ -22,7 +22,6 @@ int main(int argc, char* argv[])
     net::ZmqBroker broker{ frontendPort, backendPort };
 
     broker.poll();
-
   } catch (const std::exception& e) {
     net::Log::error(e.what());
   }
