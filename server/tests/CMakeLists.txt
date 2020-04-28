@@ -14,6 +14,13 @@ target_link_libraries(${PROJECT_NAME}
         net::server
 )
 
+target_link_options(${PROJECT_NAME}
+    PRIVATE
+        $<$<CXX_COMPILER_ID:MSVC>:
+            /ignore:4099 # warning LNK4099: PDB '.pdb' was not found ...
+        >
+)
+
 add_test(NAME server COMMAND ${PROJECT_NAME})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER tests)
