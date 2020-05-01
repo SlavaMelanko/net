@@ -12,8 +12,8 @@ option(ENABLE_TESTS "Enable unit tests" ON)
 option(BUILD_SAMPLES "Build provided samples" ON)
 option(ENABLE_COVERAGE "Enable coverage reporting" OFF)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
-conan_basic_setup(TARGETS)
+include(cmake/Conan.cmake)
+run_conan()
 
 # Code Coverage Configuration
 add_subdirectory(addons/codecov)

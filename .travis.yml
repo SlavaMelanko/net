@@ -90,8 +90,6 @@ install:
 before_script:
   - cd ${TRAVIS_BUILD_DIR}
   - mkdir -p build && cd build
-  - conan install .. --build missing -s build_type=Debug
-  - conan install .. --build missing -s build_type=Release
   - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DENABLE_COVERAGE=$ENABLE_COVERAGE
 
 script:
