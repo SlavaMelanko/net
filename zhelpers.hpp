@@ -36,61 +36,8 @@ typedef __int64 int64_t;
 #define random rand
 #endif
 
-// Visual Studio versions below 2015 do not support sprintf properly. This is a workaround.
-// Taken from http://stackoverflow.com/questions/2915672/snprintf-and-visual-studio-2010
-#if defined(_MSC_VER) && _MSC_VER < 1900
-
-#define snprintf c99_snprintf
-#define vsnprintf c99_vsnprintf
-
-inline int c99_vsnprintf(char* outBuf, size_t size, const char* format, va_list ap)
-{
-  int count = -1;
-
-  if (size != 0)
-    count = _vsnprintf_s(outBuf, size, _TRUNCATE, format, ap);
-  if (count == -1)
-    count = _vscprintf(format, ap);
-
-  return count;
-}
-
-inline int c99_snprintf(char* outBuf, size_t size, const char* format, ...)
-{
-  int count;
-  va_list ap;
-
-  va_start(ap, format);
-  count = c99_vsnprintf(outBuf, size, format, ap);
-  va_end(ap);
-
-  return count;
-}
-
-#endif
-
 //  Provide random number from 0..(num-1)
 #define within(num) (int)((float)((num)*random()) / (RAND_MAX + 1.0))
-
-//  Receive 0MQ string from socket and convert into C string
-//  Caller must free returned string.
-inline static char* s_recv(void* socket, int flags = 0)
-{
-  zmq_msg_t message;
-  zmq_msg_init(&message);
-
-  int rc = zmq_msg_recv(&message, socket, flags);
-
-  if (rc < 0)
-    return nullptr; //  Context terminated, exit
-
-  size_t size = zmq_msg_size(&message);
-  char* string = (char*)malloc(size + 1);
-  memcpy(string, zmq_msg_data(&message), size);
-  zmq_msg_close(&message);
-  string[size] = 0;
-  return (string);
-}
 
 //  Receive 0MQ string from socket and convert into string
 inline static std::string s_recv(zmq::socket_t& socket,
@@ -101,19 +48,6 @@ inline static std::string s_recv(zmq::socket_t& socket,
   rc = socket.recv(message, flags);
 
   return std::string(static_cast<char*>(message.data()), message.size());
-}
-
-//  Convert C string to 0MQ string and send to socket
-inline static int s_send(void* socket, const char* string, int flags = 0)
-{
-  int rc;
-  zmq_msg_t message;
-  zmq_msg_init_size(&message, strlen(string));
-  memcpy(zmq_msg_data(&message), string, strlen(string));
-  rc = zmq_msg_send(&message, socket, flags);
-  assert(-1 != rc);
-  zmq_msg_close(&message);
-  return (rc);
 }
 
 //  Convert string to 0MQ string and send to socket
@@ -179,33 +113,7 @@ inline static void s_dump(zmq::socket_t& socket)
   }
 }
 
-#if (!defined(WIN32))
-//  Set simple random printable identity on socket
-//  Caution:
-//    DO NOT call this version of s_set_id from multiple threads on MS Windows
-//    since s_set_id will call rand() on MS Windows. rand(), however, is not
-//    reentrant or thread-safe. See issue #521.
-inline std::string s_set_id(zmq::socket_t& socket)
-{
-  std::stringstream ss;
-  ss << std::hex << std::uppercase << std::setw(4) << std::setfill('0') << within(0x10000) << "-"
-     << std::setw(4) << std::setfill('0') << within(0x10000);
-  socket.setsockopt(ZMQ_IDENTITY, ss.str().c_str(), ss.str().length());
-  return ss.str();
-}
-#else
-// Fix #521
-inline std::string s_set_id(zmq::socket_t& socket, intptr_t id)
-{
-  std::stringstream ss;
-  ss << std::hex << std::uppercase << std::setw(4) << std::setfill('0') << id;
-  socket.setsockopt(ZMQ_IDENTITY, ss.str().c_str(), ss.str().length());
-  return ss.str();
-}
-#endif
-
 //  Report 0MQ version number
-//
 inline static void s_version(void)
 {
   int major, minor, patch;
@@ -270,31 +178,6 @@ inline static void s_console(const char* format, ...)
   vprintf(format, argptr);
   va_end(argptr);
   printf("\n");
-}
-
-//  ---------------------------------------------------------------------
-//  Signal handling
-//
-//  Call s_catch_signals() in your application at startup, and then exit
-//  your main loop if s_interrupted is ever 1. Works especially well with
-//  zmq_poll.
-
-static int s_interrupted = 0;
-inline static void s_signal_handler(int signal_value)
-{
-  s_interrupted = 1;
-}
-
-inline static void s_catch_signals()
-{
-#if (!defined(WIN32))
-  struct sigaction action;
-  action.sa_handler = s_signal_handler;
-  action.sa_flags = 0;
-  sigemptyset(&action.sa_mask);
-  sigaction(SIGINT, &action, NULL);
-  sigaction(SIGTERM, &action, NULL);
-#endif
 }
 
 #endif
