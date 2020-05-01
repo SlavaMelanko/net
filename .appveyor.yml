@@ -27,8 +27,6 @@ build:
 
 before_build:
   - mkdir -p build && cd build
-  - conan install .. --build missing -s build_type=Debug
-  - conan install .. --build missing -s build_type=Release
   - cmake -G "Visual Studio 16 2019" -A x64 ..
 
 build_script:

@@ -32,20 +32,6 @@ CheckError "Failed to make the build directory."
 
 cd ${BUILD_DIR}
 
-PrintInfoMsg "[Conan] Downloading third-party packages..."
-
-conan install \
-    --build missing \
-    -s build_type=Debug \
-    ..
-
-conan install \
-    --build missing \
-    -s build_type=Release \
-    ..
-
-CheckError "[Conan] Failed to download and install required packages."
-
 PrintInfoMsg "[CMake] Generating the project..."
 cmake \
     -G Xcode \
