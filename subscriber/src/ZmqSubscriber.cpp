@@ -15,6 +15,10 @@ ZmqSubscriber::ZmqSubscriber(zmq::context_t& context, std::string_view host, con
   Log::info("OK, subscriber is ready");
 }
 
+ZmqSubscriber::ZmqSubscriber(zmq::context_t& context, const uint16_t port)
+  : ZmqSubscriber{ context, "127.0.0.1", port }
+{}
+
 void ZmqSubscriber::subscribeTo(const std::string& topic)
 {
   m_socket.setsockopt(ZMQ_SUBSCRIBE, topic.c_str(), topic.size());

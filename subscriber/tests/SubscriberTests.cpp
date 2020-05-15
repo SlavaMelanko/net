@@ -9,7 +9,7 @@ using namespace net;
 class SubscriberTest : public testing::Test
 {
 protected:
-  void SetUp() { subscriber = std::make_unique<ZmqSubscriber>(context, "localhost", 5555); }
+  void SetUp() { subscriber = std::make_unique<ZmqSubscriber>(context, 5555); }
   void TearDown() {}
 
   zmq::context_t context{ 1 };

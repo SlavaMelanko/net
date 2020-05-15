@@ -10,6 +10,7 @@ class ZmqSubscriber : public Subscriber
 {
 public:
   ZmqSubscriber(zmq::context_t& context, std::string_view host, const uint16_t port);
+  ZmqSubscriber(zmq::context_t& context, const uint16_t port);
 
   void subscribeTo(const std::string& topic) override;
   void subscribeToAllTopics() override;
