@@ -19,10 +19,9 @@ TEST(ClientTest, InitializeInstance)
   EXPECT_NO_THROW(std::make_unique<ZmqClient>(context, connectionSettings));
 }
 
-TEST(ClientTest, InitializeInstanceWithDefaultSettings)
+TEST(ClientTest, InitializeInstanceWithMakeConnectionSettings)
 {
-  ConnectionSettings connectionSettings;
-  connectionSettings.port = 5555;
+  auto connectionSettings = MakeConnectionSettings(5555);
   EXPECT_FALSE(connectionSettings.id.has_value());
   EXPECT_EQ(connectionSettings.host, "localhost");
   EXPECT_EQ(connectionSettings.port, 5555);

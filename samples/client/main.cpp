@@ -7,16 +7,6 @@
 
 #include <thread>
 
-net::ConnectionSettings MakeConnectionSettings(const std::string& id, const uint32_t port)
-{
-  net::ConnectionSettings connectionSettings;
-  if (!id.empty())
-    connectionSettings.id = id;
-  connectionSettings.port = port;
-
-  return connectionSettings;
-}
-
 int main(int argc, char* argv[])
 {
   net::Log::initialize();
@@ -33,7 +23,7 @@ int main(int argc, char* argv[])
 
     zmq::context_t context{ 1 };
     net::ClientUnPtr client =
-      std::make_unique<net::ZmqClient>(context, MakeConnectionSettings(id, port));
+      std::make_unique<net::ZmqClient>(context, net::MakeConnectionSettings(id, port));
 
     int i = 0;
     while (true) {

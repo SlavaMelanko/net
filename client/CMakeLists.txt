@@ -10,6 +10,7 @@ target_sources(${PROJECT_NAME}
         include/Client.h
         include/ConnectionSettings.h
         include/ZmqClient.h
+        src/ConnectionSettings.cpp
         src/ZmqClient.cpp
 )
 
