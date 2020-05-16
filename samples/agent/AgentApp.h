@@ -2,8 +2,7 @@
 
 #include <zmq.hpp>
 
-class NotificationConnection;
-class PayloadConnection;
+class Connection;
 
 class AgentApp
 {
@@ -23,6 +22,6 @@ private:
   uint32_t m_publisherPort;
 
   zmq::context_t m_context{ 1 };
-  std::unique_ptr<PayloadConnection> m_payloadConnection;
-  std::unique_ptr<NotificationConnection> m_notificationConnection;
+  std::unique_ptr<Connection> m_payloadConnection;
+  std::unique_ptr<Connection> m_notificationConnection;
 };

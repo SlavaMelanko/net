@@ -5,6 +5,7 @@ project(agent-sample CXX)
 add_executable(${PROJECT_NAME}
     AgentApp.cpp
     AgentApp.h
+    Connection.h
     main.cpp
     NotificationConnection.cpp
     NotificationConnection.h
