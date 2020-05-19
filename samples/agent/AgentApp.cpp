@@ -39,7 +39,7 @@ bool AgentApp::parseArguments(int argc, char* argv[])
     // Parse client connection setting.
     app.add_option("-i,--id", m_id);
     app.add_option("-s,--service-port", m_servicePort)->check(CLI::PositiveNumber);
-    // And publisher settings.
+    // And subscriber settings.
     app.add_option("-p,--publisher-port", m_publisherPort)->check(CLI::PositiveNumber);
 
     app.parse(argc, argv);
