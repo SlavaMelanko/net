@@ -19,7 +19,10 @@ App::~App()
   m_context.close();
 }
 
-void App::run() {}
+void App::run()
+{
+  m_service->run();
+}
 
 void App::initializeLogging()
 {
