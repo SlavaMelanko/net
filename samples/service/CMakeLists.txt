@@ -3,9 +3,11 @@ cmake_minimum_required(VERSION 3.16.0)
 project(service-sample CXX)
 
 add_executable(${PROJECT_NAME}
-    ServiceApp.cpp
-    ServiceApp.h
+    App.cpp
+    App.h
     main.cpp
+    Service.cpp
+    Service.h
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)

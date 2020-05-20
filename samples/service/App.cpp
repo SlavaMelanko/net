@@ -1,31 +1,38 @@
-#include "ServiceApp.h"
+#include "App.h"
+
+#include "Service.h"
 
 #include <Log.h>
 
 #include <CLI/CLI.hpp>
 
-ServiceApp::ServiceApp(int argc, char* argv[])
+App::App(int argc, char* argv[])
 {
   initializeLogging();
   if (!parseArguments(argc, argv))
     throw std::runtime_error{ "Unable to parse arguments" };
-  initializeConnections();
+  bind();
 }
 
-void ServiceApp::run() {}
+App::~App()
+{
+  m_context.close();
+}
 
-void ServiceApp::initializeLogging()
+void App::run() {}
+
+void App::initializeLogging()
 {
   net::Log::initialize();
 }
 
-bool ServiceApp::parseArguments(int argc, char* argv[])
+bool App::parseArguments(int argc, char* argv[])
 {
   try {
-    CLI::App app{ "Agent app sample" };
+    CLI::App app{ "Service app sample" };
 
     // Parse server binding setting.
-    app.add_option("-s,--service-port", m_servicePort)->check(CLI::PositiveNumber);
+    app.add_option("-s,--server-port", m_serverPort)->check(CLI::PositiveNumber);
     // And publisher settings.
     app.add_option("-p,--publisher-port", m_publisherPort)->check(CLI::PositiveNumber);
 
@@ -38,4 +45,7 @@ bool ServiceApp::parseArguments(int argc, char* argv[])
   return true;
 }
 
-void ServiceApp::initializeConnections() {}
+void App::bind()
+{
+  m_service = std::make_unique<Service>(m_context, "127.0.0.1", m_serverPort);
+}
