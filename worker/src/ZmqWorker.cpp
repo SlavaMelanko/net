@@ -10,9 +10,9 @@ ZmqWorker::ZmqWorker(zmq::context_t& context, std::string_view host, const uint1
   : m_socket{ context, ZMQ_REP }
 {
   const std::string address = fmt::format("tcp://{}:{}", host, port);
-  Log::info("Connecting to {}", address);
+  Log::info("Worker is connecting to {}", address);
   m_socket.connect(address);
-  Log::info("OK, ready for work");
+  Log::info("OK, worker is ready");
 }
 
 ZmqWorker::ZmqWorker(zmq::context_t& context, const uint16_t port)
