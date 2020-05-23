@@ -6,8 +6,7 @@
 
 Publisher::Publisher(zmq::context_t& context, std::string_view host, const uint16_t port)
   : m_publisher{ std::make_unique<net::ZmqPublisher>(context, host, port) }
-{
-}
+{}
 
 Publisher::~Publisher()
 {
@@ -31,6 +30,7 @@ void Publisher::process()
     } catch (zmq::error_t& e) {
       net::Log::error(e.what());
       if (e.num() == ETERM)
-        break;    }
+        break;
+    }
   }
 }
