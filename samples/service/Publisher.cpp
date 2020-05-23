@@ -29,7 +29,7 @@ void Publisher::process()
       m_publisher->broadcast(message);
       std::this_thread::sleep_for(std::chrono::seconds{ 2 });
     } catch (zmq::error_t& e) {
-      Log::error(e.what());
+      net::Log::error(e.what());
       if (e.num() == ETERM)
         break;    }
   }
