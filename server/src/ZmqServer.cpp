@@ -10,9 +10,9 @@ ZmqServer::ZmqServer(zmq::context_t& context, std::string_view host, const uint1
   : m_socket{ context, ZMQ_ROUTER }
 {
   const std::string address = fmt::format("tcp://{}:{}", host, port);
-  Log::info("Binding to {}", address);
+  Log::info("Server is binding to {}", address);
   m_socket.bind(address);
-  Log::info("OK, listening for incoming connection requests");
+  Log::info("OK, server started to listen for incoming requests");
 }
 
 void ZmqServer::run()
