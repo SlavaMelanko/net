@@ -8,11 +8,11 @@ namespace net {
 class Server;
 }
 
-class Service
+class Server
 {
 public:
-  Service(zmq::context_t& context, std::string_view host, const uint32_t port);
-  ~Service();
+  Server(zmq::context_t& context, std::string_view host, const uint32_t port);
+  ~Server();
 
   void run();
 
