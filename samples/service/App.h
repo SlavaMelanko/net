@@ -2,7 +2,8 @@
 
 #include <zmq.hpp>
 
-class Service;
+class Publisher;
+class Server;
 
 class App
 {
@@ -21,5 +22,6 @@ private:
   uint32_t m_publisherPort;
 
   zmq::context_t m_context{ 1 };
-  std::unique_ptr<Service> m_service;
+  std::unique_ptr<Server> m_server;
+  std::unique_ptr<Publisher> m_publisher;
 };

@@ -1,6 +1,7 @@
 #include "App.h"
 
-#include "Service.h"
+#include "Publisher.h"
+#include "Server.h"
 
 #include <Log.h>
 
@@ -21,7 +22,8 @@ App::~App()
 
 void App::run()
 {
-  m_service->run();
+  m_server->run();
+  m_publisher->run();
 }
 
 void App::initializeLogging()
@@ -50,5 +52,6 @@ bool App::parseArguments(int argc, char* argv[])
 
 void App::bind()
 {
-  m_service = std::make_unique<Service>(m_context, "127.0.0.1", m_serverPort);
+  m_server = std::make_unique<Server>(m_context, "127.0.0.1", m_serverPort);
+  m_publisher = std::make_unique<Publisher>(m_context, "127.0.0.1", m_publisherPort);
 }

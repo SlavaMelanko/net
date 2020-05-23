@@ -6,8 +6,10 @@ add_executable(${PROJECT_NAME}
     App.cpp
     App.h
     main.cpp
-    Service.cpp
-    Service.h
+    Publisher.cpp
+    Publisher.h
+    Server.cpp
+    Server.h
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
