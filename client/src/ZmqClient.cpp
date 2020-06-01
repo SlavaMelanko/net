@@ -23,7 +23,7 @@ ZmqClient::ZmqClient(zmq::context_t& context, const ConnectionSettings& connecti
 {
   setId(connectionSettings.id);
   connect(connectionSettings.host, connectionSettings.port);
-  Log::info("OK, connection with server has been established");
+  Log::info("OK, client's connection with server has been established");
 }
 
 std::string ZmqClient::send(const std::string& data)

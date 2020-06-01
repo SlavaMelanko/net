@@ -4,57 +4,26 @@
 
 #include <zhelpers.hpp>
 
-#include <signal.h>
-
 namespace net {
-
-namespace {
-
-static int s_interrupted = 0;
-
-void HandleSignal(int signal)
-{
-  s_interrupted = 1;
-}
-
-void SetUpCatchSignals()
-{
-#ifdef _WIN32
-  signal(SIGINT, HandleSignal);
-  signal(SIGTERM, HandleSignal);
-#else
-  struct sigaction action;
-  action.sa_handler = HandleSignal;
-  action.sa_flags = 0;
-  sigemptyset(&action.sa_mask);
-  sigaction(SIGINT, &action, NULL);
-  sigaction(SIGTERM, &action, NULL);
-#endif
-}
-
-} // namespace
 
 ZmqServer::ZmqServer(zmq::context_t& context, std::string_view host, const uint16_t port)
   : m_socket{ context, ZMQ_ROUTER }
 {
   const std::string address = fmt::format("tcp://{}:{}", host, port);
-  Log::info("Binding to {}", address);
+  Log::info("Server is binding to {}", address);
   m_socket.bind(address);
-  Log::info("OK, listening for incoming connection requests");
+  Log::info("OK, server started to listen for incoming requests");
 }
 
 void ZmqServer::run()
 {
-  SetUpCatchSignals();
-
   while (true) {
     try {
       handle();
     } catch (zmq::error_t& e) {
       Log::error(e.what());
-    }
-    if (s_interrupted) {
-      break;
+      if (e.num() == ETERM)
+        break;
     }
   }
 }
