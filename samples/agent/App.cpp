@@ -1,4 +1,4 @@
-#include "AgentApp.h"
+#include "App.h"
 
 #include "NotificationConnection.h"
 #include "PayloadConnection.h"
@@ -7,7 +7,7 @@
 
 #include <CLI/CLI.hpp>
 
-AgentApp::AgentApp(int argc, char* argv[])
+App::App(int argc, char* argv[])
 {
   initializeLogging();
   if (!parseArguments(argc, argv))
@@ -15,23 +15,23 @@ AgentApp::AgentApp(int argc, char* argv[])
   initializeConnections();
 }
 
-AgentApp::~AgentApp() noexcept
+App::~App() noexcept
 {
   m_context.close();
 }
 
-void AgentApp::run()
+void App::run()
 {
   m_payloadConnection->run();
   m_notificationConnection->run();
 }
 
-void AgentApp::initializeLogging()
+void App::initializeLogging()
 {
   net::Log::initialize();
 }
 
-bool AgentApp::parseArguments(int argc, char* argv[])
+bool App::parseArguments(int argc, char* argv[])
 {
   try {
     CLI::App app{ "Agent app sample" };
@@ -51,7 +51,7 @@ bool AgentApp::parseArguments(int argc, char* argv[])
   return true;
 }
 
-void AgentApp::initializeConnections()
+void App::initializeConnections()
 {
   m_payloadConnection = std::make_unique<PayloadConnection>(m_context, m_id, m_servicePort);
   m_notificationConnection = std::make_unique<NotificationConnection>(m_context, m_publisherPort);

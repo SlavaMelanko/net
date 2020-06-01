@@ -4,11 +4,11 @@
 
 class Connection;
 
-class AgentApp
+class App
 {
 public:
-  AgentApp(int argc, char* argv[]);
-  ~AgentApp() noexcept;
+  App(int argc, char* argv[]);
+  ~App() noexcept;
 
   void run();
 

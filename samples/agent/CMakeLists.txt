@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.16.0)
 project(agent-sample CXX)
 
 add_executable(${PROJECT_NAME}
-    AgentApp.cpp
-    AgentApp.h
+    App.cpp
+    App.h
     Connection.h
     main.cpp
     NotificationConnection.cpp
