@@ -9,7 +9,7 @@ All samples must be located in `net/build/bin` directory.
 ./client-sample -i test -p 5555
 ```
 
-In order to analyze protocol more detailed use [Wireshark](https://www.wireshark.org/), for example for localhost setup (macOS),
+In order to analyze protocol more detailed use [Wireshark](https://www.wireshark.org/), for example for localhost setup (macOS)
 
 - Select [virtual loopback interface](https://wiki.wireshark.org/CaptureSetup/Loopback) from capturing list.
 More specifically name must be `Loopback: loO`.
@@ -22,7 +22,7 @@ More specifically name must be `Loopback: loO`.
 ./subscriber-sample -p 5555
 ```
 
-## Broker
+## Client/Server pattern with Broker
 
 ```bash
 ./broker-sample -f 5559 -b 5560
