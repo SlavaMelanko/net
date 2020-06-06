@@ -28,8 +28,8 @@ public:
    * @brief Enqueues notification message.
    *
    * @param message Notification data to be sent.
-   * @param topic Topic name where to send out a notification message.
-   *              If it is empty - notification is broadcasted to all subscribers.
+   * @param topic   Topic name where to send out a notification message.
+   *                If it is empty, notification will be broadcasted to all subscribers.
    *
    * @return true if notification message has been enqueued successfully, otherwise - false.
    */
