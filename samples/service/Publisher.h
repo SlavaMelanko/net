@@ -38,7 +38,7 @@ public:
 private:
   void process();
 
-  std::atomic_bool m_running{ false };
+  std::atomic_bool m_running;
   moodycamel::BlockingConcurrentQueue<Notification> m_queue;
   std::unique_ptr<net::Publisher> m_publisher;
   std::thread m_thread;

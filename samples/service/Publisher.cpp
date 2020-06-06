@@ -5,7 +5,8 @@
 #include <Log.h>
 
 Publisher::Publisher(zmq::context_t& context, std::string_view host, const uint16_t port)
-  : m_queue{}
+  : m_running{ false }
+  , m_queue{}
   , m_publisher{ std::make_unique<net::ZmqPublisher>(context, host, port) }
 {}
 
