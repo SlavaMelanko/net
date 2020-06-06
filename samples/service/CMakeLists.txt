@@ -17,6 +17,7 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
         CONAN_PKG::CLI11
+        CONAN_PKG::concurrentqueue
         CONAN_PKG::cppzmq
         CONAN_PKG::fmt
         CONAN_PKG::spdlog
