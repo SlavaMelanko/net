@@ -13,7 +13,7 @@ protected:
   void TearDown() {}
 
   zmq::context_t context{ 1 };
-  std::unique_ptr<Publisher> publisher;
+  PublisherUnPtr publisher;
 };
 
 TEST_F(PublisherTest, InitializeInstance)

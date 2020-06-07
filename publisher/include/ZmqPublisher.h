@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Publisher.h"
+#include "IPublisher.h"
 
 #include <zmq.hpp>
 
 namespace net {
 
-class ZmqPublisher : public Publisher
+class ZmqPublisher : public IPublisher
 {
 public:
   ZmqPublisher(zmq::context_t& context, std::string_view host, const uint16_t port);

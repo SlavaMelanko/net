@@ -7,7 +7,7 @@
 #include <thread>
 
 namespace net {
-class Publisher;
+class IPublisher;
 }
 
 class Publisher
@@ -41,6 +41,6 @@ private:
 
   std::atomic_bool m_running;
   moodycamel::BlockingConcurrentQueue<Notification> m_queue;
-  std::unique_ptr<net::Publisher> m_publisher;
+  std::unique_ptr<net::IPublisher> m_publisher;
   std::thread m_thread;
 };

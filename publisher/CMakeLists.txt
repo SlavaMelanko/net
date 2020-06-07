@@ -7,7 +7,7 @@ add_library(net::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME}
     PRIVATE
-        include/Publisher.h
+        include/IPublisher.h
         include/ZmqPublisher.h
         src/ZmqPublisher.cpp
 )
