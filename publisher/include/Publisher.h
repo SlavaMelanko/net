@@ -2,6 +2,7 @@
 
 #include <zmq.hpp>
 
+#include <atomic>
 #include <thread>
 
 namespace net {
