@@ -2,13 +2,14 @@
 
 #include <zmq.hpp>
 
-#include <moodycamel/blockingconcurrentqueue.h>
-
 #include <thread>
 
 namespace net {
 
 class IPublisher;
+
+template<class T>
+class ConcurrentQueue;
 
 class Publisher
 {
@@ -30,7 +31,7 @@ public:
    *
    * @param message Notification data to be sent.
    * @param topic Topic name where to send out a notification message.
-   *             If it is empty, notification will be broadcasted to all subscribers.
+   *              If it is empty, notification will be broadcasted to all subscribers.
    *
    * @return true if notification message has been enqueued successfully, otherwise - false.
    */
@@ -40,8 +41,8 @@ private:
   void process();
 
   std::atomic_bool m_running;
-  moodycamel::BlockingConcurrentQueue<Notification> m_queue;
-  std::unique_ptr<net::IPublisher> m_publisher;
+  std::unique_ptr<ConcurrentQueue<Notification>> m_queue;
+  std::unique_ptr<IPublisher> m_publisher;
   std::thread m_thread;
 };
 
