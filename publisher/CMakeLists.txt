@@ -8,7 +8,9 @@ add_library(net::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_sources(${PROJECT_NAME}
     PRIVATE
         include/IPublisher.h
+        include/Publisher.h
         include/ZmqPublisher.h
+        src/Publisher.cpp
         src/ZmqPublisher.cpp
 )
 
@@ -22,6 +24,7 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
+        CONAN_PKG::concurrentqueue
         CONAN_PKG::cppzmq
         net::utils
     PRIVATE
