@@ -12,7 +12,7 @@ protected:
   void TearDown() {}
 
   zmq::context_t context{ 1 };
-  PublisherUnPtr publisher;
+  net::PublisherUnPtr publisher;
 };
 
 TEST_F(ZmqPublisherTest, InitializeInstance)
