@@ -6,7 +6,7 @@ using namespace net;
 
 #include <memory>
 
-class PublisherTest : public testing::Test
+class ZmqPublisher : public testing::Test
 {
 protected:
   void SetUp() { publisher = std::make_unique<ZmqPublisher>(context, "127.0.0.1", 5555); }
@@ -16,18 +16,18 @@ protected:
   PublisherUnPtr publisher;
 };
 
-TEST_F(PublisherTest, InitializeInstance)
+TEST_F(ZmqPublisher, InitializeInstance)
 {
   EXPECT_TRUE(context);
 }
 
-TEST_F(PublisherTest, SubscribeToTopic)
+TEST_F(ZmqPublisher, SubscribeToTopic)
 {
   EXPECT_TRUE(context);
   EXPECT_NO_THROW(publisher->sendOut("notification", "hey there"));
 }
 
-TEST_F(PublisherTest, SubscribeToAllTopic)
+TEST_F(ZmqPublisher, SubscribeToAllTopic)
 {
   EXPECT_TRUE(context);
   EXPECT_NO_THROW(publisher->broadcast("hey there"));
