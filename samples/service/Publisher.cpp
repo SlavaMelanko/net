@@ -17,7 +17,8 @@ Publisher::~Publisher()
 
 void Publisher::run()
 {
-  if (m_running) return;
+  if (m_running)
+    return;
 
   m_running = true;
 
@@ -26,7 +27,8 @@ void Publisher::run()
 
 void Publisher::stop()
 {
-  if (!m_running) return;
+  if (!m_running)
+    return;
 
   m_running = false;
 
@@ -49,7 +51,8 @@ void Publisher::process()
       Notification notification;
       m_queue.wait_dequeue(notification);
 
-      if (!m_running) break;
+      if (!m_running)
+        break;
 
       if (notification.topic.empty())
         m_publisher->broadcast(notification.message);
