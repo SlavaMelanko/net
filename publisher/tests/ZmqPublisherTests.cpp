@@ -20,13 +20,13 @@ TEST_F(ZmqPublisherTest, InitializeInstance)
   EXPECT_TRUE(context);
 }
 
-TEST_F(ZmqPublisherTest, SubscribeToTopic)
+TEST_F(ZmqPublisherTest, PublishMessageToSpecificTopic)
 {
   EXPECT_TRUE(context);
   EXPECT_NO_THROW(publisher->sendOut("notification", "hey there"));
 }
 
-TEST_F(ZmqPublisherTest, SubscribeToAllTopic)
+TEST_F(ZmqPublisherTest, BroadcastMessage)
 {
   EXPECT_TRUE(context);
   EXPECT_NO_THROW(publisher->broadcast("hey there"));
