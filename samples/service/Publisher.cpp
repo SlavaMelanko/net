@@ -12,13 +12,7 @@ Publisher::Publisher(zmq::context_t& context, std::string_view host, const uint1
 
 Publisher::~Publisher()
 {
-  m_running = false;
-
-  if (m_queue.size_approx() == 0)
-    m_queue.enqueue({});
-
-  if (m_thread.joinable())
-    m_thread.join();
+  stop();
 }
 
 void Publisher::run()
@@ -28,6 +22,19 @@ void Publisher::run()
   m_running = true;
 
   m_thread = std::thread{ &Publisher::process, this };
+}
+
+void Publisher::stop()
+{
+  if (!m_running) return;
+
+  m_running = false;
+
+  if (m_queue.size_approx() == 0)
+    m_queue.enqueue({});
+
+  if (m_thread.joinable())
+    m_thread.join();
 }
 
 bool Publisher::push(std::string_view message, std::string_view topic)

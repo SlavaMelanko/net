@@ -23,6 +23,7 @@ public:
   ~Publisher();
 
   void run();
+  void stop();
 
   /**
    * @brief Enqueues notification message.
