@@ -2,14 +2,13 @@
 #include <gtest/gtest.h>
 
 #include <ZmqPublisher.h>
-using namespace net;
 
 #include <memory>
 
 class ZmqPublisherTest : public testing::Test
 {
 protected:
-  void SetUp() { publisher = std::make_unique<ZmqPublisher>(context, "127.0.0.1", 5555); }
+  void SetUp() { publisher = std::make_unique<net::ZmqPublisher>(context, "127.0.0.1", 5555); }
   void TearDown() {}
 
   zmq::context_t context{ 1 };
