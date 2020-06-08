@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Server.h"
+#include "IServer.h"
 
 #include <zmq.hpp>
 
 namespace net {
 
-class ZmqServer : public Server
+class ZmqServer : public IServer
 {
 public:
   ZmqServer(zmq::context_t& context, std::string_view host, const uint16_t port);
