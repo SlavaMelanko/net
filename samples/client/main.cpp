@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     CLI11_PARSE(app, argc, argv);
 
     zmq::context_t context{ 1 };
-    net::ClientUnPtr client =
+    std::unique_ptr<net::IClient> client =
       std::make_unique<net::ZmqClient>(context, net::MakeConnectionSettings(id, port));
 
     int i = 0;

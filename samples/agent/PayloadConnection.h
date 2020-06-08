@@ -7,7 +7,7 @@
 #include <thread>
 
 namespace net {
-class Client;
+class IClient;
 }
 
 class PayloadConnection : public Connection
@@ -21,6 +21,6 @@ public:
 private:
   void process() override;
 
-  std::unique_ptr<net::Client> m_client;
+  std::unique_ptr<net::IClient> m_client;
   std::thread m_thread;
 };

@@ -1,18 +1,15 @@
 #pragma once
 
-#include <memory>
 #include <string>
 
 namespace net {
 
-class Client
+class IClient
 {
 public:
-  virtual ~Client() noexcept = default;
+  virtual ~IClient() noexcept = default;
 
   virtual std::string send(const std::string& data) = 0;
 };
-
-using ClientUnPtr = std::unique_ptr<Client>;
 
 } // namespace net
