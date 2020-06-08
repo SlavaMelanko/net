@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
     CLI11_PARSE(app, argc, argv);
 
     zmq::context_t context{ 1 };
-    net::SubscriberUnPtr subscriber = std::make_unique<net::ZmqSubscriber>(context, host, port);
+    std::unique_ptr<net::ISubscriber> subscriber = std::make_unique<net::ZmqSubscriber>(context, host, port);
     subscriber->subscribeToAllTopics();
 
     while (true) {

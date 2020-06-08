@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Subscriber.h"
+#include "ISubscriber.h"
 
 #include <zmq.hpp>
 
 namespace net {
 
-class ZmqSubscriber : public Subscriber
+class ZmqSubscriber : public ISubscriber
 {
 public:
   ZmqSubscriber(zmq::context_t& context, std::string_view host, const uint16_t port);
