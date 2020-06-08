@@ -2,10 +2,10 @@
 
 namespace net {
 
-class Broker
+class IBroker
 {
 public:
-  virtual ~Broker() noexcept = default;
+  virtual ~IBroker() noexcept = default;
 
   virtual void poll() = 0;
 };
