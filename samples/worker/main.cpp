@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
     CLI11_PARSE(app, argc, argv);
 
     zmq::context_t context{ 1 };
-    net::WorkerUnPtr worker = std::make_unique<net::ZmqWorker>(context, port);
+    std::unique_ptr<net::IWorker> worker = std::make_unique<net::ZmqWorker>(context, port);
 
     while (true) {
       worker->process();
