@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Worker.h"
+#include "IWorker.h"
 
 #include <zmq.hpp>
 
 namespace net {
 
-class ZmqWorker : public Worker
+class ZmqWorker : public IWorker
 {
 public:
   ZmqWorker(zmq::context_t& context, std::string_view host, const uint16_t port);

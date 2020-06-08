@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Client.h"
 #include "ConnectionSettings.h"
+#include "IClient.h"
 
 #include <zmq.hpp>
 
 namespace net {
 
-class ZmqClient : public Client
+class ZmqClient : public IClient
 {
 public:
   ZmqClient(zmq::context_t& context, const ConnectionSettings& connectionSettings);

@@ -13,7 +13,7 @@ protected:
   void TearDown() {}
 
   zmq::context_t context{ 1 };
-  std::unique_ptr<Subscriber> subscriber;
+  std::unique_ptr<ISubscriber> subscriber;
 };
 
 TEST_F(SubscriberTest, InitializeInstance)

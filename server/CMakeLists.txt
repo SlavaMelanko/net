@@ -7,7 +7,7 @@ add_library(net::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME}
     PRIVATE
-        include/Server.h
+        include/IServer.h
         include/ZmqServer.h
         src/ZmqServer.cpp
 )

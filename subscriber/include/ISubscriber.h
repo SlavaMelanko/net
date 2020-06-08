@@ -1,14 +1,13 @@
 #pragma once
 
-#include <memory>
 #include <string>
 
 namespace net {
 
-class Subscriber
+class ISubscriber
 {
 public:
-  virtual ~Subscriber() noexcept = default;
+  virtual ~ISubscriber() noexcept = default;
 
   /**
    @brief Subscribes to the specified publisher's topic.
@@ -22,7 +21,5 @@ public:
    */
   virtual std::string waitForNotification() = 0;
 };
-
-using SubscriberUnPtr = std::unique_ptr<Subscriber>;
 
 } // namespace net

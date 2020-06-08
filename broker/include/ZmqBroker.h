@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Broker.h"
+#include "IBroker.h"
 
 #include <zmq.hpp>
 
 namespace net {
 
-class ZmqBroker : public Broker
+class ZmqBroker : public IBroker
 {
 public:
   ZmqBroker(const uint32_t frontendPort, const uint32_t backendPort);

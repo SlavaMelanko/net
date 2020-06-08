@@ -7,7 +7,7 @@
 #include <thread>
 
 namespace net {
-class Subscriber;
+class ISubscriber;
 }
 
 class NotificationConnection : public Connection
@@ -21,6 +21,6 @@ public:
 private:
   void process() override;
 
-  std::unique_ptr<net::Subscriber> m_subscriber;
+  std::unique_ptr<net::ISubscriber> m_subscriber;
   std::thread m_thread;
 };
