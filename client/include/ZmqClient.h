@@ -1,7 +1,7 @@
 #pragma once
 
-#include "IClient.h"
 #include "ConnectionSettings.h"
+#include "IClient.h"
 
 #include <zmq.hpp>
 
