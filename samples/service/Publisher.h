@@ -2,8 +2,6 @@
 
 #include <zmq.hpp>
 
-#include <thread>
-
 namespace net {
 class Publisher;
 }
@@ -15,10 +13,10 @@ public:
   ~Publisher();
 
   void run();
+  void stop();
+
+  bool push(std::string_view message, std::string_view topic = "");
 
 private:
-  void process();
-
   std::unique_ptr<net::Publisher> m_publisher;
-  std::thread m_thread;
 };

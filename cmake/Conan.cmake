@@ -11,6 +11,7 @@ macro(run_conan)
     conan_cmake_run(
         REQUIRES
             CLI11/1.9.0@cliutils/stable
+            concurrentqueue/1.0.1
             cppzmq/4.6.0
             fmt/6.1.2
             gtest/1.10.0

@@ -8,6 +8,11 @@ add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCES})
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
+target_include_directories(${PROJECT_NAME}
+    PRIVATE
+        "$<TARGET_PROPERTY:publisher,INCLUDE_DIRECTORIES>"
+)
+
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         CONAN_PKG::gtest

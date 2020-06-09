@@ -20,7 +20,8 @@ int main(int argc, char* argv[])
     CLI11_PARSE(app, argc, argv);
 
     zmq::context_t context{ 1 };
-    net::PublisherUnPtr publisher = std::make_unique<net::ZmqPublisher>(context, host, port);
+    std::unique_ptr<net::IPublisher> publisher =
+      std::make_unique<net::ZmqPublisher>(context, host, port);
 
     int i = 0;
     while (true) {
