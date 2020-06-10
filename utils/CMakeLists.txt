@@ -7,8 +7,10 @@ add_library(net::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME}
     PRIVATE
+        include/Json.h
         include/Log.h
         include/Randomizer.h
+        src/Json.cpp
         src/Log.cpp
         src/Randomizer.cpp
 )
