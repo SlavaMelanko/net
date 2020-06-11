@@ -1,15 +1,19 @@
 #pragma once
 
 #include <optional>
+#include <string_view>
 
 namespace net::json {
 
-class DocumentImpl;
+namespace impl {
+class Document;
+}
 
 class Document
 {
 public:
   explicit Document(std::string_view data);
+  ~Document() noexcept;
 
   std::optional<bool> getBool(std::string_view key) const;
   std::optional<int> getInt(std::string_view key) const;
@@ -19,7 +23,7 @@ public:
   bool contains(std::string_view key) const;
 
 private:
-  std::unique_ptr<DocumentImpl> m_impl;
+  std::unique_ptr<impl::Document> m_impl;
 };
 
 } // namespace net::json

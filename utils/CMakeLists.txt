@@ -26,6 +26,7 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         CONAN_PKG::fmt
+        CONAN_PKG::nlohmann_json
         CONAN_PKG::spdlog
         coverage::config
 )

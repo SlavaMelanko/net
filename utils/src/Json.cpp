@@ -4,38 +4,40 @@
 
 namespace net::json {
 
-namespace {
+namespace impl {
 
-class DocumentImpl
+class Document
 {
 public:
-  explicit DocumentImpl(std::string_view data)
+  explicit Document(std::string_view data)
     : m_document{ nlohmann::json::parse(data) }
   {}
 
   template<class T>
-  T extract(std::string_view key) const
+  auto extract(std::string_view key) const
   {
-    return contains(key) ? get<T>(key) : nullptr;
+    return contains(key) ? std::make_optional<T>(get<T>(key)) : std::nullopt;
   }
 
   bool contains(std::string_view key) const { return m_document.contains(key); }
 
 private:
   template<class T>
-  T get(std::string_view key) const
+  auto get(std::string_view key) const
   {
-    return m_document[key].get<T>();
+    return m_document[std::string{ key }].get<T>();
   }
 
   nlohmann::json m_document;
 };
 
-} // namespace
+} // namespace impl
 
 Document::Document(std::string_view data)
-  : m_impl{ std::make_unique<ParsetImpl>(data) }
+  : m_impl{ std::make_unique<impl::Document>(data) }
 {}
+
+Document::~Document() noexcept {}
 
 std::optional<bool> Document::getBool(std::string_view key) const
 {
@@ -59,7 +61,7 @@ std::optional<std::string> Document::getString(std::string_view key) const
 
 bool Document::contains(std::string_view key) const
 {
-  return m_document.contains(key);
+  return m_impl->contains(key);
 }
 
 } // namespace net::json

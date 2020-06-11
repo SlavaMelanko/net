@@ -16,6 +16,7 @@ macro(run_conan)
             fmt/6.1.2
             gtest/1.10.0
             ms-gsl/2.0.0
+            nlohmann_json/3.7.3
             spdlog/1.5.0
         BASIC_SETUP CMAKE_TARGETS
         CONFIGURATION_TYPES "Release;Debug"
