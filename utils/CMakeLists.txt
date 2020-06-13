@@ -7,8 +7,10 @@ add_library(net::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME}
     PRIVATE
+        include/Json.h
         include/Log.h
         include/Randomizer.h
+        src/Json.cpp
         src/Log.cpp
         src/Randomizer.cpp
 )
@@ -24,6 +26,7 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         CONAN_PKG::fmt
+        CONAN_PKG::nlohmann_json
         CONAN_PKG::spdlog
         coverage::config
 )
