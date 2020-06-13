@@ -3,8 +3,12 @@
 
 #include <Json.h>
 
-const std::string validJson{ R"({"id":"tr20200610n123","cs":1234,"amount":123.45,"success":true})" };
-const std::string invalidJson{ R"({"id":"tr20200610n123","cs":1234,"amount":123.45,"success":true)" };
+const std::string validJson{
+  R"({"id":"tr20200610n123","cs":1234,"amount":123.45,"success":true})"
+};
+const std::string invalidJson{
+  R"({"id":"tr20200610n123","cs":1234,"amount":123.45,"success":true)"
+};
 
 TEST(JsonTest, ParseValidJson)
 {
@@ -45,7 +49,7 @@ TEST(JsonTest, ParseEmptyString)
 
 TEST(JsonTest, GetValues)
 {
-  net::json::Document document{validJson};
+  net::json::Document document{ validJson };
   EXPECT_TRUE(document.getBool("success"));
   EXPECT_EQ(document.getInt("cs"), 1234);
   EXPECT_EQ(document.getDouble("amount"), 123.45);
