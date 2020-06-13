@@ -20,11 +20,11 @@ public:
   {
     return contains(key) ? std::make_optional<T>(get<T>(key)) : std::nullopt;
   }
-
+  
   template<typename T>
   void set(std::string_view key, T value)
   {
-    m_document[std::string{ key }] = value;
+    m_document[std::string{key}] = value;
   }
 
   bool contains(std::string_view key) const { return m_document.contains(key); }
@@ -43,7 +43,8 @@ private:
 
 Document::Document()
   : m_impl{ std::make_unique<impl::Document>() }
-{}
+{
+}
 
 Document::Document(std::string_view data)
   : m_impl{ std::make_unique<impl::Document>(data) }
