@@ -2,8 +2,6 @@
 
 #include <zhelpers.hpp>
 
-#include <fmt/format.h>
-
 namespace net {
 
 json::Document HeartbeatRequestHandler::handle(const json::Document&)
