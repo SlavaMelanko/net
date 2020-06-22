@@ -1,17 +1,15 @@
 #pragma once
 
-namespace net {
+#include <Json.h>
 
-namespace json {
-class Document;
-}
+namespace net {
 
 class IRequestHandler
 {
 public:
   virtual ~IRequestHandler() noexcept = default;
 
-  virtual void handle(const json::Document& document) = 0;
+  virtual json::Document handle(const json::Document& request) = 0;
 };
 
 } // namespace net

@@ -1,9 +1,18 @@
 #include "HeartbeatRequestHandler.h"
 
+#include <zhelpers.hpp>
+
+#include <fmt/format.h>
+
 namespace net {
 
-void HeartbeatRequestHandler::handle(const json::Document& document)
+json::Document HeartbeatRequestHandler::handle(const json::Document&)
 {
+  json::Document response;
+  response.setString("srv_v", "0.0.1");
+  response.setString("zmq_v", s_version());
+
+  return std::move(response);
 }
 
 } // namespace net
