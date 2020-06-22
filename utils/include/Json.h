@@ -15,6 +15,10 @@ class Document
 public:
   Document();
   explicit Document(std::string_view data);
+
+  Document(Document&& document) noexcept;
+  Document& operator=(Document&& document) noexcept;
+
   ~Document() noexcept;
 
   std::optional<bool> getBool(std::string_view key) const;

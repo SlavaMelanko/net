@@ -51,6 +51,10 @@ Document::Document(std::string_view data)
 
 Document::~Document() noexcept {}
 
+Document::Document(Document&& document) noexcept = default;
+
+Document& Document::operator=(Document&& document) noexcept = default;
+
 std::optional<bool> Document::getBool(std::string_view key) const
 {
   return m_impl->extract<bool>(key);
