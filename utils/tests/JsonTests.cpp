@@ -47,6 +47,18 @@ TEST(JsonTest, ParseEmptyString)
     std::exception);
 }
 
+TEST(JsonTest, MoveJson)
+{
+  net::json::Document document{ validJson };
+  EXPECT_FALSE(document.empty());
+  auto copy1 = std::move(document);
+  EXPECT_FALSE(copy1.empty());
+  EXPECT_TRUE(document.empty());
+  auto copy2{ std::move(copy1) };
+  EXPECT_FALSE(copy2.empty());
+  EXPECT_TRUE(copy1.empty());
+}
+
 TEST(JsonTest, GetValues)
 {
   net::json::Document document{ validJson };

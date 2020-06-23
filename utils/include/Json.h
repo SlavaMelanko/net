@@ -35,6 +35,8 @@ public:
 
   bool contains(std::string_view key) const;
 
+  bool empty() const noexcept;
+
 private:
   std::unique_ptr<impl::Document> m_impl;
 };

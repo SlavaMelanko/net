@@ -15,6 +15,9 @@ public:
     : m_document{ nlohmann::json::parse(data) }
   {}
 
+  Document(Document&& document) noexcept = default;
+  Document& operator=(Document&& document) noexcept = default;
+
   template<class T>
   auto extract(std::string_view key) const
   {
@@ -28,6 +31,8 @@ public:
   }
 
   bool contains(std::string_view key) const { return m_document.contains(key); }
+
+  bool empty() const noexcept { return m_document.empty(); }
 
 private:
   template<class T>
@@ -98,6 +103,14 @@ void Document::setString(std::string_view key, const std::string& value)
 bool Document::contains(std::string_view key) const
 {
   return m_impl->contains(key);
+}
+
+bool Document::empty() const noexcept
+{
+  if (!m_impl)
+    return true;
+
+  return m_impl->empty();
 }
 
 } // namespace net::json
