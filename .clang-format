@@ -7,5 +7,6 @@ TabWidth: 4
 UseTab: Never
 ColumnLimit: 100
 
+AllowShortIfStatementsOnASingleLine: true
 AlwaysBreakAfterReturnType: None
 AlwaysBreakAfterDefinitionReturnType: None
