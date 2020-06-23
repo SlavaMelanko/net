@@ -22,8 +22,7 @@ void ZmqServer::run()
       handle();
     } catch (zmq::error_t& e) {
       Log::error(e.what());
-      if (e.num() == ETERM)
-        break;
+      if (e.num() == ETERM) break;
     }
   }
 }

@@ -8,8 +8,7 @@ Server::Server(zmq::context_t& context, const std::string_view host, const uint3
 
 Server::~Server()
 {
-  if (m_thread.joinable())
-    m_thread.join();
+  if (m_thread.joinable()) m_thread.join();
 }
 
 void Server::run()

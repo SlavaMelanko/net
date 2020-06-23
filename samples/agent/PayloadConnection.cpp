@@ -11,8 +11,7 @@ PayloadConnection::PayloadConnection(zmq::context_t& context,
 
 PayloadConnection::~PayloadConnection() noexcept
 {
-  if (m_thread.joinable())
-    m_thread.join();
+  if (m_thread.joinable()) m_thread.join();
 }
 
 void PayloadConnection::run()
