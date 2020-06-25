@@ -10,8 +10,10 @@ target_sources(${PROJECT_NAME}
         include/HeartbeatRequestHandler.h
         include/IRequestHandler.h
         include/IServer.h
+        include/RequestRouter.h
         include/ZmqServer.h
         src/HeartbeatRequestHandler.cpp
+        src/RequestRouter.cpp
         src/ZmqServer.cpp
 )
 
