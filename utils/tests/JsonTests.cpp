@@ -62,6 +62,10 @@ TEST(JsonTest, MoveJson)
 TEST(JsonTest, GetValues)
 {
   net::json::Document document{ validJson };
+
+  EPECT_TRUE(document.contains("success") && document.contains("cs") &&
+             document.contains("amount") && document.contains("id"));
+
   EXPECT_TRUE(document.getBool("success"));
   EXPECT_EQ(document.getInt("cs"), 1234);
   EXPECT_EQ(document.getDouble("amount"), 123.45);
