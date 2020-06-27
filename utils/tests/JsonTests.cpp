@@ -59,12 +59,19 @@ TEST(JsonTest, MoveJson)
   EXPECT_TRUE(copy1.empty());
 }
 
-TEST(JsonTest, GetValues)
+TEST(JsonTest, CheckContains)
 {
   net::json::Document document{ validJson };
 
-  EPECT_TRUE(document.contains("success") && document.contains("cs") &&
-             document.contains("amount") && document.contains("id"));
+  EXPECT_TRUE(document.contains("success") && document.contains("cs") &&
+              document.contains("amount") && document.contains("id"));
+
+  EXPECT_FALSE(document.contains("unknown"));
+}
+
+TEST(JsonTest, GetValues)
+{
+  net::json::Document document{ validJson };
 
   EXPECT_TRUE(document.getBool("success"));
   EXPECT_EQ(document.getInt("cs"), 1234);
