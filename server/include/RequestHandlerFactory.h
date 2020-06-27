@@ -12,7 +12,7 @@ class RequestHandlerFactory
 public:
   virtual ~RequestHandlerFactory() noexcept = default;
 
-  virtual std::shared_ptr<IRequestHandler> create(std::string_view action);
+  virtual std::unique_ptr<IRequestHandler> create(std::string_view action);
 };
 
 } // namespace net
