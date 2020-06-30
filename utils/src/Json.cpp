@@ -119,5 +119,4 @@ std::string Document::dump() const
   return m_impl->dump();
 }
 
-
 } // namespace net::json
