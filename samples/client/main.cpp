@@ -25,10 +25,9 @@ int main(int argc, char* argv[])
     std::unique_ptr<net::IClient> client =
       std::make_unique<net::ZmqClient>(context, net::MakeConnectionSettings(id, port));
 
-    int i = 0;
     while (true) {
-      const auto message{ "Message #" + std::to_string(++i) };
-      const auto response = client->send(message);
+      const auto request{ R"({"action":"heartbeat"})" };
+      const auto response = client->send(request);
       net::Log::info("Response: \"{}\"", response);
       std::this_thread::sleep_for(std::chrono::milliseconds{ 200 });
     }
