@@ -37,6 +37,8 @@ public:
 
   bool empty() const noexcept;
 
+  std::string dump() const;
+
 private:
   std::unique_ptr<impl::Document> m_impl;
 };

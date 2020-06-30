@@ -96,3 +96,9 @@ TEST(JsonTest, SetAndGetValues)
   EXPECT_EQ(document.getDouble("double"), doubleVal);
   EXPECT_EQ(document.getString("string"), strVal);
 }
+
+TEST(JsonTest, ConvertToString)
+{
+  net::json::Document document{ validJson };
+  EXPECT_EQ(document.dump().length(), validJson.length());
+}

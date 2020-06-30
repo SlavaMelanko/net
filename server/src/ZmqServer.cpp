@@ -47,11 +47,11 @@ void ZmqServer::handle()
   const auto action = message.getString("action").value();
 
   auto handler = m_requestHandlerFactory->create(action);
-  auto response = handler->process(message);
+  auto response = handler->process(identity, message);
 
   s_sendmore(m_socket, identity);
   s_sendmore(m_socket, delimiter);
-  s_send(m_socket, request);
+  s_send(m_socket, response.dump());
 }
 
 } // namespace net

@@ -34,6 +34,8 @@ public:
 
   bool empty() const noexcept { return m_document.empty(); }
 
+  std::string dump() const { return m_document.dump(); }
+
 private:
   template<class T>
   auto get(std::string_view key) const
@@ -111,5 +113,11 @@ bool Document::empty() const noexcept
 
   return m_impl->empty();
 }
+
+std::string Document::dump() const
+{
+  return m_impl->dump();
+}
+
 
 } // namespace net::json
