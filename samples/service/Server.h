@@ -6,12 +6,16 @@
 
 namespace net {
 class IServer;
+class RequestHandlerFactory;
 }
 
 class Server
 {
 public:
-  Server(zmq::context_t& context, std::string_view host, const uint32_t port);
+  Server(std::unique_ptr<net::RequestHandlerFactory> requestHandlerFactory,
+         zmq::context_t& context,
+         std::string_view host,
+         const uint32_t port);
   ~Server();
 
   void run();

@@ -29,9 +29,12 @@ TEST_F(RequestHandlerFactoryTest, CreateHeartbeatHandler)
   using HandlerType = std::remove_reference_t<decltype(*heartbeatRequestHandler)>;
 
   EXPECT_TRUE(std::has_virtual_destructor_v<HandlerType>);
-  const auto isIRequestHandlerBaseOfHeartbeat = std::is_base_of_v<net::IRequestHandler, HandlerType>;
+  const auto isIRequestHandlerBaseOfHeartbeat =
+    std::is_base_of_v<net::IRequestHandler, HandlerType>;
   EXPECT_TRUE(isIRequestHandlerBaseOfHeartbeat);
-  const auto isHeartbeatTheSameAsIRequestHandler = std::is_same_v<net::IRequestHandler, HandlerType>;
+  const auto isHeartbeatTheSameAsIRequestHandler =
+    std::is_same_v<net::IRequestHandler, HandlerType>;
   EXPECT_TRUE(isHeartbeatTheSameAsIRequestHandler);
-  EXPECT_TRUE(dynamic_cast<net::HeartbeatRequestHandler*>(heartbeatRequestHandler.get()) != nullptr);
+  EXPECT_TRUE(dynamic_cast<net::HeartbeatRequestHandler*>(heartbeatRequestHandler.get()) !=
+              nullptr);
 }

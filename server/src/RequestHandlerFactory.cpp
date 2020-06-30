@@ -1,7 +1,5 @@
 #include "RequestHandlerFactory.h"
 
-#include "HeartbeatRequestHandler.h"
-
 namespace net {
 
 std::unique_ptr<IRequestHandler> RequestHandlerFactory::create(std::string_view action)
