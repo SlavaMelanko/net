@@ -4,7 +4,7 @@
 
 namespace net {
 
-json::Document HeartbeatRequestHandler::process(std::string_view, const json::Document&)
+json::Document HeartbeatRequestHandler::process(const Request&)
 {
   json::Document response;
   response.setString("srv_v", "0.0.1");

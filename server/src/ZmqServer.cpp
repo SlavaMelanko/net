@@ -26,7 +26,7 @@ void ZmqServer::run()
 {
   while (true) {
     try {
-      handle();
+      handleRequest();
     } catch (zmq::error_t& e) {
       Log::error(e.what());
       if (e.num() == ETERM) break;
@@ -34,24 +34,30 @@ void ZmqServer::run()
   }
 }
 
-void ZmqServer::handle()
+Request ZmqServer::receive()
 {
-  const std::string identity = s_recv(m_socket);
-  const std::string delimiter = s_recv(m_socket);
-  const std::string request = s_recv(m_socket);
+  Request request;
+  request.clientId = s_recv(m_socket);
+  request.delimiter = s_recv(m_socket);
+  request.message = s_recv(m_socket);
 
-  Log::info("Client #{}: \"{}\"", identity, request);
+  Log::info("Client #{}: \"{}\"", request.clientId, request.message.dump());
 
-  const json::Document message{ request };
+  return request;
+}
 
-  const auto action = message.getString("action").value();
+void ZmqServer::handleRequest()
+{
+  const auto request = receive();
 
+  const auto action = request.message.getString("action").value();
   auto handler = m_requestHandlerFactory->create(action);
-  auto response = handler->process(identity, message);
 
-  s_sendmore(m_socket, identity);
-  s_sendmore(m_socket, delimiter);
-  s_send(m_socket, response.dump());
+  auto responseMessage = handler->process(request);
+
+  s_sendmore(m_socket, request.clientId);
+  s_sendmore(m_socket, request.delimiter);
+  s_send(m_socket, responseMessage.dump());
 }
 
 } // namespace net

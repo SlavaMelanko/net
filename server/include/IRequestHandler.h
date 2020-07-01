@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Json.h>
+#include "Request.h"
 
 namespace net {
 
@@ -9,7 +9,7 @@ class IRequestHandler
 public:
   virtual ~IRequestHandler() noexcept = default;
 
-  virtual json::Document process(std::string_view clientId, const json::Document& request) = 0;
+  virtual json::Document process(const Request& request) = 0;
 };
 
 } // namespace net

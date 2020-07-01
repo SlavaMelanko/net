@@ -21,6 +21,8 @@ public:
 
   ~Document() noexcept;
 
+  Document& operator=(std::string data);
+
   std::optional<bool> getBool(std::string_view key) const;
   void setBool(std::string_view key, const bool value);
 

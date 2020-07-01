@@ -6,7 +6,7 @@
 TEST(HeartbeatRequestHandlerTest, CheckResponse)
 {
   net::HeartbeatRequestHandler heartbeat;
-  const auto response = heartbeat.process("id", {});
+  const auto response = heartbeat.process({});
   EXPECT_EQ(response.getString("srv_v").value(), "0.0.1");
   EXPECT_EQ(response.getString("zmq_v").value(), "4.3.2");
 }

@@ -56,11 +56,19 @@ Document::Document(std::string_view data)
   : m_impl{ std::make_unique<impl::Document>(data) }
 {}
 
-Document::~Document() noexcept {}
-
 Document::Document(Document&& document) noexcept = default;
 
 Document& Document::operator=(Document&& document) noexcept = default;
+
+Document::~Document() noexcept {}
+
+Document& Document::operator=(std::string data)
+{
+  Document document{ std::move(data) };
+  std::swap(*this, document);
+
+  return *this;
+}
 
 std::optional<bool> Document::getBool(std::string_view key) const
 {

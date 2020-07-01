@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IServer.h"
+#include "Request.h"
 
 #include <zmq.hpp>
 
@@ -19,7 +20,9 @@ public:
   void run() override;
 
 private:
-  void handle();
+  Request receive();
+
+  void handleRequest();
 
   zmq::socket_t m_socket;
   std::unique_ptr<RequestHandlerFactory> m_requestHandlerFactory;
