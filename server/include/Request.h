@@ -10,6 +10,7 @@ struct Request
 {
   std::string clientId;
   std::string delimiter;
+  std::string action;
   json::Document message;
 };
 
