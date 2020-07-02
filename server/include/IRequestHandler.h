@@ -9,7 +9,7 @@ class IRequestHandler
 public:
   virtual ~IRequestHandler() noexcept = default;
 
-  virtual json::Document process(const Request& request) = 0;
+  virtual json::Document process(const Request& request) const = 0;
 };
 
 } // namespace net

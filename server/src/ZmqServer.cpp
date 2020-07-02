@@ -39,25 +39,34 @@ Request ZmqServer::receive()
   Request request;
   request.clientId = s_recv(m_socket);
   request.delimiter = s_recv(m_socket);
+  request.action = s_recv(m_socket);
+  request.delimiter = s_recv(m_socket);
   request.message = s_recv(m_socket);
 
-  Log::info("Client #{}: \"{}\"", request.clientId, request.message.dump());
+  Log::info("#{}: @{} - \"{}\"", request.clientId, request.action, request.message.dump());
 
   return request;
+}
+
+bool ZmqServer::respond(const std::string& clientId,
+                        const std::string& delimiter,
+                        const std::string& response)
+{
+  s_sendmore(m_socket, clientId);
+  s_sendmore(m_socket, delimiter);
+
+  return s_send(m_socket, response);
 }
 
 void ZmqServer::handleRequest()
 {
   const auto request = receive();
 
-  const auto action = request.message.getString("action").value();
-  auto handler = m_requestHandlerFactory->create(action);
+  auto handler = m_requestHandlerFactory->create(request.action);
 
   auto responseMessage = handler->process(request);
 
-  s_sendmore(m_socket, request.clientId);
-  s_sendmore(m_socket, request.delimiter);
-  s_send(m_socket, responseMessage.dump());
+  respond(request.clientId, request.delimiter, responseMessage.dump());
 }
 
 } // namespace net

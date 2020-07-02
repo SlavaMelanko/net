@@ -7,7 +7,7 @@ namespace net {
 class HeartbeatRequestHandler : public IRequestHandler
 {
 public:
-  json::Document process(const Request& request) override;
+  json::Document process(const Request& request) const override;
 };
 
 } // namespace net
