@@ -66,7 +66,7 @@ TEST(JsonTest, AssignString)
   document = R"({"value":1})";
   EXPECT_FALSE(document.empty());
   EXPECT_TRUE(document.contains("value"));
-  EXPECT_EQ(document.getInt("value").value(), 1);
+  EXPECT_EQ(document.getInt("value"), 1);
 
   document = validJson;
   EXPECT_FALSE(document.empty());

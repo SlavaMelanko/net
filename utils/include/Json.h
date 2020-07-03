@@ -23,16 +23,16 @@ public:
 
   Document& operator=(std::string data);
 
-  std::optional<bool> getBool(std::string_view key) const;
+  bool getBool(std::string_view key) const;
   void setBool(std::string_view key, const bool value);
 
-  std::optional<int> getInt(std::string_view key) const;
+  int getInt(std::string_view key) const;
   void setInt(std::string_view key, const int value);
 
-  std::optional<double> getDouble(std::string_view key) const;
+  double getDouble(std::string_view key) const;
   void setDouble(std::string_view key, const double& value);
 
-  std::optional<std::string> getString(std::string_view key) const;
+  std::string getString(std::string_view key) const;
   void setString(std::string_view key, const std::string& value);
 
   bool contains(std::string_view key) const;
