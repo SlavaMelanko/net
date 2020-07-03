@@ -15,7 +15,11 @@ TEST(RequestTest, CheckTypeTraits)
 
   EXPECT_FALSE(std::is_trivially_copyable_v<Type>);
 
+#if defined(__APPLE__) || defined(__linux__)
   EXPECT_TRUE(std::is_standard_layout_v<Type>);
+#elif defined(_WIN32)
+  EXPECT_FALSE(std::is_standard_layout_v<Type>);
+#endif
 
   EXPECT_TRUE(std::is_default_constructible_v<Type>);
   EXPECT_FALSE(std::is_trivially_default_constructible_v<Type>);
