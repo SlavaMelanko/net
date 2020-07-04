@@ -12,9 +12,6 @@ TEST(RequestTest, CheckTypeTraits)
   // Primary type categories.
   EXPECT_TRUE(std::is_class_v<Type>);
 
-  // Composite type categories.
-  EXPECT_TRUE(std::is_object_v<Type>);
-
   // Type properties.
   EXPECT_FALSE(std::is_trivially_copyable_v<Type>);
 #if defined(__APPLE__) || defined(__linux__)
