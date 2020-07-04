@@ -23,7 +23,7 @@ private:
   Request receive();
   bool respond(const std::string& clientId,
                const std::string& delimiter,
-               const std::string& response);
+               const json::Document& response);
 
   void handleRequest();
 

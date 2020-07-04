@@ -2,7 +2,6 @@
 
 #include "RequestHandlerFactory.h"
 
-#include <Json.h>
 #include <Log.h>
 
 #include <zhelpers.hpp>
@@ -47,12 +46,12 @@ Request ZmqServer::receive()
 
 bool ZmqServer::respond(const std::string& clientId,
                         const std::string& delimiter,
-                        const std::string& response)
+                        const json::Document& response)
 {
   s_sendmore(m_socket, clientId);
   s_sendmore(m_socket, delimiter);
 
-  return s_send(m_socket, response);
+  return s_send(m_socket, response.dump());
 }
 
 void ZmqServer::handleRequest()
@@ -61,12 +60,19 @@ void ZmqServer::handleRequest()
 
   try {
     request = receive();
+
     auto handler = m_requestHandlerFactory->create(request.getAction());
     auto responseMessage = handler->process(request);
-    respond(request.getClientId(), request.getDelimiter(), responseMessage.dump());
+
+    respond(request.getClientId(), request.getDelimiter(), responseMessage);
   } catch (const std::exception& e) {
     Log::error(e.what());
-    respond(request.getClientId(), request.getDelimiter(), "Invalid request");
+
+    json::Document errorMessage;
+    errorMessage.setBool("ok", false);
+    errorMessage.setString("error", e.what());
+
+    respond(request.getClientId(), request.getDelimiter(), errorMessage);
   }
 }
 
