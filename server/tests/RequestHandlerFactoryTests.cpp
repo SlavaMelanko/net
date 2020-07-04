@@ -17,8 +17,18 @@ protected:
 
 TEST_F(RequestHandlerFactoryTest, CreateNull)
 {
-  const auto nullRequestHandler = requestHandlerFactory.create("none");
-  EXPECT_FALSE(nullRequestHandler);
+  EXPECT_THROW(
+    {
+      try {
+        requestHandlerFactory.create("none");
+      } catch (const std::invalid_argument& e) {
+        EXPECT_STREQ("Unhandled action", e.what());
+        throw;
+      } catch (...) {
+        EXPECT_TRUE(false);
+      }
+    },
+    std::invalid_argument);
 }
 
 TEST_F(RequestHandlerFactoryTest, CreateHeartbeatHandler)
@@ -29,12 +39,8 @@ TEST_F(RequestHandlerFactoryTest, CreateHeartbeatHandler)
   using HandlerType = std::remove_reference_t<decltype(*heartbeatRequestHandler)>;
 
   EXPECT_TRUE(std::has_virtual_destructor_v<HandlerType>);
-  const auto isIRequestHandlerBaseOfHeartbeat =
-    std::is_base_of_v<net::IRequestHandler, HandlerType>;
-  EXPECT_TRUE(isIRequestHandlerBaseOfHeartbeat);
-  const auto isHeartbeatTheSameAsIRequestHandler =
-    std::is_same_v<net::IRequestHandler, HandlerType>;
-  EXPECT_TRUE(isHeartbeatTheSameAsIRequestHandler);
+  EXPECT_TRUE((std::is_base_of_v<net::IRequestHandler, HandlerType>));
+  EXPECT_TRUE((std::is_same_v<net::IRequestHandler, HandlerType>));
   EXPECT_TRUE(dynamic_cast<net::HeartbeatRequestHandler*>(heartbeatRequestHandler.get()) !=
               nullptr);
 }

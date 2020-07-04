@@ -7,7 +7,7 @@ std::unique_ptr<IRequestHandler> RequestHandlerFactory::create(std::string_view 
   if (action == "heartbeat") {
     return std::make_unique<HeartbeatRequestHandler>();
   } else {
-    return nullptr;
+    throw std::invalid_argument{ "Unhandled action" };
   }
 }
 

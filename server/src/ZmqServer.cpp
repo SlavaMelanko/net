@@ -36,16 +36,13 @@ void ZmqServer::run()
 
 Request ZmqServer::receive()
 {
-  Request request;
-  request.clientId = s_recv(m_socket);
-  request.delimiter = s_recv(m_socket);
-  request.action = s_recv(m_socket);
-  request.delimiter = s_recv(m_socket);
-  request.message = s_recv(m_socket);
+  auto clientId = s_recv(m_socket);
+  auto delimiter = s_recv(m_socket);
+  auto action = s_recv(m_socket);
+  s_recv(m_socket); // skip the 2nd delimiter
+  auto message = s_recv(m_socket);
 
-  Log::info("#{}: @{} - \"{}\"", request.clientId, request.action, request.message.dump());
-
-  return request;
+  return Request{ clientId, delimiter, action, message };
 }
 
 bool ZmqServer::respond(const std::string& clientId,
@@ -60,13 +57,17 @@ bool ZmqServer::respond(const std::string& clientId,
 
 void ZmqServer::handleRequest()
 {
-  const auto request = receive();
+  Request request;
 
-  auto handler = m_requestHandlerFactory->create(request.action);
-
-  auto responseMessage = handler->process(request);
-
-  respond(request.clientId, request.delimiter, responseMessage.dump());
+  try {
+    request = receive();
+    auto handler = m_requestHandlerFactory->create(request.getAction());
+    auto responseMessage = handler->process(request);
+    respond(request.getClientId(), request.getDelimiter(), responseMessage.dump());
+  } catch (const std::exception& e) {
+    Log::error(e.what());
+    respond(request.getClientId(), request.getDelimiter(), "Invalid request");
+  }
 }
 
 } // namespace net
