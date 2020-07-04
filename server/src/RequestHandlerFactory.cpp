@@ -1,5 +1,7 @@
 #include "RequestHandlerFactory.h"
 
+#include <stdexcept>
+
 namespace net {
 
 std::unique_ptr<IRequestHandler> RequestHandlerFactory::create(std::string_view action)
