@@ -27,7 +27,7 @@ TEST(RequestTest, CheckTypeTraits)
   // Supported operations.
   EXPECT_TRUE(std::is_default_constructible_v<Type>);
   EXPECT_FALSE(std::is_trivially_default_constructible_v<Type>);
-  EXPECT_TRUE(std::is_nothrow_default_constructible_v<Type>);
+  EXPECT_FALSE(std::is_nothrow_default_constructible_v<Type>);
 
   EXPECT_FALSE(std::is_copy_constructible_v<Type>);
   EXPECT_FALSE(std::is_copy_assignable_v<Type>);
