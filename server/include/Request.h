@@ -9,7 +9,7 @@ namespace net {
 class Request
 {
 public:
-  Request() noexcept = default;
+  Request() = default;
   Request(const std::string& clientId,
           const std::string& delimiter,
           const std::string& action,
