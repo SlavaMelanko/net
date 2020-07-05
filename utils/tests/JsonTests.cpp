@@ -47,9 +47,47 @@ TEST(JsonTest, ParseEmptyString)
     std::exception);
 }
 
+TEST(JsonTest, MoveJson)
+{
+  net::json::Document document{ validJson };
+  EXPECT_FALSE(document.empty());
+  auto copy1 = std::move(document);
+  EXPECT_FALSE(copy1.empty());
+  EXPECT_TRUE(document.empty());
+  auto copy2{ std::move(copy1) };
+  EXPECT_FALSE(copy2.empty());
+  EXPECT_TRUE(copy1.empty());
+}
+
+TEST(JsonTest, AssignString)
+{
+  net::json::Document document;
+
+  document = R"({"value":1})";
+  EXPECT_FALSE(document.empty());
+  EXPECT_TRUE(document.contains("value"));
+  EXPECT_EQ(document.getInt("value"), 1);
+
+  document = validJson;
+  EXPECT_FALSE(document.empty());
+  EXPECT_TRUE(document.contains("success") && document.contains("cs") &&
+              document.contains("amount") && document.contains("id"));
+}
+
+TEST(JsonTest, CheckContains)
+{
+  net::json::Document document{ validJson };
+
+  EXPECT_TRUE(document.contains("success") && document.contains("cs") &&
+              document.contains("amount") && document.contains("id"));
+
+  EXPECT_FALSE(document.contains("unknown"));
+}
+
 TEST(JsonTest, GetValues)
 {
   net::json::Document document{ validJson };
+
   EXPECT_TRUE(document.getBool("success"));
   EXPECT_EQ(document.getInt("cs"), 1234);
   EXPECT_EQ(document.getDouble("amount"), 123.45);
@@ -72,4 +110,10 @@ TEST(JsonTest, SetAndGetValues)
   EXPECT_EQ(document.getInt("int"), intVal);
   EXPECT_EQ(document.getDouble("double"), doubleVal);
   EXPECT_EQ(document.getString("string"), strVal);
+}
+
+TEST(JsonTest, ConvertToString)
+{
+  net::json::Document document{ validJson };
+  EXPECT_EQ(document.dump().length(), validJson.length());
 }

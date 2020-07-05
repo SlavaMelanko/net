@@ -7,8 +7,15 @@ add_library(net::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_sources(${PROJECT_NAME}
     PRIVATE
+        include/HeartbeatRequestHandler.h
+        include/IRequestHandler.h
         include/IServer.h
+        include/Request.h
+        include/RequestHandlerFactory.h
         include/ZmqServer.h
+        src/HeartbeatRequestHandler.cpp
+        src/Request.cpp
+        src/RequestHandlerFactory.cpp
         src/ZmqServer.cpp
 )
 

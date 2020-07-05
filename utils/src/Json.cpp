@@ -15,10 +15,13 @@ public:
     : m_document{ nlohmann::json::parse(data) }
   {}
 
+  Document(Document&& document) noexcept = default;
+  Document& operator=(Document&& document) noexcept = default;
+
   template<class T>
-  auto extract(std::string_view key) const
+  auto get(std::string_view key) const
   {
-    return contains(key) ? std::make_optional<T>(get<T>(key)) : std::nullopt;
+    return m_document[std::string{ key }].get<T>();
   }
 
   template<typename T>
@@ -29,13 +32,11 @@ public:
 
   bool contains(std::string_view key) const { return m_document.contains(key); }
 
-private:
-  template<class T>
-  auto get(std::string_view key) const
-  {
-    return m_document[std::string{ key }].get<T>();
-  }
+  bool empty() const noexcept { return m_document.empty(); }
 
+  std::string dump() const { return m_document.dump(); }
+
+private:
   nlohmann::json m_document;
 };
 
@@ -49,11 +50,23 @@ Document::Document(std::string_view data)
   : m_impl{ std::make_unique<impl::Document>(data) }
 {}
 
+Document::Document(Document&& document) noexcept = default;
+
+Document& Document::operator=(Document&& document) noexcept = default;
+
 Document::~Document() noexcept {}
 
-std::optional<bool> Document::getBool(std::string_view key) const
+Document& Document::operator=(std::string data)
 {
-  return m_impl->extract<bool>(key);
+  Document document{ std::move(data) };
+  std::swap(*this, document);
+
+  return *this;
+}
+
+bool Document::getBool(std::string_view key) const
+{
+  return m_impl->get<bool>(key);
 }
 
 void Document::setBool(std::string_view key, const bool value)
@@ -61,9 +74,9 @@ void Document::setBool(std::string_view key, const bool value)
   m_impl->set(key, value);
 }
 
-std::optional<int> Document::getInt(std::string_view key) const
+int Document::getInt(std::string_view key) const
 {
-  return m_impl->extract<int>(key);
+  return m_impl->get<int>(key);
 }
 
 void Document::setInt(std::string_view key, const int value)
@@ -71,9 +84,9 @@ void Document::setInt(std::string_view key, const int value)
   m_impl->set(key, value);
 }
 
-std::optional<double> Document::getDouble(std::string_view key) const
+double Document::getDouble(std::string_view key) const
 {
-  return m_impl->extract<double>(key);
+  return m_impl->get<double>(key);
 }
 
 void Document::setDouble(std::string_view key, const double& value)
@@ -81,9 +94,9 @@ void Document::setDouble(std::string_view key, const double& value)
   m_impl->set(key, value);
 }
 
-std::optional<std::string> Document::getString(std::string_view key) const
+std::string Document::getString(std::string_view key) const
 {
-  return m_impl->extract<std::string>(key);
+  return m_impl->get<std::string>(key);
 }
 
 void Document::setString(std::string_view key, const std::string& value)
@@ -94,6 +107,18 @@ void Document::setString(std::string_view key, const std::string& value)
 bool Document::contains(std::string_view key) const
 {
   return m_impl->contains(key);
+}
+
+bool Document::empty() const noexcept
+{
+  if (!m_impl) return true;
+
+  return m_impl->empty();
+}
+
+std::string Document::dump() const
+{
+  return m_impl->dump();
 }
 
 } // namespace net::json

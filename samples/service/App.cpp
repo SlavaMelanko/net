@@ -4,6 +4,7 @@
 #include "Server.h"
 
 #include <Log.h>
+#include <RequestHandlerFactory.h>
 
 #include <CLI/CLI.hpp>
 
@@ -51,6 +52,8 @@ bool App::parseArguments(int argc, char* argv[])
 
 void App::bind()
 {
-  m_server = std::make_unique<Server>(m_context, "127.0.0.1", m_serverPort);
+  auto requestHandlerFactory = std::make_unique<net::RequestHandlerFactory>();
+  m_server = std::make_unique<Server>(
+    std::move(requestHandlerFactory), m_context, "127.0.0.1", m_serverPort);
   m_publisher = std::make_unique<Publisher>(m_context, "127.0.0.1", m_publisherPort);
 }

@@ -1,4 +1,5 @@
 #include <Log.h>
+#include <RequestHandlerFactory.h>
 #include <ZmqServer.h>
 
 #include <zmq.hpp>
@@ -19,8 +20,10 @@ int main(int argc, char* argv[])
 
     CLI11_PARSE(app, argc, argv);
 
+    auto requestHandlerFactory = std::make_unique<net::RequestHandlerFactory>();
     zmq::context_t context{ 1 };
-    std::unique_ptr<net::IServer> server = std::make_unique<net::ZmqServer>(context, host, port);
+    std::unique_ptr<net::IServer> server =
+      std::make_unique<net::ZmqServer>(std::move(requestHandlerFactory), context, host, port);
     server->run();
   } catch (const std::exception& e) {
     net::Log::error(e.what());

@@ -114,11 +114,18 @@ inline static void s_dump(zmq::socket_t& socket)
 }
 
 //  Report 0MQ version number
-inline static void s_version(void)
+inline static std::string s_version()
 {
   int major, minor, patch;
   zmq_version(&major, &minor, &patch);
-  std::cout << "Current 0MQ version is " << major << "." << minor << "." << patch << std::endl;
+
+  std::string version = std::to_string(major);
+  version += ".";
+  version += std::to_string(minor);
+  version += ".";
+  version += std::to_string(patch);
+
+  return version;
 }
 
 inline static void s_version_assert(int want_major, int want_minor)

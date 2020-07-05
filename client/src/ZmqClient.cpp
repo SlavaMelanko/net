@@ -34,9 +34,22 @@ std::string ZmqClient::send(const std::string& data)
   {
     s_recv(m_socket); // get delimiter
   }
-  std::string workload = s_recv(m_socket);
 
-  return workload;
+  return s_recv(m_socket);
+}
+
+std::string ZmqClient::send(const std::string& metadata, const std::string& data)
+{
+  s_sendmore(m_socket, std::string{ "" }); // set delimiter
+  s_sendmore(m_socket, metadata);
+  s_sendmore(m_socket, std::string{ "" });
+  s_send(m_socket, data);
+
+  {
+    s_recv(m_socket); // get delimiter
+  }
+
+  return s_recv(m_socket);
 }
 
 std::string ZmqClient::setId(const IdentityOpt& id)

@@ -24,7 +24,8 @@ void PayloadConnection::process()
   try {
     while (true) {
       std::this_thread::sleep_for(std::chrono::seconds{ 1 });
-      const auto response = m_client->send("request");
+      const auto response = m_client->send("heartbeat", "");
+      net::Log::info("Response: {}", response);
     }
   } catch (const std::exception& e) {
     net::Log::error(e.what());

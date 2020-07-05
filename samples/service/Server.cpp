@@ -1,9 +1,15 @@
 #include "Server.h"
 
+#include <RequestHandlerFactory.h>
 #include <ZmqServer.h>
 
-Server::Server(zmq::context_t& context, const std::string_view host, const uint32_t port)
-  : m_server{ std::make_unique<net::ZmqServer>(context, host, port) }
+Server::Server(std::unique_ptr<net::RequestHandlerFactory> requestHandlerFactory,
+               zmq::context_t& context,
+               const std::string_view host,
+               const uint32_t port)
+  : m_server{
+    std::make_unique<net::ZmqServer>(std::move(requestHandlerFactory), context, host, port)
+  }
 {}
 
 Server::~Server()
