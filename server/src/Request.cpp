@@ -21,8 +21,7 @@ Request::Request(const std::string& clientId,
 
 void Request::setClientId(const std::string& clientId)
 {
-  constexpr size_t minimumClientIdLength = 5;
-
+  constexpr size_t minimumClientIdLength = 3;
   if (clientId.length() < minimumClientIdLength)
     throw std::invalid_argument{ fmt::format(
       R"(Bad client ID: "{}" (length must be at least 5 chars))", clientId) };
