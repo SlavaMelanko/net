@@ -52,11 +52,12 @@ TEST(HeartbeatRequestHandlerTest, CheckTypeTraits)
   EXPECT_TRUE(std::is_nothrow_default_constructible_v<Type>);
 
   EXPECT_FALSE(std::is_copy_constructible_v<Type>);
-  EXPECT_FALSE(std::is_copy_assignable_v<Type>);
 
   EXPECT_TRUE(std::is_move_constructible_v<Type>);
   EXPECT_FALSE(std::is_trivially_move_constructible_v<Type>);
   EXPECT_TRUE(std::is_nothrow_move_constructible_v<Type>);
+
+  EXPECT_FALSE(std::is_copy_assignable_v<Type>);
 
   EXPECT_TRUE(std::is_move_assignable_v<Type>);
   EXPECT_FALSE(std::is_trivially_move_assignable_v<Type>);
