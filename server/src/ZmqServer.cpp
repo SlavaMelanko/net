@@ -48,7 +48,7 @@ bool ZmqServer::respond(const std::string& clientId,
                         const std::string& delimiter,
                         const json::Document& response)
 {
-  if (clientId.empty()) return;
+  if (clientId.empty()) return false;
 
   s_sendmore(m_socket, clientId);
   s_sendmore(m_socket, delimiter);
