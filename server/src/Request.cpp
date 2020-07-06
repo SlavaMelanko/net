@@ -22,9 +22,11 @@ Request::Request(const std::string& clientId,
 void Request::setClientId(const std::string& clientId)
 {
   constexpr size_t minimumClientIdLength = 3;
-  if (clientId.length() < minimumClientIdLength)
-    throw std::invalid_argument{ fmt::format(
-      R"(Bad client ID: "{}" (length must be at least 5 chars))", clientId) };
+  if (clientId.length() < minimumClientIdLength) {
+    const auto errorMessage = fmt::format(
+      R"(Bad client ID: "{}" (length must be at least {} chars))", clientId, minimumClientIdLength);
+    throw std::invalid_argument{ errorMessage };
+  }
 
   m_clientId = clientId;
 }
