@@ -55,7 +55,7 @@ TEST(RequestTest, CreateWithBadClientID)
       try {
         std::make_unique<net::Request>("id", "", "test", "");
       } catch (const std::invalid_argument& e) {
-        EXPECT_STREQ(R"(Bad client ID: "id" (length must be at least 5 chars))", e.what());
+        EXPECT_STREQ(R"(Bad client ID: "id" (length must be at least 3 chars))", e.what());
         throw;
       } catch (...) {
         EXPECT_TRUE(false);
