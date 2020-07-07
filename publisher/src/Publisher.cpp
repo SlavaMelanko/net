@@ -1,8 +1,8 @@
 #include "Publisher.h"
 
-#include "ConcurrentQueue.h"
 #include "ZmqPublisher.h"
 
+#include <ConcurrentQueue.h>
 #include <Log.h>
 
 namespace net {
