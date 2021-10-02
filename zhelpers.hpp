@@ -140,19 +140,6 @@ inline static void s_version_assert(int want_major, int want_minor)
   }
 }
 
-//  Sleep for a number of milliseconds
-inline static void s_sleep(int msecs)
-{
-#if (defined(WIN32))
-  Sleep(msecs);
-#else
-  struct timespec t;
-  t.tv_sec = msecs / 1000;
-  t.tv_nsec = (msecs % 1000) * 1000000;
-  nanosleep(&t, NULL);
-#endif
-}
-
 inline static void s_console(const char* format, ...)
 {
   time_t curtime = time(NULL);
