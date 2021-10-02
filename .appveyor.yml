@@ -12,7 +12,7 @@ matrix:
   fast_finish: true
 
 install:
-  - pip install conan
+  - cmd: pip install conan
 
 platform:
   - x64
@@ -26,11 +26,11 @@ build:
   verbosity: minimal
 
 before_build:
-  - mkdir -p build && cd build
-  - cmake -G "Visual Studio 16 2019" -A x64 ..
+  - cmd: mkdir -p build && cd build
+  - cmd: cmake -G "Visual Studio 16 2019" -A x64 ..
 
 build_script:
-  - cmake --build . --config %CONFIGURATION%
+  - cmd: cmake --build . --config %CONFIGURATION%
 
 after_build:
-  - ctest --extra-verbose -C %CONFIGURATION%
+  - cmd: ctest --extra-verbose -C %CONFIGURATION%
