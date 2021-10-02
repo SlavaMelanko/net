@@ -140,24 +140,6 @@ inline static void s_version_assert(int want_major, int want_minor)
   }
 }
 
-//  Return current system clock as milliseconds
-inline static int64_t s_clock(void)
-{
-#if (defined(WIN32))
-  FILETIME fileTime;
-  GetSystemTimeAsFileTime(&fileTime);
-  unsigned __int64 largeInt = fileTime.dwHighDateTime;
-  largeInt <<= 32;
-  largeInt |= fileTime.dwLowDateTime;
-  largeInt /= 10000; // FILETIME is in units of 100 nanoseconds
-  return (int64_t)largeInt;
-#else
-  struct timeval tv;
-  gettimeofday(&tv, NULL);
-  return (int64_t)(tv.tv_sec * 1000 + tv.tv_usec / 1000);
-#endif
-}
-
 //  Sleep for a number of milliseconds
 inline static void s_sleep(int msecs)
 {
