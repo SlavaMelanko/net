@@ -5,9 +5,11 @@ on:
     branches: [ master ]
     paths-ignore:
       - '**.md'
+      - '.github/workflows/windows.yml'
   pull_request:
     paths-ignore:
       - '**.md'
+      - '.github/workflows/windows.yml'
 
 jobs:
   xcode:
