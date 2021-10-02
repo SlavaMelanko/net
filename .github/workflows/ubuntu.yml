@@ -32,7 +32,9 @@ jobs:
 
       - name: CMake
         working-directory: ${{ github.workspace }}
-        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+        run: |
+          mkdir -p build && cd build
+          cmake .. build -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
 
       - name: Build
         working-directory: ${{ github.workspace }}/build
