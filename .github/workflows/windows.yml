@@ -1,0 +1,33 @@
+name: Windows
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  msvc2019_latest:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Conan Package Manager
+      run: |
+        python3 -m pip install --upgrade pip
+        pip3 install conan
+        conan user
+
+    - name: Create build directory
+      run: |
+        cd ${{github.workspace}}
+        mkdir -p build && cd build
+
+    - name: Configure CMake
+      run: cmake -G "Visual Studio 16 2019" -A x64 ..
+
+    - name: Build
+      run: cmake --build . --config ${{env.BUILD_TYPE}}
