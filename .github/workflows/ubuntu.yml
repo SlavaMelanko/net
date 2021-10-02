@@ -14,7 +14,7 @@ on:
       - '.github/workflows/macos.yml'
 
 jobs:
-  g++:
+  gcc:
     runs-on: ubuntu-latest
     strategy:
       matrix:
