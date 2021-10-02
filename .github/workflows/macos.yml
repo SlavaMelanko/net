@@ -27,7 +27,9 @@ jobs:
 
       - name: Install Conan Package Manager
         run: |
-          brew install conan || brew upgrade conan
+          curl -O https://bootstrap.pypa.io/get-pip.py
+          python3 get-pip.py
+          pip3 install conan --upgrade
 
       - name: Create build directory
         working-directory: ${{ github.workspace }}
