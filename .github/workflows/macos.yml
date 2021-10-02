@@ -14,7 +14,7 @@ jobs:
     runs-on: macos-10.15
     strategy:
       matrix:
-        xcode: [12.4]
+        xcode: [ 12.4 ]
         build_type: [ Debug, Release ]
     env:
       DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
@@ -33,12 +33,12 @@ jobs:
 
       - name: CMake
         working-directory: ${{github.workspace}}/build
-        run: cmake .. -G Xcode -DCMAKE_BUILD_TYPE=${{matrix.config.build_type}}
+        run: cmake .. -G Xcode -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
 
       - name: Build
         working-directory: ${{github.workspace}}/build
-        run: cmake --build . --config ${{matrix.config.build_type}} -- -j ${{env.JOBS}}
+        run: cmake --build . --config ${{matrix.build_type}} -- -j ${{env.JOBS}}
 
       - name: test
         working-directory: ${{github.workspace}}/build
-        run: ctest --extra-verbose -C ${{matrix.config.build_type}} --parallel ${{env.JOBS}}
+        run: ctest --extra-verbose -C ${{matrix.build_type}} --parallel ${{env.JOBS}}
