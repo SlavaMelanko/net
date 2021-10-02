@@ -1,0 +1,43 @@
+name: macOS
+
+on:
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  xcode:
+    runs-on: macos-10.15
+    strategy:
+      matrix:
+        xcode: [12.4, 12.3, 12.2, 12.1, 12]
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
+      JOBS: 10
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Conan Package Manager
+        run: |
+          brew install conan || brew upgrade conan
+
+      - name: Create build directory
+        working-directory: ${{github.workspace}}
+        run: mkdir -p build
+
+      - name: CMake
+        working-directory: ${{github.workspace}}/build
+        run: cmake .. -G Xcode -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+      - name: Build
+        working-directory: ${{github.workspace}}/build
+        run: cmake --build . --config ${{env.BUILD_TYPE}} -- -j ${{env.JOBS}}
+
+      - name: test
+        working-directory: ${{github.workspace}}/build
+        run: ctest --extra-verbose -C ${{env.BUILD_TYPE}} --parallel ${{env.JOBS}}
