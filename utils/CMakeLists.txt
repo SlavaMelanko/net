@@ -26,10 +26,10 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
-        CONAN_PKG::concurrentqueue
-        CONAN_PKG::fmt
-        CONAN_PKG::nlohmann_json
-        CONAN_PKG::spdlog
+        concurrentqueue::concurrentqueue
+        fmt::fmt
+        nlohmann_json::nlohmann_json
+        spdlog::spdlog
         coverage::config
 )
 

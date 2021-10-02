@@ -8,8 +8,8 @@ project(net
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-option(ENABLE_TESTS "Enable unit tests" ON)
-option(BUILD_SAMPLES "Build provided samples" ON)
+option(BUILD_TESTS "Enable unit tests" ON)
+option(BUILD_SAMPLES "Build provided samples" OFF)
 option(ENABLE_COVERAGE "Enable coverage reporting" OFF)
 
 include(cmake/Conan.cmake)
@@ -26,7 +26,7 @@ add_subdirectory(server)
 add_subdirectory(broker)
 add_subdirectory(worker)
 
-if (ENABLE_TESTS)
+if (BUILD_TESTS)
     include(CTest)
     enable_testing()
     add_subdirectory(utils/tests)

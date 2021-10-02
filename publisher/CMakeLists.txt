@@ -26,11 +26,11 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
-        CONAN_PKG::cppzmq
+        cppzmq::cppzmq
         net::utils
     PRIVATE
-        CONAN_PKG::fmt
-        CONAN_PKG::spdlog
+        fmt::fmt
+        spdlog::spdlog
 )
 
 target_link_options(${PROJECT_NAME}

@@ -15,10 +15,10 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
-        CONAN_PKG::CLI11
-        CONAN_PKG::cppzmq
-        CONAN_PKG::fmt
-        CONAN_PKG::spdlog
+        CLI11::CLI11
+        cppzmq::cppzmq
+        fmt::fmt
+        spdlog::spdlog
         net::worker
 )
 
