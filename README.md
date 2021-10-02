@@ -2,14 +2,14 @@
 
 | Version | Windows | macOS | Ubuntu | Code Quality | Code Coverage |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| [![GitHub version](https://badge.fury.io/gh/SMelanko%2Fnet.svg)](https://badge.fury.io/gh/SMelanko%2Fnet) | [![Build status](https://ci.appveyor.com/api/projects/status/hl6u3jinuhpq0w88?svg=true)](https://ci.appveyor.com/project/SMelanko/net)<br />[![Windows](https://github.com/SMelanko/net/workflows/Windows/badge.svg)](https://github.com/SMelanko/net/actions?query=workflow%3AWindows) | [![Build Status](https://travis-ci.com/SMelanko/net.svg?branch=master)](https://travis-ci.com/SMelanko/net)<br />[![macOS](https://github.com/SMelanko/net/workflows/macOS/badge.svg)](https://github.com/SMelanko/net/actions?query=workflow%3AmacOS) | [![Build Status](https://travis-ci.com/SMelanko/net.svg?branch=master)](https://travis-ci.com/SMelanko/net) | [![CodeFactor](https://www.codefactor.io/repository/github/smelanko/net/badge)](https://www.codefactor.io/repository/github/smelanko/net) | [![codecov](https://codecov.io/gh/SMelanko/net/branch/master/graph/badge.svg)](https://codecov.io/gh/SMelanko/net) |
+| [![GitHub version](https://badge.fury.io/gh/SMelanko%2Fnet.svg)](https://badge.fury.io/gh/SMelanko%2Fnet) | [![Build status](https://ci.appveyor.com/api/projects/status/hl6u3jinuhpq0w88?svg=true)](https://ci.appveyor.com/project/SMelanko/net)<br />[![Windows](https://github.com/SMelanko/net/workflows/Windows/badge.svg)](https://github.com/SMelanko/net/actions?query=workflow%3AWindows) | [![Build Status](https://travis-ci.com/SMelanko/net.svg?branch=master)](https://travis-ci.com/SMelanko/net)<br />[![macOS](https://github.com/SMelanko/net/workflows/macOS/badge.svg)](https://github.com/SMelanko/net/actions?query=workflow%3AmacOS) | [![Build Status](https://travis-ci.com/SMelanko/net.svg?branch=master)](https://travis-ci.com/SMelanko/net)<br />[![Ubuntu](https://github.com/SMelanko/net/workflows/Ubuntu/badge.svg)](https://github.com/SMelanko/net/actions?query=workflow%3AUbuntu) | [![CodeFactor](https://www.codefactor.io/repository/github/smelanko/net/badge)](https://www.codefactor.io/repository/github/smelanko/net) | [![codecov](https://codecov.io/gh/SMelanko/net/branch/master/graph/badge.svg)](https://codecov.io/gh/SMelanko/net) |
 
 ## Setup Development Environment
 
 Prerequisites:
 
 - [CMake](https://cmake.org/)
-- [Conan package manager](https://conan.io/)
+- [Conan Package Manager](https://conan.io/)
 - C++ compiler (including 17 standard)
 
 For more details, please look at [travis](./.travis.yml) or [appveyor](./.appveyor.yml) script.
