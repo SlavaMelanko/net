@@ -6,10 +6,12 @@ on:
     paths-ignore:
       - '**.md'
       - '.github/workflows/windows.yml'
+      - '.github/workflows/ubuntu.yml'
   pull_request:
     paths-ignore:
       - '**.md'
       - '.github/workflows/windows.yml'
+      - '.github/workflows/ubuntu.yml'
 
 jobs:
   xcode:
@@ -39,6 +41,6 @@ jobs:
         working-directory: ${{ github.workspace }}/build
         run: cmake --build . --config ${{ matrix.build_type }} -- -j ${{ env.JOBS }}
 
-      - name: test
+      - name: Test
         working-directory: ${{ github.workspace }}/build
         run: ctest --extra-verbose -C ${{ matrix.build_type }} --parallel ${{ env.JOBS }}

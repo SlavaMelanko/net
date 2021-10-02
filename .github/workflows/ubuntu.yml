@@ -1,25 +1,27 @@
-name: Windows
+name: Ubuntu
 
 on:
   push:
     branches: [ master ]
     paths-ignore:
       - '**.md'
+      - '.github/workflows/windows.yml'
       - '.github/workflows/macos.yml'
-      - '.github/workflows/ubuntu.yml'
   pull_request:
     paths-ignore:
       - '**.md'
+      - '.github/workflows/windows.yml'
       - '.github/workflows/macos.yml'
-      - '.github/workflows/ubuntu.yml'
 
 jobs:
-  msvc2019_latest:
-    runs-on: windows-latest
+  xcode:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
+        compiler: [ g++-10 ]
         build_type: [ Debug, Release ]
-        architecture: [ x64 ]
+    env:
+      JOBS: 10
 
     steps:
       - name: Checks out repository
@@ -32,12 +34,12 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           mkdir -p build && cd build
-          cmake .. -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+          cmake .. -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
 
       - name: Build
         working-directory: ${{ github.workspace }}/build
-        run: cmake --build . --config ${{ matrix.build_type }}
+        run: cmake --build . --config ${{ matrix.build_type }} -- -j ${{ env.JOBS }}
 
       - name: Test
         working-directory: ${{ github.workspace }}/build
-        run: ctest --extra-verbose -C ${{ matrix.build_type }}
+        run: ctest --extra-verbose -C ${{ matrix.build_type }} --parallel ${{ env.JOBS }}
