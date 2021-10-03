@@ -43,4 +43,4 @@ jobs:
 
       - name: Test
         working-directory: ${{ github.workspace }}/build
-        run: ctest --extra-verbose -C ${{ matrix.build_type }}
+        run: ctest --extra-verbose -C ${{ matrix.build_type }} --parallel ${{ env.JOBS }}
