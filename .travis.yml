@@ -4,7 +4,7 @@ notifications:
   email: false
 
 os: linux
-dist: bionic
+dist: focal
 
 cache:
   directories:
@@ -21,14 +21,14 @@ jobs:
       env:
         - CXX_COMPILER=clang++
         - BUILD_TYPE=Release
-      osx_image: xcode11.3
+      osx_image: xcode12.2
       compiler: clang
 
     - os: osx
       env:
         - CXX_COMPILER=clang++
         - BUILD_TYPE=Debug
-      osx_image: xcode11.3
+      osx_image: xcode12.3
       compiler: clang
 
     #############################################################################
@@ -36,20 +36,20 @@ jobs:
     #
 
     - env:
-        - CXX_COMPILER=g++-7
+        - CXX_COMPILER=g++-10
         - BUILD_TYPE=Release
-      addons: &gcc7
+      addons: &gcc10
         apt:
           packages:
-            - g++-7
+            - g++-10
           sources:
             - ubuntu-toolchain-r-test
 
     - env:
-        - CXX_COMPILER=g++-7
+        - CXX_COMPILER=g++-10
         - BUILD_TYPE=Debug
         - ENABLE_COVERAGE=ON
-      addons: *gcc7
+      addons: *gcc10
 
 install:
   # Set the $CXX variable properly.
