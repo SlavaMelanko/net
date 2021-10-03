@@ -25,6 +25,11 @@ macro(run_conan)
             cmake_find_package_multi
     )
 
+    if (NOT CMAKE_CONFIGURATION_TYPES)
+        # On Ubuntu CMAKE_CONFIGURATION_TYPES might be empty so populate it manually.
+        set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
+    endif ()
+
     foreach(TYPE ${CMAKE_CONFIGURATION_TYPES})
         conan_cmake_autodetect(settings BUILD_TYPE ${TYPE})
         conan_cmake_install(
