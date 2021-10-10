@@ -24,7 +24,7 @@ class VisualCompilerBuilder:
         change_working_dir_to(BUILD_DIR)
 
     def generate_project(self):
-        run_cmd('cmake -G {} -A {} -DCMAKE_BUILD_TYPE={} ..'.format(self.generator, self.platform, self.build_type))
+        run_cmd('cmake -G "{}" -A {} -DCMAKE_BUILD_TYPE={} ..'.format(self.generator, self.platform, self.build_type))
 
 class XcodeBuilder:
 
