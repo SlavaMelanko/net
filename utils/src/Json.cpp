@@ -12,7 +12,7 @@ public:
   Document() = default;
 
   explicit Document(std::string_view data)
-    : m_document{ nlohmann::json::parse(data) }
+    : m_document(nlohmann::json::parse(data))
   {}
 
   Document(Document&& document) noexcept = default;
