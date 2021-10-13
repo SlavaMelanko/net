@@ -39,12 +39,28 @@ class XcodeBuilder:
     def generate_project(self):
         run_cmd('cmake -G {} -DCMAKE_BUILD_TYPE={} ..'.format(self.generator, self.build_type))
 
+class QtBuilder:
+
+    def __init__(self, build_type):
+        self.generator = 'CodeBlocks - Unix Makefiles'
+        self.build_type = build_type
+
+    def create_build_dir(self):
+        run_cmd('mkdir -p {}'.format(BUILD_DIR))
+        change_working_dir_to(BUILD_DIR)
+
+    def generate_project(self):
+        run_cmd('cmake -G "{}" -DCMAKE_BUILD_TYPE={} ..'.format(self.generator, self.build_type))
+
+
 def create_builder(build_type):
     platform_name = platform.system()
     if platform_name == 'Windows':
         return VisualCompilerBuilder(build_type)
     elif platform_name == 'Darwin':
         return XcodeBuilder(build_type)
+    elif platform_name == 'Linux':
+        return QtBuilder(build_type)
 
 def main():
     parser = argparse.ArgumentParser()
