@@ -45,5 +45,4 @@ jobs:
         run: ctest --extra-verbose -C ${{ matrix.build_type }} --parallel ${{ env.JOBS }}
 
       - name: Code Coverage
-        working-directory: ${{ github.workspace }}/build
         uses: codecov/codecov-action@v2
