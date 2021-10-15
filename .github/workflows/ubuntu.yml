@@ -21,7 +21,7 @@ jobs:
         compiler: [ g++-10 ]
         build_type: [ Debug, Release ]
     env:
-      JOBS: 10
+      JOBS: 1
 
     steps:
       - name: Checks out repository

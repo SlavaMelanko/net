@@ -12,7 +12,11 @@ public:
   Document() = default;
 
   explicit Document(std::string_view data)
+#if defined(__GNUC__)
     : m_document(nlohmann::json::parse(data))
+#elif
+    : m_document{ nlohmann::json::parse(data) }
+#endif
   {}
 
   Document(Document&& document) noexcept = default;
