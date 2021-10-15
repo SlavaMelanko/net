@@ -46,3 +46,6 @@ jobs:
 
       - name: Code Coverage
         uses: codecov/codecov-action@v2
+        with:
+          directory: ./build
+          verbose: true
