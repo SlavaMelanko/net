@@ -47,5 +47,5 @@ jobs:
       - name: Code Coverage
         uses: codecov/codecov-action@v2
         with:
-          directory: ./build
+          directory: ${{ github.workspace }}/build
           verbose: true
