@@ -57,7 +57,7 @@ class VisualStudioBuilder(IBuilder):
         change_working_dir_to(self.build_dir)
 
     def generate_project(self):
-        run_cmd('{} -A {}'.format(super().get_cmake_generation_command(), self.build_type))
+        run_cmd('{} -A {}'.format(super().get_cmake_generation_command(), self.platform))
 
 class QtBuilder(IBuilder):
 
