@@ -6,8 +6,6 @@ import subprocess
 
 from abc import ABC, abstractmethod
 
-BUILD_DIR = 'build'
-
 def run_cmd(command):
     subprocess.run(command, shell=True)
 
@@ -17,6 +15,7 @@ def change_working_dir_to(path):
 class IBuilder(ABC):
 
     def __init__(self, generator, build_type, build_tests, build_samples, enable_coverage):
+        self.build_dir = 'build'
         self.generator = generator
         self.build_type = build_type
         self.build_tests = build_tests
@@ -31,9 +30,21 @@ class IBuilder(ABC):
     def generate_project(self):
         pass
 
-    def get_cmake_generation_cmd(self):
+    def get_cmake_generation_command(self):
         return 'cmake -G "{}" .. -DCMAKE_BUILD_TYPE={} -DBUILD_TESTS={} -DBUILD_SAMPLES={} -DENABLE_COVERAGE={}'.format(
             self.generator, self.build_type, self.build_tests, self.build_samples, self.enable_coverage)
+
+class XcodeBuilder(IBuilder):
+
+    def __init__(self, build_type, build_tests, build_samples, enable_coverage):
+        super().__init__('Xcode', build_type, build_tests, build_samples, enable_coverage)
+
+    def create_build_dir(self):
+        run_cmd('mkdir -p {}'.format(self.build_dir))
+        change_working_dir_to(self.build_dir)
+
+    def generate_project(self):
+        run_cmd(super().get_cmake_generation_command())
 
 class VisualStudioBuilder(IBuilder):
 
@@ -42,32 +53,20 @@ class VisualStudioBuilder(IBuilder):
         self.platform = 'x64'
 
     def create_build_dir(self):
-        run_cmd('if not exist {0} mkdir {0} && pushd {0}'.format(BUILD_DIR))
-        change_working_dir_to(BUILD_DIR)
+        run_cmd('if not exist {0} mkdir {0} && pushd {0}'.format(self.build_dir))
+        change_working_dir_to(self.build_dir)
 
     def generate_project(self):
-        run_cmd('cmake -G "{}" -A {} -DCMAKE_BUILD_TYPE={} ..'.format(self.generator, self.platform, self.build_type))
-
-class XcodeBuilder(IBuilder):
-
-    def __init__(self, build_type, build_tests, build_samples, enable_coverage):
-        super().__init__('Xcode', build_type, build_tests, build_samples, enable_coverage)
-
-    def create_build_dir(self):
-        run_cmd('mkdir -p {}'.format(BUILD_DIR))
-        change_working_dir_to(BUILD_DIR)
-
-    def generate_project(self):
-        run_cmd(super().get_cmake_generation_cmd())
+        run_cmd('{} -A {}'.format(super().get_cmake_generation_command(), self.build_type))
 
 class QtBuilder(IBuilder):
 
-    def __init__(self, build_type):
+    def __init__(self, build_type, build_tests, build_samples, enable_coverage):
         super().__init__('CodeBlocks - Unix Makefiles', build_type, build_tests, build_samples, enable_coverage)
 
     def create_build_dir(self):
-        run_cmd('mkdir -p {}'.format(BUILD_DIR))
-        change_working_dir_to(BUILD_DIR)
+        run_cmd('mkdir -p {}'.format(self.build_dir))
+        change_working_dir_to(self.build_dir)
 
     def generate_project(self):
         run_cmd('cmake -G "{}" -DCMAKE_BUILD_TYPE={} ..'.format(self.generator, self.build_type))
