@@ -28,6 +28,9 @@ For more details, please look at [worflows](./.github/workflows) directory.
     - Open `net.sln`
     - Build the project
 
+- **Ubuntu**
+    - TODO: 
+
 ## Contribution
 
 ### Code Principles
