@@ -69,7 +69,7 @@ class QtBuilder(IBuilder):
         change_working_dir_to(self.build_dir)
 
     def generate_project(self):
-        run_cmd('cmake -G "{}" -DCMAKE_BUILD_TYPE={} ..'.format(self.generator, self.build_type))
+        run_cmd(super().get_cmake_generation_command())
 
 def create_builder(build_type, build_tests, build_samples, enable_coverage):
     platform_name = platform.system()

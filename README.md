@@ -17,16 +17,16 @@ For more details, please look at [worflows](./.github/workflows) directory.
 ## How to Build and Run
 
 - **macOS**
-    - Run `cmakegen.py` script using python3 to generate project
+    - Run `cmakegen.py` script using python3 to generate the project
     - Go to the build directory
     - Open `net.xcodeproj`
-    - Build project
+    - Build the project
 
 - **Windows**
-    - Run `cmakegen-msvc-x64.cmd` script to generate project
+    - Run `cmakegen.py` script using python3 to generate the project
     - Go to the build directory
     - Open `net.sln`
-    - Build project
+    - Build the project
 
 ## Contribution
 
