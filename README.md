@@ -17,7 +17,7 @@ For more details, please look at [worflows](./.github/workflows) directory.
 ## How to Build and Run
 
 - **macOS**
-    - Run `cmakegen-xcode.sh` script to generate project
+    - Run `cmakegen.py` script using python3 to generate project
     - Go to the build directory
     - Open `net.xcodeproj`
     - Build project
