@@ -33,7 +33,7 @@ jobs:
 
       - name: CMake
         working-directory: ${{ github.workspace }}
-        run: python3 cmakegen.py --build-tests
+        run: python3 cmakegen.py --build-type=${{ matrix.build_type }} --build-tests
 
       - name: Build
         working-directory: ${{ github.workspace }}/build
