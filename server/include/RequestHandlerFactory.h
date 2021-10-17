@@ -1,6 +1,7 @@
 #pragma once
 
-#include "HeartbeatRequestHandler.h"
+#include <memory>
+#include <string_view>
 
 namespace net {
 

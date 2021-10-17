@@ -1,5 +1,6 @@
 #include "ZmqServer.h"
 
+#include "IRequestHandler.h"
 #include "RequestHandlerFactory.h"
 
 #include <Log.h>
