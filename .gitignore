@@ -377,4 +377,8 @@ notes.txt
 
 .DS_Store
 
+# Clion
+.idea/
+cmake-build-*
+
 # End of https://www.gitignore.io/api/cmake,visualstudio
