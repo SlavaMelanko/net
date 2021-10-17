@@ -16,17 +16,22 @@ For more details, please look at [worflows](./.github/workflows) directory.
 
 ## How to Build and Run
 
-- **macOS**
-    - Run `cmakegen-xcode.sh` script to generate project
+- **macOS with Xcode**
+    - Run `cmakegen.py` script using python3 to generate the project
     - Go to the build directory
     - Open `net.xcodeproj`
-    - Build project
+    - Build the project
 
-- **Windows**
-    - Run `cmakegen-msvc-x64.cmd` script to generate project
+- **Windows with Visual Studio**
+    - Run `cmakegen.py` script using python3 to generate the project
     - Go to the build directory
     - Open `net.sln`
-    - Build project
+    - Build the project
+
+- **Ubuntu with CLion or QtCreator**
+    - Launch IDE
+    - Find the project directory and select it
+        - In the QtCreator you have choose the root `CMakeLists.txt`
 
 ## Contribution
 
