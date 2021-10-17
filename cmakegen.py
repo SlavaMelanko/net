@@ -7,7 +7,7 @@ import subprocess
 from abc import ABC, abstractmethod
 
 def run_cmd(command):
-    subprocess.run(command)
+    subprocess.run(command, shell=True)
 
 def change_working_dir_to(path):
     os.chdir(path)
