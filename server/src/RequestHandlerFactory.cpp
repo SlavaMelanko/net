@@ -1,5 +1,7 @@
 #include "RequestHandlerFactory.h"
 
+#include "HeartbeatRequestHandler.h"
+
 #include <stdexcept>
 
 namespace net {
