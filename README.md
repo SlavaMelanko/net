@@ -31,7 +31,7 @@ For more details, please look at [worflows](./.github/workflows) directory.
 - **Ubuntu with CLion or QtCreator**
     - Launch IDE
     - Find the project directory and select it
-        - In the QtCreator you have choose the root `CMakeLists.txt`
+        - In the QtCreator you have to choose the root `CMakeLists.txt`
 
 ## Contribution
 
