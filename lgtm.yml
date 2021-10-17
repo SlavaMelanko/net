@@ -1,0 +1,11 @@
+extraction:
+  cpp:
+    prepare:
+      packages:
+        - python-pip
+
+    after_prepare:
+      - pip3 install --local cmake conan
+      - pip3 install --local cmake conan --upgrade
+      - conan --version
+      - cmake --version
