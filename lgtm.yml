@@ -2,10 +2,27 @@ extraction:
   cpp:
     prepare:
       packages:
-        - python-pip
+        - python3-pip
 
     after_prepare:
-      - pip3 install --local cmake conan
-      - pip3 install --local cmake conan --upgrade
-      - conan --version
+      - pip3 install wheel cmake conan
+      - export PATH=~/.local/bin:$PATH
       - cmake --version
+      - conan --version
+      - conan profile new default --detect
+      - conan profile update settings.compiler.version=9 default
+      - conan profile update settings.compiler.libcxx=libstdc++11 default
+        # Fix error: HTTPSConnectionPool(host='center.conan.io', port=443): Max retries exceeded with url:
+        # /v1/ping (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED]
+        # certificate verify failed: self signed certificate in certificate chain (_ssl.c:1076)')))
+      - conan remote update conancenter https://center.conan.io False
+
+    configure:
+      command:
+        - python3 cmakegen.py
+
+    index:
+      build_command:
+        - cd build
+        - cmake --build . --config Debug
+      all_solutions: true
