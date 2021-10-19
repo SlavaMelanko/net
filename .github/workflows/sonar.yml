@@ -1,4 +1,4 @@
-name: Sonar Build
+name: Sonar Analysis
 on:
   push:
     branches:
@@ -13,6 +13,7 @@ jobs:
       SONAR_SCANNER_VERSION: 4.4.0.2170
       SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+      BUILD_TYPE: Release
     steps:
       - uses: actions/checkout@v2
         with:
@@ -40,14 +41,14 @@ jobs:
           unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
           echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
 
-      - name: Install Conan Package Manager
+      - name: Install Conan package Manager
         uses: turtlebrowser/get-conan@main
 
       - name: Run build-wrapper
         run: |
-          python3 cmakegen.py --build-type=Release --build-tests
+          python3 cmakegen.py --build-type=${{ env.BUILD_TYPE }} --build-tests
           cmake -S . -B build
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config Release
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/ --config ${{ env.BUILD_TYPE }}
 
       - name: Run sonar-scanner
         env:
