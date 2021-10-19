@@ -375,10 +375,14 @@ build/
 # My notes
 notes.txt
 
+# macOS filesystem hidden files
 .DS_Store
 
 # Clion
 .idea/
 cmake-build-*
+
+# TODO local file
+TODO*
 
 # End of https://www.gitignore.io/api/cmake,visualstudio
