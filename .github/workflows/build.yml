@@ -40,6 +40,9 @@ jobs:
           unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
           echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
 
+      - name: Install Conan Package Manager
+        uses: turtlebrowser/get-conan@main
+
       - name: Run build-wrapper
         run: |
           python3 cmakegen.py --build-type=Release --build-tests
