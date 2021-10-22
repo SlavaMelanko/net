@@ -53,6 +53,7 @@ jobs:
       - name: Test
         env:
           JOBS: 2
+        working-directory: ${{ github.workspace }}/build
         run: ctest --extra-verbose -C ${{ env.BUILD_TYPE }} --parallel ${{ env.JOBS }}
 
       - name: Run sonar-scanner
