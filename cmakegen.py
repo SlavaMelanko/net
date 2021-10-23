@@ -65,7 +65,7 @@ class VisualStudioBuilder(IBuilder):
     def generate_project(self):
         run_cmd('{} -A {}'.format(super().get_cmake_generate_command(), self.platform))
 
-class QtBuilder(IBuilder):
+class UnixBuilder(IBuilder):
     '''
         Class to generate a project for QtCreator IDE.
     '''
@@ -89,14 +89,14 @@ def create_builder(build_type, build_tests, build_samples, enable_coverage):
     elif platform_name == 'Windows':
         return VisualStudioBuilder(build_type, build_tests, build_samples, enable_coverage)
     elif platform_name == 'Linux':
-        return QtBuilder(build_type, build_tests, build_samples, enable_coverage)
+        return UnixBuilder(build_type, build_tests, build_samples, enable_coverage)
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--build-type', '-b', dest='build_type', default='Debug')
-    parser.add_argument('--build-tests', '-t', action='store_false')
-    parser.add_argument('--build-samples', '-s', action='store_false')
-    parser.add_argument('--enable-coverage', '-c', action='store_false')
+    parser.add_argument('--build-tests', '-t', action='store_true')
+    parser.add_argument('--build-samples', '-s', action='store_true')
+    parser.add_argument('--enable-coverage', '-c', action='store_true')
     args = parser.parse_args()
 
     builder = create_builder(args.build_type, args.build_tests, args.build_samples, args.enable_coverage)
