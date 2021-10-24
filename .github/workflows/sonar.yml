@@ -56,8 +56,10 @@ jobs:
         working-directory: ${{ github.workspace }}/build
         run: |
           ctest --extra-verbose -C ${{ env.BUILD_TYPE }} --parallel ${{ env.JOBS }}
-          find . -type f -name "*.gcno"
-          find . -type f -name "*.gcda"
+          mkdir gcovs
+          find . -type f -name "*.gcno" -exec cp {} gcovs \;
+          cd gcovs
+          find . -maxdepth 1 -type f -exec gcov {} \;
 
       - name: Run sonar-scanner
         env:
