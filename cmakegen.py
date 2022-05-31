@@ -55,7 +55,7 @@ class VisualStudioBuilder(IBuilder):
         Class to generate a project for Visual Studio IDE.
     '''
     def __init__(self, build_type, build_tests, build_samples, enable_coverage):
-        super().__init__('Visual Studio 16 2019', build_type, build_tests, build_samples, enable_coverage)
+        super().__init__('Visual Studio 17 2022', build_type, build_tests, build_samples, enable_coverage)
         self.platform = 'x64'
 
     def create_build_dir(self):
