@@ -29,7 +29,8 @@ void ZmqServer::run()
       handleRequest();
     } catch (zmq::error_t& e) {
       Log::error(e.what());
-      if (e.num() == ETERM) break;
+      if (e.num() == ETERM)
+        break;
     }
   }
 }
@@ -49,7 +50,8 @@ bool ZmqServer::respond(const std::string& clientId,
                         const std::string& delimiter,
                         const json::Document& response)
 {
-  if (clientId.empty()) return false;
+  if (clientId.empty())
+    return false;
 
   s_sendmore(m_socket, clientId);
   s_sendmore(m_socket, delimiter);
@@ -69,7 +71,8 @@ void ZmqServer::handleRequest()
 
     respond(request.getClientId(), request.getDelimiter(), responseMessage);
   } catch (zmq::error_t& e) {
-    if (e.num() == ETERM) throw;
+    if (e.num() == ETERM)
+      throw;
   } catch (const std::exception& e) {
     Log::error(e.what());
 

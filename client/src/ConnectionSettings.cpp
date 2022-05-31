@@ -8,8 +8,10 @@ ConnectionSettings MakeConnectionSettings(const std::string& id,
 {
   ConnectionSettings connectionSettings;
 
-  if (!id.empty()) connectionSettings.id = id;
-  if (!host.empty()) connectionSettings.host = host;
+  if (!id.empty())
+    connectionSettings.id = id;
+  if (!host.empty())
+    connectionSettings.host = host;
   connectionSettings.port = port;
 
   return connectionSettings;

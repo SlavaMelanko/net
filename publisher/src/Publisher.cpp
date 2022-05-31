@@ -20,7 +20,8 @@ Publisher::~Publisher()
 
 void Publisher::run()
 {
-  if (m_running) return;
+  if (m_running)
+    return;
 
   m_running = true;
 
@@ -29,13 +30,16 @@ void Publisher::run()
 
 void Publisher::stop()
 {
-  if (!m_running) return;
+  if (!m_running)
+    return;
 
   m_running = false;
 
-  if (m_queue->empty()) m_queue->enqueue({});
+  if (m_queue->empty())
+    m_queue->enqueue({});
 
-  if (m_thread.joinable()) m_thread.join();
+  if (m_thread.joinable())
+    m_thread.join();
 }
 
 bool Publisher::push(std::string_view message, std::string_view topic)
@@ -50,7 +54,8 @@ void Publisher::process()
       Notification notification;
       m_queue->wait_dequeue(notification);
 
-      if (!m_running) break;
+      if (!m_running)
+        break;
 
       if (notification.topic.empty())
         m_publisher->broadcast(notification.message);
@@ -58,7 +63,8 @@ void Publisher::process()
         m_publisher->sendOut(notification.topic, notification.message);
     } catch (zmq::error_t& e) {
       Log::error(e.what());
-      if (e.num() == ETERM) break;
+      if (e.num() == ETERM)
+        break;
     }
   }
 }

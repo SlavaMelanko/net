@@ -111,7 +111,8 @@ bool Document::contains(std::string_view key) const
 
 bool Document::empty() const noexcept
 {
-  if (!m_impl) return true;
+  if (!m_impl)
+    return true;
 
   return m_impl->empty();
 }
