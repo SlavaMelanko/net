@@ -11,7 +11,8 @@ NotificationConnection::NotificationConnection(zmq::context_t& context, const ui
 
 NotificationConnection::~NotificationConnection() noexcept
 {
-  if (m_thread.joinable()) m_thread.join();
+  if (m_thread.joinable())
+    m_thread.join();
 }
 
 void NotificationConnection::run()

@@ -14,7 +14,8 @@ Server::Server(std::unique_ptr<net::RequestHandlerFactory> requestHandlerFactory
 
 Server::~Server()
 {
-  if (m_thread.joinable()) m_thread.join();
+  if (m_thread.joinable())
+    m_thread.join();
 }
 
 void Server::run()

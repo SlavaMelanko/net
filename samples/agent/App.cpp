@@ -10,7 +10,8 @@
 App::App(int argc, char* argv[])
 {
   initializeLogging();
-  if (!parseArguments(argc, argv)) throw std::runtime_error{ "Unable to parse arguments" };
+  if (!parseArguments(argc, argv))
+    throw std::runtime_error{ "Unable to parse arguments" };
   initializeConnections();
 }
 

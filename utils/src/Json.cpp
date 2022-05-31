@@ -12,11 +12,7 @@ public:
   Document() = default;
 
   explicit Document(std::string_view data)
-#if defined(__GNUC__) && !defined(__clang__)
     : m_document(nlohmann::json::parse(data))
-#else
-    : m_document{ nlohmann::json::parse(data) }
-#endif
   {}
 
   Document(Document&& document) noexcept = default;
@@ -115,7 +111,8 @@ bool Document::contains(std::string_view key) const
 
 bool Document::empty() const noexcept
 {
-  if (!m_impl) return true;
+  if (!m_impl)
+    return true;
 
   return m_impl->empty();
 }

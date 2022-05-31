@@ -28,7 +28,8 @@ std::string GetCharset(const int literals)
 
 std::string Randomizer::generateString(const size_t& length, const int literals)
 {
-  if (length == 0) return {};
+  if (length == 0)
+    return {};
 
   std::random_device rd{};
   std::mt19937 rng{ rd() };

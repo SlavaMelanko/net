@@ -41,7 +41,8 @@ void Request::setDelimiter(const std::string& delimiter)
 
 void Request::setAction(const std::string& action)
 {
-  if (action.empty()) throw std::invalid_argument{ "Bad action" };
+  if (action.empty())
+    throw std::invalid_argument{ "Bad action" };
 
   m_action = action;
 }
