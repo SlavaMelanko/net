@@ -10,3 +10,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run clang-format
         uses: jidicula/clang-format-action@v4.6.2
+        with:
+        fallback-style: 'Mozilla'
