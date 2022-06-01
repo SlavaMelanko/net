@@ -108,8 +108,7 @@ inline static void s_dump(zmq::socket_t& socket)
     int more = 0; //  Multipart detection
     size_t more_size = sizeof(more);
     socket.getsockopt(ZMQ_RCVMORE, &more, &more_size);
-    if (!more)
-      break; //  Last message part
+    if (!more) break; // last message part
   }
 }
 
