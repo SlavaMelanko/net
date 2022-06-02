@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        compiler: [ g++-10 ]
+        compiler: [ g++-11 ]
         build_type: [ Debug, Release ]
     env:
       JOBS: 1
@@ -26,6 +26,11 @@ jobs:
     steps:
       - name: Checks out repository
         uses: actions/checkout@v2
+
+      - name: Checks code formatting
+        uses: jidicula/clang-format-action@v4.6.2
+        with:
+          fallback-style: 'Mozilla'
 
       - name: Install Conan Package Manager
         uses: turtlebrowser/get-conan@main

@@ -22,16 +22,6 @@ More specifically name must be `Loopback: loO`.
 ./subscriber-sample -p 5555
 ```
 
-## Client/Server pattern with Broker
-
-```bash
-./broker-sample -f 5559 -b 5560
-./worker-sample -p 5560
-./client-sample -i test1 -p 5559
-```
-
-> TODO: img
-
 ## Advanced
 
 ```bash
