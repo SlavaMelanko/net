@@ -8,15 +8,10 @@ namespace {
 
 auto InitializeConsoleLogger(const std::string& channelName)
 {
-  auto logger = spdlog::stdout_color_mt(channelName);
-  if (!logger) {
-    throw std::runtime_error{ "Unable to create console logger" };
-  }
-
   // Pattern flags https://github.com/gabime/spdlog/wiki/3.-Custom-formatting#pattern-flags
   spdlog::set_pattern("%d/%m/%Y %H:%M:%S.%e %L: %v");
 
-  return logger;
+  return spdlog::stdout_color_mt(channelName);;
 }
 
 } // namespace
