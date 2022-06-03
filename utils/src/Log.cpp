@@ -18,13 +18,9 @@ auto InitializeConsoleLogger(const std::string& channelName)
 
 bool Log::initialize() noexcept
 {
-  try {
-    m_logger = InitializeConsoleLogger(m_channelName);
-  } catch (...) {
-    return false;
-  }
+  m_logger = InitializeConsoleLogger(m_channelName);
 
-  return true;
+  return m_logger != nullptr;
 }
 
 } // namespace net
