@@ -54,11 +54,11 @@ Document::Document(Document&& document) noexcept = default;
 
 Document& Document::operator=(Document&& document) noexcept = default;
 
-Document::~Document() noexcept {}
+Document::~Document() noexcept = default;
 
-Document& Document::operator=(std::string data)
+Document& Document::operator=(std::string_view data)
 {
-  Document document{ std::move(data) };
+  Document document{ data };
   std::swap(*this, document);
 
   return *this;
@@ -69,7 +69,7 @@ bool Document::getBool(std::string_view key) const
   return m_impl->get<bool>(key);
 }
 
-void Document::setBool(std::string_view key, const bool value)
+void Document::setBool(std::string_view key, const bool value) const
 {
   m_impl->set(key, value);
 }
@@ -79,7 +79,7 @@ int Document::getInt(std::string_view key) const
   return m_impl->get<int>(key);
 }
 
-void Document::setInt(std::string_view key, const int value)
+void Document::setInt(std::string_view key, const int value) const
 {
   m_impl->set(key, value);
 }
@@ -89,7 +89,7 @@ double Document::getDouble(std::string_view key) const
   return m_impl->get<double>(key);
 }
 
-void Document::setDouble(std::string_view key, const double& value)
+void Document::setDouble(std::string_view key, const double& value) const
 {
   m_impl->set(key, value);
 }
@@ -99,7 +99,7 @@ std::string Document::getString(std::string_view key) const
   return m_impl->get<std::string>(key);
 }
 
-void Document::setString(std::string_view key, const std::string& value)
+void Document::setString(std::string_view key, const std::string& value) const
 {
   m_impl->set(key, value);
 }

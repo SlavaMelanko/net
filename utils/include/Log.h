@@ -35,7 +35,7 @@ public:
 
 private:
   static inline const std::string m_channelName{ "console" };
-  static inline std::shared_ptr<spdlog::logger> m_logger;
+  static inline std::shared_ptr<spdlog::logger> m_logger{ nullptr };
 };
 
 } // namespace net

@@ -20,19 +20,19 @@ public:
 
   ~Document() noexcept;
 
-  Document& operator=(std::string data);
+  Document& operator=(std::string_view data);
 
   bool getBool(std::string_view key) const;
-  void setBool(std::string_view key, const bool value);
+  void setBool(std::string_view key, const bool value) const;
 
   int getInt(std::string_view key) const;
-  void setInt(std::string_view key, const int value);
+  void setInt(std::string_view key, const int value) const;
 
   double getDouble(std::string_view key) const;
-  void setDouble(std::string_view key, const double& value);
+  void setDouble(std::string_view key, const double& value) const;
 
   std::string getString(std::string_view key) const;
-  void setString(std::string_view key, const std::string& value);
+  void setString(std::string_view key, const std::string& value) const;
 
   bool contains(std::string_view key) const;
 
