@@ -7,35 +7,36 @@ namespace net {
 class Log
 {
 public:
-  static void initialize() noexcept;
+  static bool initialize() noexcept;
 
   template<typename... Args>
-  static void error(std::string_view fmt, const Args&... args)
+  static void error(std::string_view fmt, Args&&... args)
   {
-    if (!m_initialized)
-      return;
-    spdlog::get(m_channel)->error(fmt, args...);
+    if (auto logger = get(); logger) {
+      logger->error(fmt, std::forward<Args>(args)...);
+    }
   }
 
   template<typename... Args>
-  static void info(std::string_view fmt, const Args&... args)
+  static void info(std::string_view fmt, Args&&... args)
   {
-    if (!m_initialized)
-      return;
-    spdlog::get(m_channel)->info(fmt, args...);
+    if (auto logger = get(); logger) {
+      logger->info(fmt, std::forward<Args>(args)...);
+    }
   }
 
   template<typename... Args>
-  static void warn(std::string_view fmt, const Args&... args)
+  static void warn(std::string_view fmt, Args&&... args)
   {
-    if (!m_initialized)
-      return;
-    spdlog::get(m_channel)->warn(fmt, args...);
+    if (auto logger = get(); logger) {
+      logger->warn(fmt, std::forward<Args>(args)...);
+    }
   }
 
 private:
-  static std::string m_channel;
-  static std::atomic_bool m_initialized;
+  static std::shared_ptr<spdlog::logger> get();
+
+  static std::string m_channelName;
 };
 
 } // namespace net

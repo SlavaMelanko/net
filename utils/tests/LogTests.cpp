@@ -2,24 +2,23 @@
 #include <gtest/gtest.h>
 
 #include <Log.h>
+
 using namespace net;
 
-TEST(LogTest, CheckOutUninitializedConsoleLogger)
+TEST(LogTest, CheckUninitializedConsoleLogger)
 {
-  Log::error("error");
-  Log::info("info");
-  Log::warn("warn");
-  EXPECT_TRUE(true);
+  EXPECT_NO_THROW(Log::error("error"));
+  EXPECT_NO_THROW(Log::info("info"));
+  EXPECT_NO_THROW(Log::warn("warn"));
 }
 
-TEST(LogTest, CheckOutConsoleLogger)
+TEST(LogTest, CheckConsoleLogger)
 {
-  Log::initialize();
-  Log::error("error");
-  Log::error("error {}", "message");
-  Log::info("info");
-  Log::info("info {}", "message");
-  Log::warn("warn");
-  Log::warn("warn {}", "message");
-  EXPECT_TRUE(true);
+  EXPECT_TRUE(Log::initialize());
+  EXPECT_NO_THROW(Log::error("error"));
+  EXPECT_NO_THROW(Log::error("error {}", "message"));
+  EXPECT_NO_THROW(Log::info("info"));
+  EXPECT_NO_THROW(Log::info("info {}", "message"));
+  EXPECT_NO_THROW(Log::warn("warn"));
+  EXPECT_NO_THROW(Log::warn("warn {}", "message"));
 }
