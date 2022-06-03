@@ -20,7 +20,7 @@ TEST(RandomizerTest, GenerateLowerCaseString)
   constexpr size_t length = 10;
   constexpr int literals = Randomizer::LowerCaseLetters;
   const auto str = Randomizer::generateString(length, literals);
-  EXPECT_EQ(str.size(), 10);
+  EXPECT_EQ(str.size(), length);
   EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::islower));
 }
 
