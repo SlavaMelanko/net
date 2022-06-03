@@ -11,7 +11,7 @@ auto InitializeConsoleLogger(const std::string& channelName)
   // Pattern flags https://github.com/gabime/spdlog/wiki/3.-Custom-formatting#pattern-flags
   spdlog::set_pattern("%d/%m/%Y %H:%M:%S.%e %L: %v");
 
-  return spdlog::stdout_color_mt(channelName);;
+  return spdlog::stdout_color_mt(channelName);
 }
 
 } // namespace
