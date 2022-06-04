@@ -16,9 +16,10 @@ public:
 class CharSequenceDecorator : public ICharSequence
 {
 public:
-  CharSequenceDecorator(std::unique_ptr<ICharSequence>&& sequence = nullptr);
-
   std::string produce() const override;
+
+protected:
+  CharSequenceDecorator(std::unique_ptr<ICharSequence>&& sequence = nullptr);
 
 private:
   std::unique_ptr<ICharSequence> m_sequence;
@@ -62,8 +63,7 @@ public:
   // clang-format off
   explicit AlnumSequence(std::unique_ptr<ICharSequence>&& sequence = std::make_unique<LowerCaseLetterSequence>(
       std::make_unique<UpperCaseLetterSequence>(
-        std::make_unique<DigitSequence>(
-          std::make_unique<CharSequenceDecorator>()))));
+        std::make_unique<DigitSequence>())));
   // clang-format on
 };
 

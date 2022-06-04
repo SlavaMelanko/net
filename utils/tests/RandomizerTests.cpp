@@ -11,43 +11,35 @@ namespace test {
 constexpr size_t length{ 10 };
 } // namespace test
 
-TEST(RandomizerTest, ProduceEmptyCharSequnce)
+TEST(RandomizerTest, ProduceDigitSequence)
 {
-  std::unique_ptr<ICharSequence> sequnce = std::make_unique<CharSequenceDecorator>();
-  EXPECT_TRUE(sequnce->produce().empty());
-}
-
-TEST(RandomizerTest, ProduceDigitSequnce)
-{
-  std::unique_ptr<ICharSequence> sequnce =
-    std::make_unique<DigitSequence>(std::make_unique<CharSequenceDecorator>());
-  const auto digits = sequnce->produce();
+  std::unique_ptr<ICharSequence> sequence{ std::make_unique<DigitSequence>() };
+  const auto digits = sequence->produce();
   EXPECT_EQ(digits.size(), DigitSequence{}.produce().size());
   EXPECT_TRUE(ranges::all_of(digits, isdigit));
 }
 
-TEST(RandomizerTest, ProduceLettersSequnce)
+TEST(RandomizerTest, ProduceLettersSequence)
 {
-  std::unique_ptr<ICharSequence> sequnce = std::make_unique<LowerCaseLetterSequence>(
-    std::make_unique<UpperCaseLetterSequence>(std::make_unique<CharSequenceDecorator>()));
-  const auto letters = sequnce->produce();
+  std::unique_ptr<ICharSequence> sequence{ std::make_unique<LowerCaseLetterSequence>(
+    std::make_unique<UpperCaseLetterSequence>()) };
+  const auto letters = sequence->produce();
   EXPECT_EQ(letters.size(), LowerCaseLetterSequence{}.produce().size() * 2);
   EXPECT_TRUE(ranges::all_of(letters, isalpha));
 }
 
-TEST(RandomizerTest, ProduceSymbolSequnce)
+TEST(RandomizerTest, ProduceSymbolSequence)
 {
-  std::unique_ptr<ICharSequence> sequnce =
-    std::make_unique<SymbolSequence>(std::make_unique<CharSequenceDecorator>());
-  const auto symbols = sequnce->produce();
+  std::unique_ptr<ICharSequence> sequence{ std::make_unique<SymbolSequence>() };
+  const auto symbols = sequence->produce();
   EXPECT_EQ(symbols.size(), SymbolSequence{}.produce().size());
   EXPECT_TRUE(ranges::all_of(symbols, ispunct));
 }
 
-TEST(RandomizerTest, ProduceAlnumSequnce)
+TEST(RandomizerTest, ProduceAlnumSequence)
 {
-  std::unique_ptr<ICharSequence> sequnce = std::make_unique<AlnumSequence>();
-  const auto alnums = sequnce->produce();
+  std::unique_ptr<ICharSequence> sequence{ std::make_unique<AlnumSequence>() };
+  const auto alnums = sequence->produce();
   EXPECT_EQ(alnums.size(), AlnumSequence{}.produce().size());
   EXPECT_TRUE(ranges::all_of(alnums, [](const char ch) { return isdigit(ch) || isalnum(ch); }));
 }
