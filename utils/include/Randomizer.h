@@ -19,7 +19,7 @@ public:
   std::string produce() const override;
 
 protected:
-  CharSequenceDecorator(std::unique_ptr<ICharSequence>&& sequence = nullptr);
+  explicit CharSequenceDecorator(std::unique_ptr<ICharSequence>&& sequence = nullptr);
 
 private:
   std::unique_ptr<ICharSequence> m_sequence;
@@ -73,7 +73,7 @@ public:
   explicit Randomizer(
     std::unique_ptr<ICharSequence>&& sequence = std::make_unique<AlnumSequence>());
 
-  std::string generate(const size_t& length);
+  std::string generate(const size_t& length) const;
 
 private:
   std::unique_ptr<ICharSequence> m_sequence;

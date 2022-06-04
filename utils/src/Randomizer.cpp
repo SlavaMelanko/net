@@ -58,7 +58,7 @@ Randomizer::Randomizer(std::unique_ptr<ICharSequence>&& sequence)
   : m_sequence{ std::move(sequence) }
 {}
 
-std::string Randomizer::generate(const size_t& length)
+std::string Randomizer::generate(const size_t& length) const
 {
   if (length == 0 || !m_sequence) {
     return {};
