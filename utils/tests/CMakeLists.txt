@@ -11,6 +11,9 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         GTest::gtest
+
+        range-v3::range-v3
+
         net::utils
 )
 

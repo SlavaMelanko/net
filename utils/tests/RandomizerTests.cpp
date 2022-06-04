@@ -1,49 +1,78 @@
-#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 #include <Randomizer.h>
+
+#include <range/v3/algorithm/all_of.hpp>
+#include <range/v3/view/all.hpp>
+
 using namespace net::utils;
 
-#include <algorithm>
+namespace test {
+constexpr size_t length{ 10 };
+} // namespace test
 
-TEST(RandomizerTest, GenerateUpperCaseString)
+TEST(RandomizerTest, ProduceDigitSequence)
 {
-  constexpr size_t length = 10;
-  constexpr int literals = Randomizer::UpperCaseLetters;
-  const auto str = Randomizer::generateString(length, literals);
-  EXPECT_EQ(str.size(), length);
-  EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::isupper));
+  std::unique_ptr<ICharSequence> sequence{ std::make_unique<DigitSequence>() };
+  const auto digits = sequence->produce();
+  EXPECT_EQ(digits.size(), DigitSequence{}.produce().size());
+  EXPECT_TRUE(ranges::all_of(digits, isdigit));
 }
 
-TEST(RandomizerTest, GenerateLowerCaseString)
+TEST(RandomizerTest, ProduceLettersSequence)
 {
-  constexpr size_t length = 10;
-  constexpr int literals = Randomizer::LowerCaseLetters;
-  const auto str = Randomizer::generateString(length, literals);
-  EXPECT_EQ(str.size(), length);
-  EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::islower));
+  std::unique_ptr<ICharSequence> sequence{ std::make_unique<LowerCaseLetterSequence>(
+    std::make_unique<UpperCaseLetterSequence>()) };
+  const auto letters = sequence->produce();
+  EXPECT_EQ(letters.size(), LowerCaseLetterSequence{}.produce().size() * 2);
+  EXPECT_TRUE(ranges::all_of(letters, isalpha));
 }
 
-TEST(RandomizerTest, GenerateDigitsString)
+TEST(RandomizerTest, ProduceSymbolSequence)
 {
-  constexpr size_t length = 10;
-  constexpr int literals = Randomizer::Digits;
-  const auto str = Randomizer::generateString(length, literals);
-  EXPECT_EQ(str.size(), length);
-  EXPECT_TRUE(std::all_of(str.begin(), str.end(), ::isdigit));
+  std::unique_ptr<ICharSequence> sequence{ std::make_unique<SymbolSequence>() };
+  const auto symbols = sequence->produce();
+  EXPECT_EQ(symbols.size(), SymbolSequence{}.produce().size());
+  EXPECT_TRUE(ranges::all_of(symbols, ispunct));
+}
+
+TEST(RandomizerTest, ProduceAlnumSequence)
+{
+  std::unique_ptr<ICharSequence> sequence{ std::make_unique<AlnumSequence>() };
+  const auto alnums = sequence->produce();
+  EXPECT_EQ(alnums.size(), AlnumSequence{}.produce().size());
+  EXPECT_TRUE(ranges::all_of(alnums, [](const char ch) { return isdigit(ch) || isalnum(ch); }));
+}
+
+TEST(RandomizerTest, GenerateStringWithDigits)
+{
+  const auto str = Randomizer{ std::make_unique<DigitSequence>() }.generate(test::length);
+  EXPECT_EQ(str.size(), test::length);
+  EXPECT_TRUE(ranges::all_of(str, isdigit));
+}
+
+TEST(RandomizerTest, GenerateStringWithLettersAndDigits)
+{
+  const auto str = Randomizer{}.generate(test::length);
+  EXPECT_EQ(str.size(), test::length);
+  EXPECT_TRUE(ranges::all_of(str, [](const char ch) { return isdigit(ch) || isalnum(ch); }));
+}
+
+TEST(RandomizerTest, GenerateStringIfCharSequenceIsNull)
+{
+  const auto str = Randomizer{ nullptr }.generate(test::length);
+  EXPECT_TRUE(str.empty());
 }
 
 TEST(RandomizerTest, GenerateZeroLengthString)
 {
-  constexpr size_t length = 0;
-  const auto str = Randomizer::generateString(length);
-  EXPECT_EQ(str.size(), length);
+  const auto str = Randomizer{}.generate(test::length);
+  EXPECT_EQ(str.size(), test::length);
 }
 
-TEST(RandomizerTest, GenerateDifferentStrings)
+TEST(RandomizerTest, GenerateTwoDifferentStrings)
 {
-  constexpr size_t length = 10;
-  const auto str1 = Randomizer::generateString(length);
-  const auto str2 = Randomizer::generateString(length);
+  const auto str1 = Randomizer{}.generate(test::length);
+  const auto str2 = Randomizer{}.generate(test::length);
   EXPECT_NE(str1, str2);
 }
