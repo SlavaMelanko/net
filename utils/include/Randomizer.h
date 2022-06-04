@@ -5,22 +5,6 @@
 
 namespace net::utils {
 
-class Randomizer
-{
-public:
-  enum Literals
-  {
-    UpperCaseLetters = 0b0001,
-    LowerCaseLetters = 0b0010,
-    Digits = 0b0100,
-
-    Letters = UpperCaseLetters | LowerCaseLetters,
-    Alnum = Letters | Digits
-  };
-
-  static std::string generateString(const size_t& length, const int charset = Literals::Alnum);
-};
-
 class ICharSequence
 {
 public:
@@ -70,6 +54,29 @@ public:
   explicit SymbolSequence(std::unique_ptr<ICharSequence>&& sequence = nullptr);
 
   std::string produce() const override;
+};
+
+class AlnumSequence : public CharSequenceDecorator
+{
+public:
+  // clang-format off
+  explicit AlnumSequence(std::unique_ptr<ICharSequence>&& sequence = std::make_unique<LowerCaseLetterSequence>(
+      std::make_unique<UpperCaseLetterSequence>(
+        std::make_unique<DigitSequence>(
+          std::make_unique<CharSequenceDecorator>()))));
+  // clang-format on
+};
+
+class Randomizer
+{
+public:
+  explicit Randomizer(
+    std::unique_ptr<ICharSequence>&& sequence = std::make_unique<AlnumSequence>());
+
+  std::string generate(const size_t& length);
+
+private:
+  std::unique_ptr<ICharSequence> m_sequence;
 };
 
 } // namespace net::utils

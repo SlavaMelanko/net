@@ -20,6 +20,7 @@ macro(run_conan)
             gtest/cci.20210126
             ms-gsl/3.1.0
             nlohmann_json/3.10.2
+            range-v3/0.11.0
             spdlog/1.9.2
         GENERATORS
             cmake_find_package_multi
@@ -44,5 +45,6 @@ macro(run_conan)
     find_package(GTest CONFIG)
     find_package(Microsoft.GSL CONFIG)
     find_package(nlohmann_json CONFIG)
+    find_package(range-v3 CONFIG)
     find_package(spdlog CONFIG)
 endmacro()
