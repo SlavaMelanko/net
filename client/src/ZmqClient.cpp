@@ -13,7 +13,7 @@ Identity GenerateRandomId()
 {
   constexpr size_t length = 5;
 
-  return utils::Randomizer::generateString(length);
+  return utils::Randomizer{}.generate(length);
 }
 
 } // namespace

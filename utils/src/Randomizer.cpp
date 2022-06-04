@@ -67,7 +67,7 @@ std::string Randomizer::generate(const size_t& length)
   std::random_device rd{};
   std::mt19937 rng{ rd() };
   const auto chars = m_sequence->produce();
-  std::uniform_int_distribution<> distr{ 0, static_cast<int>(chars.size()) - 1 };
+  std::uniform_int_distribution distr{ 0, static_cast<int>(chars.size()) - 1 };
 
   std::string str(length, 0);
   std::generate_n(str.begin(), length, [&]() { return chars.at(static_cast<size_t>(distr(rng))); });
