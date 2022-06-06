@@ -6,7 +6,7 @@
 
 ## Setup Development Environment
 
-Prerequisites:
+> ☝️ The latest versions is the best choice.
 
 - [CMake](https://cmake.org/)
 - [Conan Package Manager](https://conan.io/)
@@ -17,7 +17,7 @@ For more details, please look at [worflows](./.github/workflows) directory.
 ## How to Build and Run
 
 - **macOS with Xcode**
-    - Run `cmakegen.py` script using [python](https://www.python.org/downloads/) to generate the project, e.g.
+    - Run [python](https://www.python.org/downloads/) `cmakegen.py` script to make the project, e.g.
         ```bash
         >_ python3 cmakegen.py -t
         ```
@@ -26,7 +26,7 @@ For more details, please look at [worflows](./.github/workflows) directory.
     - Build the project
 
 - **Windows with Visual Studio**
-    - Run `cmakegen.py` script using [python](https://www.python.org/downloads/) to generate the project
+    - Run [python](https://www.python.org/downloads/) `cmakegen.py` script to make the project
     - Go to the build directory
     - Open `net.sln`
     - Build the project
@@ -38,15 +38,10 @@ For more details, please look at [worflows](./.github/workflows) directory.
 
 ## Contribution
 
-### Code Principles
+### Code Principle
 
-- Keep it simple
+- Keep it simple!
 
 ### Code Style
 
-[ClangFormat](https://clang.llvm.org/docs/ClangFormat.html) is a tool to automatically format C++ code.
-
-```bash
-find . -name '*.h' -or -name '*.cpp' -not -path "./build/*" | \
-    xargs -I {} sh -c 'echo {}; clang-format -style=file -i {};'
-```
+Please use [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html) tool to automatically format C++ code using rules from the [.clang-format](./.clang-format) file.
