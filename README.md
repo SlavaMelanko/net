@@ -12,7 +12,7 @@
 - [Conan Package Manager](https://conan.io/)
 - C++ compiler (including 17 standard)
 
-For more details, please look at [worflows](./.github/workflows) directory.
+For more details, please look at [workflows](./.github/workflows) directory.
 
 ## 🛠️ How To Build
 
