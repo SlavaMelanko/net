@@ -1,0 +1,70 @@
+html {
+  background: transparent;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+body {
+  color: #000000;
+  background: rgb(240, 240, 240);
+  background: linear-gradient(90deg, rgba(240, 240, 240, 1) 50%, rgba(250, 250, 250, 1) 100%);
+  border: 1px solid rgb(96, 105, 107);
+  border-radius: 10px;
+}
+
+.header {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6%;
+  max-height: 32px;
+  border-radius: 8px 8px 0px 0px;
+  background: rgb(133, 142, 150);
+  background: linear-gradient(270deg, rgba(133, 142, 150, 1) 20%, rgba(96, 105, 107, 1) 100%);
+  border-bottom: 1px solid rgb(96, 105, 107);
+}
+
+.controls {
+  position: relative;
+  height: 100%;
+  flow: horizontal;
+  vertical-align: middle;
+}
+
+.red-dot,
+.orange-dot,
+.green-dot {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.red-dot {
+  background-color: #ff0000;
+}
+
+.red-dot:hover {
+  background-image: url("x.svg");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.red-dot:active {
+  background-color: #ff6666;
+}
+
+.orange-dot {
+  background-color: #ff9900;
+}
+
+.green-dot {
+  background-color: #39b54a;
+}
+
+canvas.chart {
+  width: *;
+  height: *;
+}
