@@ -16,10 +16,10 @@ public:
   void quite() { close(); }
 };
 
-#include "resources.cpp" // resources packaged into binary blob.
+#include "sciter-resources.cpp" // resources packaged into binary blob.
 
 int uimain(std::function<int()> run) {
-  // Bind resources[] (defined in "resources.cpp") with the archive.
+  // Bind resources[] (defined in "sciter-resources.cpp") with the archive.
   sciter::archive::instance().open(aux::elements_of(resources));
 
   sciter::om::hasset<MainWindow> pwin = new MainWindow();

@@ -16,7 +16,7 @@ const data = {
       label: "One",
       backgroundColor: "rgb(195, 197, 211)",
       borderColor: "rgb(195, 197, 211)",
-      data: [40, 20, 30, 20, 10, 15],
+      data: [60, 25, 35, 20, 15, 5],
       fill: true,
       cubicInterpolationMode: "monotone",
       pointRadius: 0,
