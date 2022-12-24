@@ -19,11 +19,11 @@ run_conan()
 # Code Coverage Configuration
 add_subdirectory(addons/codecov)
 
-#add_subdirectory(utils)
-#add_subdirectory(publisher)
-#add_subdirectory(subscriber)
-#add_subdirectory(client)
-#add_subdirectory(server)
+add_subdirectory(utils)
+add_subdirectory(publisher)
+add_subdirectory(subscriber)
+add_subdirectory(client)
+add_subdirectory(server)
 
 if (WIN32 AND BUILD_UI)
     add_subdirectory(ui-sciter)
