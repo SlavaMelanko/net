@@ -16,10 +16,11 @@ class IBuilder(ABC):
     '''
         Abstract class to generate a project for some IDEs.
     '''
-    def __init__(self, generator, build_type, build_tests, build_samples, enable_coverage):
+    def __init__(self, generator, build_type, build_ui, build_tests, build_samples, enable_coverage):
         self.build_dir = 'build'
         self.generator = generator
         self.build_type = build_type
+        self.build_ui = build_ui
         self.build_tests = build_tests
         self.build_samples = build_samples
         self.enable_coverage = enable_coverage
@@ -33,15 +34,15 @@ class IBuilder(ABC):
         pass
 
     def get_cmake_generate_command(self):
-        return 'cmake -G "{}" .. -DCMAKE_BUILD_TYPE={} -DBUILD_TESTS={} -DBUILD_SAMPLES={} -DENABLE_COVERAGE={}'.format(
-            self.generator, self.build_type, self.build_tests, self.build_samples, self.enable_coverage)
+        return 'cmake -G "{}" .. -DCMAKE_BUILD_TYPE={} -DBUILD_UI={} -DBUILD_TESTS={} -DBUILD_SAMPLES={} -DENABLE_COVERAGE={}'.format(
+            self.generator, self.build_type, self.build_ui, self.build_tests, self.build_samples, self.enable_coverage)
 
 class XcodeBuilder(IBuilder):
     '''
         Class to generate a project for Xcode IDE.
     '''
-    def __init__(self, build_type, build_tests, build_samples, enable_coverage):
-        super().__init__('Xcode', build_type, build_tests, build_samples, enable_coverage)
+    def __init__(self, build_type, build_ui, build_tests, build_samples, enable_coverage):
+        super().__init__('Xcode', build_type, build_ui, build_tests, build_samples, enable_coverage)
 
     def create_build_dir(self):
         run_cmd('mkdir -p {}'.format(self.build_dir))
@@ -54,8 +55,8 @@ class VisualStudioBuilder(IBuilder):
     '''
         Class to generate a project for Visual Studio IDE.
     '''
-    def __init__(self, build_type, build_tests, build_samples, enable_coverage):
-        super().__init__('Visual Studio 17 2022', build_type, build_tests, build_samples, enable_coverage)
+    def __init__(self, build_type, build_ui, build_tests, build_samples, enable_coverage):
+        super().__init__('Visual Studio 17 2022', build_type, build_ui, build_tests, build_samples, enable_coverage)
         self.platform = 'x64'
 
     def create_build_dir(self):
@@ -69,8 +70,8 @@ class UnixBuilder(IBuilder):
     '''
         Class to generate a project for QtCreator IDE.
     '''
-    def __init__(self, build_type, build_tests, build_samples, enable_coverage):
-        super().__init__('CodeBlocks - Unix Makefiles', build_type, build_tests, build_samples, enable_coverage)
+    def __init__(self, build_type, build_ui, build_tests, build_samples, enable_coverage):
+        super().__init__('CodeBlocks - Unix Makefiles', build_type, build_ui, build_tests, build_samples, enable_coverage)
 
     def create_build_dir(self):
         run_cmd('mkdir -p {}'.format(self.build_dir))
@@ -79,27 +80,28 @@ class UnixBuilder(IBuilder):
     def generate_project(self):
         run_cmd(super().get_cmake_generate_command())
 
-def create_builder(build_type, build_tests, build_samples, enable_coverage):
+def create_builder(build_type, build_ui, build_tests, build_samples, enable_coverage):
     '''
         Factory method that makes a project builder for the specific platform.
     '''
     platform_name = platform.system()
     if platform_name == 'Darwin':
-        return XcodeBuilder(build_type, build_tests, build_samples, enable_coverage)
+        return XcodeBuilder(build_type, build_ui, build_tests, build_samples, enable_coverage)
     elif platform_name == 'Windows':
-        return VisualStudioBuilder(build_type, build_tests, build_samples, enable_coverage)
+        return VisualStudioBuilder(build_type, build_ui, build_tests, build_samples, enable_coverage)
     elif platform_name == 'Linux':
-        return UnixBuilder(build_type, build_tests, build_samples, enable_coverage)
+        return UnixBuilder(build_type, build_ui, build_tests, build_samples, enable_coverage)
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--build-type', '-b', dest='build_type', default='Debug')
+    parser.add_argument('--build-ui', '-u', action='store_true')
     parser.add_argument('--build-tests', '-t', action='store_true')
     parser.add_argument('--build-samples', '-s', action='store_true')
     parser.add_argument('--enable-coverage', '-c', action='store_true')
     args = parser.parse_args()
 
-    builder = create_builder(args.build_type, args.build_tests, args.build_samples, args.enable_coverage)
+    builder = create_builder(args.build_type, args.build_ui, args.build_tests, args.build_samples, args.enable_coverage)
     builder.create_build_dir()
     builder.generate_project()
 

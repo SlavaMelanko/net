@@ -8,6 +8,7 @@ project(net
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+option(BUILD_UI "Enable Sciter UI" OFF)
 option(BUILD_TESTS "Enable unit tests" ON)
 option(BUILD_SAMPLES "Build provided samples" OFF)
 option(ENABLE_COVERAGE "Enable coverage reporting" OFF)
@@ -23,6 +24,10 @@ add_subdirectory(publisher)
 add_subdirectory(subscriber)
 add_subdirectory(client)
 add_subdirectory(server)
+
+if (WIN32 AND BUILD_UI)
+    add_subdirectory(ui-sciter)
+endif ()
 
 if (BUILD_TESTS)
     include(CTest)
